@@ -82,6 +82,7 @@ public:
         temp->next = newNode;
     }
 
+    // Update at specific index of the list.
     void updateAtSpecific(int index, int data)
     {
         Node *temp = head;
@@ -97,12 +98,43 @@ public:
     // Delete at begin of the list.
     void deleteAtBegin()
     {
-        // 13.07.24
+        Node *temp = head;
+        head = temp->next;
+        free(temp);
     }
 
     // Delete at end of the list.
+    void deleteAtEnd()
+    {
+        Node *secondLast = head;
+        while (secondLast->next->next != nullptr)
+        {
+            secondLast = secondLast->next;
+        }
+        Node *temp = secondLast->next;
+        secondLast->next = nullptr;
+        free(temp);
+    }
 
     // Delete at specific of the list.
+    void deleteAtSpecific(int index)
+    {
+        if (index == 0)
+        {
+            deleteAtBegin();
+            return;
+        }
+        Node *prev = head;
+        int currPos = 0;
+        while (currPos != index - 1)
+        {
+            prev = prev->next;
+            currPos++;
+        }
+        Node *temp = prev->next;
+        prev->next = prev->next->next;
+        free(temp);
+    }
 
     // display list of elements
     void display()
@@ -129,5 +161,11 @@ int main()
     list.display();
     list.updateAtSpecific(4, 25);
     list.display();
+    // list.deleteAtBegin();
+    // list.display();
+    // list.deleteAtEnd();
+    list.deleteAtSpecific(2);
+    list.display();
+
     return 0;
 }
