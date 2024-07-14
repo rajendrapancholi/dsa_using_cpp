@@ -82,6 +82,18 @@ public:
         temp->next = newNode;
     }
 
+    void updateAtSpecific(int index, int data)
+    {
+        Node *temp = head;
+        int currPos = 0;
+        while (currPos != index)
+        {
+            temp = temp->next;
+            currPos++;
+        }
+        temp->data = data;
+    }
+
     // Delete at begin of the list.
     void deleteAtBegin()
     {
@@ -114,6 +126,8 @@ int main()
     list.insertAtEnd(14);
     list.display();
     list.insertAtSpecific(2, 20);
+    list.display();
+    list.updateAtSpecific(4, 25);
     list.display();
     return 0;
 }
