@@ -209,6 +209,33 @@ public:
         head = prevptr;
     }
 
+    // invoke reverseKLL recursive method because head node is private it is not access outside of the class.
+    void reverseKNodes(int k)
+    {
+        head = reverseKLL(head, k);
+    }
+    // Reverse the nodes of the list K at a time, and return the modified list.
+    Node *reverseKLL(Node *head, int k)
+    {
+        Node *prevptr = nullptr;
+        Node *currptr = head;
+        int counter = 0;
+        while (currptr != nullptr && counter < k)
+        {
+            Node *nextprt = currptr->next;
+            currptr->next = prevptr;
+            prevptr = currptr;
+            currptr = nextprt;
+            counter++;
+        }
+        if (currptr != nullptr)
+        {
+            Node *new_head = reverseKLL(currptr, k);
+            head->next = new_head;
+        }
+        return prevptr;
+    }
+
     // display list of elements
     void display()
     {
@@ -225,17 +252,21 @@ public:
 int main()
 {
     SinglyLinkedList list;
-    list.insertAtBegin(13);
-    list.insertAtBegin(12);
-    list.insertAtBegin(12);
-    list.insertAtBegin(11);
+    // list.insertAtBegin(13);
+    // list.insertAtBegin(12);
+    // list.insertAtBegin(12);
+    // list.insertAtBegin(11);
+    list.insertAtEnd(11);
+    list.insertAtEnd(12);
+    list.insertAtEnd(13);
     list.insertAtEnd(14);
-    list.insertAtEnd(14);
+    list.insertAtEnd(15);
+    list.insertAtEnd(16);
     list.display();
-    list.insertAtSpecific(2, 20);
-    list.display();
-    list.updateAtSpecific(4, 25);
-    list.display();
+    // list.insertAtSpecific(2, 20);
+    // list.display();
+    // list.updateAtSpecific(4, 25);
+    // list.display();
     // list.deleteAtBegin();
     // list.display();
     // list.deleteAtEnd();
@@ -246,7 +277,9 @@ int main()
     // list.deleteDuplicate();
     // list.display();
     // list.printR();
-    list.reverseSLL();
+    // list.reverseSLL();
+    // list.display();
+    list.reverseKNodes(2);
     list.display();
 
     return 0;
