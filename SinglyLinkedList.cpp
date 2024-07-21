@@ -158,6 +158,57 @@ public:
         }
     }
 
+    // Delete duplicate node of the list.
+    void deleteDuplicate()
+    {
+        Node *curr = head;
+        while (curr)
+        {
+            while (curr->next && curr->data == curr->next->data)
+            {
+                // delete curr node
+                Node *temp = curr->next;
+                curr->next = curr->next->next;
+                delete temp;
+            }
+            curr = curr->next;
+        }
+    }
+
+    // Display reverse of the linked list. whithout reverse list.
+    void displayReverse(Node *head)
+    {
+        // only one node in a list.
+        if (head == nullptr)
+        {
+            cout << "Only one element of the list." << endl;
+            return;
+        }
+        // recursive case
+        displayReverse(head->next);
+        cout << head->data << " ";
+    }
+    void printR()
+    {
+        displayReverse(head);
+    }
+
+    // Reverse all nodes in a linked list.
+    void reverseSLL()
+    {
+        Node *prevptr = nullptr;
+        Node *currptr = head;
+        while (currptr)
+        {
+            Node *nextptr = currptr->next;
+            currptr->next = prevptr;
+            prevptr = currptr;
+            currptr = nextptr;
+        }
+        // When the loops ends my prevptr points to be last node, which is a new head of the list.
+        head = prevptr;
+    }
+
     // display list of elements
     void display()
     {
@@ -176,7 +227,9 @@ int main()
     SinglyLinkedList list;
     list.insertAtBegin(13);
     list.insertAtBegin(12);
+    list.insertAtBegin(12);
     list.insertAtBegin(11);
+    list.insertAtEnd(14);
     list.insertAtEnd(14);
     list.display();
     list.insertAtSpecific(2, 20);
@@ -186,9 +239,14 @@ int main()
     // list.deleteAtBegin();
     // list.display();
     // list.deleteAtEnd();
-    list.deleteAtSpecific(2);
-    list.display();
-    list.deleteAlternate();
+    // list.deleteAtSpecific(2);
+    // list.display();
+    // list.deleteAlternate();
+    // list.display();
+    // list.deleteDuplicate();
+    // list.display();
+    // list.printR();
+    list.reverseSLL();
     list.display();
 
     return 0;
