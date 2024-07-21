@@ -41,12 +41,32 @@ int main()
     int max = arr[0];
     for (int i = 0; i < 5; i++)
     {
-        if (arr[i] < max)
+        if (arr[i] > max)
         {
             max = arr[i];
         }
     }
     cout << "Maximum value of the array is :" << max << endl;
+
+    // Linear search of array of element
+    int search = 1;
+    int index = -1;
+    for (int i = 0; i < 5; i++)
+    {
+        if (arr[i] == search)
+        {
+            index = i;
+            break;
+        }
+    }
+    if (index != -1)
+    {
+        cout << search << " at index: " << index << endl;
+    }
+    else
+    {
+        cout << "Element not found!";
+    }
 
     // Taking input in an array
     // int arr3[5];
