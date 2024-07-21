@@ -23,5 +23,11 @@ int main()
         cout << arr2[i] << " ";
     }
     cout << endl;
+    // Display elements using for each loop.
+    for (int ele : arr)
+    {
+        cout << ele << " ";
+    }
+
     return 0;
 }
