@@ -28,6 +28,40 @@ int main()
     {
         cout << ele << " ";
     }
+    int sum = 0;
+    // Sum of all the elements of the array.
+    for (int i = 0; i < 5; i++)
+    {
+        sum += arr[i];
+    }
+    cout << endl
+         << "Sum of all elements is: " << sum << endl;
+
+    // Maximum value out of the array.
+    int max = arr[0];
+    for (int i = 0; i < 5; i++)
+    {
+        if (arr[i] < max)
+        {
+            max = arr[i];
+        }
+    }
+    cout << "Maximum value of the array is :" << max << endl;
+
+    // Taking input in an array
+    // int arr3[5];
+    // for (int i = 0; i < 5; i++)
+    // {
+    //     cout << "Enter an element " << i + 1 << ": ";
+    //     cin >> arr3[i];
+    // }
+    // cout << endl
+    //      << "All elements are :";
+    // for (int i = 0; i < 5; i++)
+    // {
+    //     cout << arr3[i] << " ";
+    // }
+    // cout << endl;
 
     return 0;
 }
