@@ -136,6 +136,28 @@ public:
         free(temp);
     }
 
+    // Delete alternate node of the list.
+    void deleteAlternate()
+    {
+        if (head == nullptr || head->next == nullptr)
+        {
+            return;
+        }
+        Node *prev = head;
+        Node *curr = head->next;
+        while (prev != nullptr && curr != nullptr)
+        {
+            prev->next = curr->next;
+            delete curr;
+            prev = prev->next;
+
+            if (prev != nullptr)
+            {
+                curr = prev->next;
+            }
+        }
+    }
+
     // display list of elements
     void display()
     {
@@ -165,6 +187,8 @@ int main()
     // list.display();
     // list.deleteAtEnd();
     list.deleteAtSpecific(2);
+    list.display();
+    list.deleteAlternate();
     list.display();
 
     return 0;
