@@ -43,11 +43,11 @@ int main()
 
     // Q1: Find the last occurence of an element x in given array.
     // {1, 2, 3, 2, 1, 3, 1}
-    vector<int> v2 = {1, 2, 3, 2, 1, 3, 1, 5, 6, 8};
-    int x;
-    int occurence = -1;
-    cout << "Enter x: ";
-    cin >> x;
+    // vector<int> v2 = {1, 2, 3, 2, 1, 3, 1, 5, 6, 8};
+    // int x;
+    // int occurence = -1;
+    // cout << "Enter x: ";
+    // cin >> x;
 
     // m1 traverse at begin of the array.
     // for (int i = 0; i < v2.size(); i++)
@@ -103,30 +103,53 @@ int main()
     // }
 
     // Q3: Count the number of element strictly greater than value of x.
-    int count = 0;
-    for (int i = 0; i < v2.size(); i++)
+    // int count = 0;
+    // for (int i = 0; i < v2.size(); i++)
+    // {
+    //     if (v2[i] > x)
+    //     {
+    //         count++;
+    //     }
+    // }
+    // if (count == 0)
+    // {
+    //     cout << "Element was not found!" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Total number of greater than element " << x << " is: " << count << endl;
+    // }
+
+    // Q4: Check if the given array is sorted or not.(ascending order)
+    vector<int> v3 = {1, 2, 3, 4, 5, 5, 6, 7, 8};
+    bool sorted = true;
+    for (int i = 1; i < v3.size(); i++)
     {
-        if (v2[i] > x)
+        if (v3[i] < v3[i - 1])
         {
-            count++;
+            sorted = false;
         }
     }
-    if (count == 0)
+    if (sorted == 1)
     {
-        cout << "Element was not found!" << endl;
+        cout << "Sorted ?: True" << endl;
     }
     else
     {
-        cout << "Total number of greater than element " << x << " is: " << count << endl;
+        cout << "Sorted ?: False" << endl;
     }
 
     // Display all elements of the vector.
     cout << "Elements are :" << endl;
-    for (int i = 0; i < v2.size(); i++)
+    for (int i = 0; i < v3.size(); i++)
     {
-        // cout << "Element at " << i << " is :" << v[i] << endl;
-        cout << v2[i] << " ";
+        cout << v3[i] << " ";
     }
+    // for (int i = 0; i < v2.size(); i++)
+    // {
+    //     // cout << "Element at " << i << " is :" << v[i] << endl;
+    //     cout << v2[i] << " ";
+    // }
     // cout << endl
     //      << "size = " << v2.size() << endl;
     // cout << "capacity = " << v2.capacity() << endl;
