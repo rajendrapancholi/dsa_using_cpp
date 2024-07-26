@@ -121,29 +121,45 @@ int main()
     // }
 
     // Q4: Check if the given array is sorted or not.(ascending order)
-    vector<int> v3 = {1, 2, 3, 4, 5, 5, 6, 7, 8};
-    bool sorted = true;
-    for (int i = 1; i < v3.size(); i++)
+    // vector<int> v3 = {1, 2, 3, 4, 5, 5, 6, 7, 8};
+    // bool sorted = true;
+    // for (int i = 1; i < v3.size(); i++)
+    // {
+    //     if (v3[i] < v3[i - 1])
+    //     {
+    //         sorted = false;
+    //     }
+    // }
+    // if (sorted == 1)
+    // {
+    //     cout << "Sorted ?: True" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Sorted ?: False" << endl;
+    // }
+
+    // Q5: Find the difference between the sum of elements at even indices to the sum of elements at odd indices.
+    vector<int> v4 = {1, 2, 3, 1, 2, 1};
+    int diffSum = 0;
+    for (int i = 0; i < v4.size(); i++)
     {
-        if (v3[i] < v3[i - 1])
+        if (i % 2 == 0)
         {
-            sorted = false;
+            diffSum += v4[i];
+        }
+        else
+        {
+            diffSum -= v4[i];
         }
     }
-    if (sorted == 1)
-    {
-        cout << "Sorted ?: True" << endl;
-    }
-    else
-    {
-        cout << "Sorted ?: False" << endl;
-    }
+    cout << "Difference is: " << diffSum << endl;
 
     // Display all elements of the vector.
     cout << "Elements are :" << endl;
-    for (int i = 0; i < v3.size(); i++)
+    for (int i = 0; i < v4.size(); i++)
     {
-        cout << v3[i] << " ";
+        cout << v4[i] << " ";
     }
     // for (int i = 0; i < v2.size(); i++)
     // {
