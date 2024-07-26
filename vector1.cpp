@@ -43,45 +43,63 @@ int main()
 
     // Q1: Find the last occurence of an element x in given array.
     // {1, 2, 3, 2, 1, 3, 1}
-    vector<int> v2 = {1, 2, 3, 2, 1, 3, 1};
+    vector<int> v2 = {1, 2, 3, 2, 1, 3, 1, 5, 6, 8};
     int x;
     int occurence = -1;
     cout << "Enter x: ";
     cin >> x;
 
     // m1 traverse at begin of the array.
+    // for (int i = 0; i < v2.size(); i++)
+    // {
+    //     if (v2[i] == x)
+    //     {
+    //         occurence = i;
+    //     }
+    // }
+    // if (occurence == -1)
+    // {
+    //     cout << "M1- Element was not found!" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Occurence(m1) of " << x << " is: " << occurence << endl;
+    // }
+
+    // m2 traverse at end of the array.
+    // for (int i = v2.size() - 1; i >= 0; i--)
+    // {
+    //     if (v2[i] == x)
+    //     {
+    //         occurence = i;
+    //         break;
+    //     }
+    // }
+    // if (occurence == -1)
+    // {
+    //     cout << "M2- Element was not found!" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Occurence(m2) of " << x << " is: " << occurence << endl;
+    // }
+
+    // Q2: Find all duplicate elements of the list.
+    int count = 0;
     for (int i = 0; i < v2.size(); i++)
     {
         if (v2[i] == x)
         {
-            occurence = i;
+            count++;
         }
     }
-    if (occurence == -1)
+    if (count == 0)
     {
-        cout << "M1- Element was not found!" << endl;
+        cout << "Element was not found!" << endl;
     }
     else
     {
-        cout << "Occurence(m1) of " << x << " is: " << occurence << endl;
-    }
-
-    // m2 traverse at end of the array.
-    for (int i = v2.size() - 1; i >= 0; i--)
-    {
-        if (v2[i] == x)
-        {
-            occurence = i;
-            break;
-        }
-    }
-    if (occurence == -1)
-    {
-        cout << "M2- Element was not found!" << endl;
-    }
-    else
-    {
-        cout << "Occurence(m2) of " << x << " is: " << occurence << endl;
+        cout << "Total number of duplicate elements " << x << " is: " << count << endl;
     }
 
     // Display all elements of the vector.
