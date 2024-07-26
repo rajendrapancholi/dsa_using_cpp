@@ -85,10 +85,28 @@ int main()
     // }
 
     // Q2: Find all duplicate elements of the list.
+    // int count = 0;
+    // for (int i = 0; i < v2.size(); i++)
+    // {
+    //     if (v2[i] == x)
+    //     {
+    //         count++;
+    //     }
+    // }
+    // if (count == 0)
+    // {
+    //     cout << "Element was not found!" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Total number of duplicate elements " << x << " is: " << count << endl;
+    // }
+
+    // Q3: Count the number of element strictly greater than value of x.
     int count = 0;
     for (int i = 0; i < v2.size(); i++)
     {
-        if (v2[i] == x)
+        if (v2[i] > x)
         {
             count++;
         }
@@ -99,7 +117,7 @@ int main()
     }
     else
     {
-        cout << "Total number of duplicate elements " << x << " is: " << count << endl;
+        cout << "Total number of greater than element " << x << " is: " << count << endl;
     }
 
     // Display all elements of the vector.
@@ -109,9 +127,9 @@ int main()
         // cout << "Element at " << i << " is :" << v[i] << endl;
         cout << v2[i] << " ";
     }
-    cout << endl
-         << "size = " << v2.size() << endl;
-    cout << "capacity = " << v2.capacity() << endl;
+    // cout << endl
+    //      << "size = " << v2.size() << endl;
+    // cout << "capacity = " << v2.capacity() << endl;
 
     return 0;
 }
