@@ -1,27 +1,29 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
-int secondLargestEle(int arr[], int size)
-{
-    int max = INT16_MIN;
-    int secondMax = INT16_MIN;
-    for (int i = 0; i < size; i++)
-    {
-        if (arr[i] > max)
-        {
-            max = arr[i];
-        }
-    }
-    for (int i = 0; i < size; i++)
-    {
-        if (arr[i] > secondMax && arr[i] != max)
-        {
-            secondMax = arr[i];
-        }
-    }
-    return secondMax;
-}
+// Q:4
+// int secondLargestEle(int arr[], int size)
+// {
+//     int max = INT16_MIN;
+//     int secondMax = INT16_MIN;
+//     for (int i = 0; i < size; i++)
+//     {
+//         if (arr[i] > max)
+//         {
+//             max = arr[i];
+//         }
+//     }
+//     for (int i = 0; i < size; i++)
+//     {
+//         if (arr[i] > secondMax && arr[i] != max)
+//         {
+//             secondMax = arr[i];
+//         }
+//     }
+//     return secondMax;
+// }
 
 int main()
 {
@@ -83,9 +85,21 @@ int main()
     // }
 
     // Q4: Find the second largest number in the given array.
-    int arr[] = {2, 3, 5, 7, 6, 1, 7};
-    int ln = sizeof(arr) / sizeof(arr[0]);
-    cout << secondLargestEle(arr, ln);
+    // int arr[] = {2, 3, 5, 7, 6, 1, 7};
+    // int ln = sizeof(arr) / sizeof(arr[0]);
+    // cout << secondLargestEle(arr, ln);
+
+    // Q5: Rotate the given array 'a' by k steps, where k is non-negative. Note: k can be greater than n as well where n is the size of array 'a'.
+    vector<int> v2 = {1, 2, 3, 4, 5, 6};
+    int k = 2;
+    k %= v2.size();
+    reverse(v2.begin(), v2.end());
+    reverse(v2.begin(), v2.begin() + k);
+    reverse(v2.begin() + k, v2.end());
+    for (int ele : v2)
+    {
+        cout << ele << " ";
+    }
 
     cout << endl;
     return 0;
