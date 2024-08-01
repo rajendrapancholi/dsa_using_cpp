@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <algorithm>
+#include <algorithm> //for reverse() method
 using namespace std;
 
 // Q:4
@@ -90,15 +90,46 @@ int main()
     // cout << secondLargestEle(arr, ln);
 
     // Q5: Rotate the given array 'a' by k steps, where k is non-negative. Note: k can be greater than n as well where n is the size of array 'a'.
-    vector<int> v2 = {1, 2, 3, 4, 5, 6};
-    int k = 2;
-    k %= v2.size();
-    reverse(v2.begin(), v2.end());
-    reverse(v2.begin(), v2.begin() + k);
-    reverse(v2.begin() + k, v2.end());
-    for (int ele : v2)
+    // vector<int> v2 = {1, 2, 3, 4, 5, 6};
+    // int k = 2;
+    // k %= v2.size();
+    // reverse(v2.begin(), v2.end());
+    // reverse(v2.begin(), v2.begin() + k);
+    // reverse(v2.begin() + k, v2.end());
+    // for (int ele : v2)
+    // {
+    //     cout << ele << " ";
+    // }
+    // int n = 1e5 + 10;
+    // cout << n;
+
+    // Q6: Given Q queries, check if the given number is present in the array or not.
+    // note:- value of all the elements in the array is less than 10 to the power 5.
+    int n;
+    cout << "Enter number of element do you want to insert in the array :" << endl;
+    cin >> n;
+    vector<int> v3(n);
+    for (int i = 0; i < n; i++)
     {
-        cout << ele << " ";
+
+        cin >> v3[i];
+    }
+    const int N = 1e5 + 10; // 10^5+10
+    // create a vector(array) of size N and every element of the array is 0.
+    vector<int> freq(N, 0);
+    for (int i = 0; i < n; i++)
+    {
+        freq[v3[i]]++;
+    }
+    cout << "Enter a queries? : ";
+    int q;
+    cin >> q;
+    while (q--)
+    {
+        cout << "Enter query element? : ";
+        int queryElement;
+        cin >> queryElement;
+        cout << freq[queryElement] << endl;
     }
 
     cout << endl;
