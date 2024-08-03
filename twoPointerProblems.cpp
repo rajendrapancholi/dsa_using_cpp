@@ -5,6 +5,9 @@ using namespace std;
 
 void sortZerosAndOnes(vector<int> &v) // (&v)passing address of the vector becouse not extra memory reserve by copy of the vector.
 {
+    int leftPtr = 0;
+    int rightPtr = v.size() - 1;
+
     // Q1: Sort an array consisting of the only 0s and 1s.
     // M1:  without two pointers.
     // int countZeros = 0;
@@ -26,24 +29,43 @@ void sortZerosAndOnes(vector<int> &v) // (&v)passing address of the vector becou
     //         v[i] = 1;
     //     }
     // }
-
     // M2: with two pointers.
-    int leftPtr = 0;
-    int rightPtr = v.size() - 1;
+    // int leftPtr = 0;
+    // int rightPtr = v.size() - 1;
+    // while (leftPtr < rightPtr)
+    // {
+    //     if (v[leftPtr] == 1 && v[rightPtr] == 0)
+    //     {
+    //         v[leftPtr] = 0;
+    //         v[rightPtr] = 1;
+    //         leftPtr++;
+    //         rightPtr--;
+    //     }
+    //     if (v[leftPtr] == 0)
+    //     {
+    //         leftPtr++;
+    //     }
+    //     if (v[rightPtr] == 1)
+    //     {
+    //         rightPtr--;
+    //     }
+    // }
+
+    // Q2: Given an array of integers 'a', moving all the even integers at the beginning of the array followed by all the odd integers. the relative order of odd or even integers does not matter. Return any array that satisfies the condition.
     while (leftPtr < rightPtr)
     {
-        if (v[leftPtr] == 1 && v[rightPtr] == 0)
+        if (v[leftPtr] % 2 == 1 && v[rightPtr] % 2 == 0)
         {
-            v[leftPtr] = 0;
-            v[rightPtr] = 1;
+            // using inbuild method swap
+            swap(v[leftPtr], v[rightPtr]);
             leftPtr++;
             rightPtr--;
         }
-        if (v[leftPtr] == 0)
+        if (v[leftPtr] % 2 == 0)
         {
             leftPtr++;
         }
-        if (v[rightPtr] == 1)
+        if (v[rightPtr] % 2 == 0)
         {
             rightPtr--;
         }
