@@ -4,15 +4,53 @@
 using namespace std;
 
 // Q1: Given an integer array 'a', return the prefix sum/running sum in the same array without creating new array.
-void runningSum(vector<int> &v)
+// void runningSum(vector<int> &v)
+// {
+//     for (int i = 1; i < v.size(); i++)
+//     {
+//         v[i] += v[i - 1];
+//     }
+//     for (int e : v)
+//     {
+//         cout << e << " ";
+//     }
+//     return;
+// }
+
+// Q2: Check if we can partition the array into two subarrays with equal sum. More formally, check that the prefix sum of a part of the array is equal to the suffix sum of rest of the array.
+void prefixAndSufixSum(vector<int> &v)
 {
-    for (int i = 1; i < v.size(); i++)
+    int preSum = 0;
+    bool isSumExists = false;
+    // total sum of the array.
+    int totalSum = 0;
+    for (int i = 0; i < v.size(); i++)
     {
-        v[i] += v[i - 1];
+        totalSum += v[i];
     }
-    for (int e : v)
+    // total sum of first n prefix of the array.
+    for (int i = 0; i < v.size(); i++)
     {
-        cout << e << " ";
+        preSum += v[i];
+        int sufSum = totalSum - preSum;
+        if (preSum == sufSum)
+        {
+            isSumExists = true;
+            break;
+        }
+    }
+    if (isSumExists)
+    {
+        cout << "True" << endl;
+    }
+    else
+    {
+        cout << "False" << endl;
+    }
+    // Display array.
+    for (int i = 0; i < v.size(); i++)
+    {
+        cout << v[i] << " ";
     }
     return;
 }
@@ -29,10 +67,8 @@ int main()
         cin >> ele;
         v.push_back(ele);
     }
-    runningSum(v);
-    // Display array
-
+    // runningSum(v);
+    prefixAndSufixSum(v);
     cout << endl;
-
     return 0;
 }
