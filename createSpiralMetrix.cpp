@@ -6,7 +6,7 @@ Organization        : NIT Patna
 ***********************/
 
 /*
-create an NxM matrix 'A', return the matrix in spiral order.
+Create an NxM matrix 'A', return the matrix in spiral order.
  1  2  3  4
 12 13 14  5
 11 16 15  6
