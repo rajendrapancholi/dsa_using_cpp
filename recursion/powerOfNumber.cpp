@@ -17,7 +17,7 @@ using namespace std;
     return p * pow_rec(p, q - 1);
 } */
 
-// Method 1: Time complexity is O(log(q))
+// Method 2: Time complexity is O(log(q))
 int pow_rec(int p, int q)
 {
     // Base case of the recursion
