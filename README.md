@@ -206,16 +206,26 @@ A Hash Table is a data structure which stores data in an associative manner. In 
 - Search: Search for a value by its key.
 - File: src/hash_table.cpp
 
-## Contributing
+## 🛠️ Contribution Guidelines
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are greatly appreciated.
+We welcome contributions! If you'd like to improve existing solutions, add new ones, or fix bugs, please consider the following steps:
 
-- Fork the Project
-- Create your Feature Branch (git checkout -b feature/NewFeature)
-- Commit your Changes (git commit -m 'Add some NewFeature')
-- Push to the Branch (git push origin feature/NewFeature)
-- Open a Pull Request
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature/your-feature`).
+3. Make your changes and commit them (`git commit -m 'Add feature'`).
+4. Push to the branch (`git push origin feature/your-feature`).
+5. Open a pull request.
 
-## Rajendra Pancholi.com
+---
 
-[visit now](https://www.rajendrapancholi.vercel.app)
+## 🤝 Contact
+
+For any queries or feedback, feel free to reach out:
+
+- **Rajendra Pancholi**: [rpancholi522@gmail.com](mailto:rpancholi522@gmail.com)
+- **Website**: [www.rajendrapancholi.com](https://rajendrapancholi.vercel.app/)
+- **LinkedIn**: [www.linkedin.com/in/rajendra-pancholi](https://www.linkedin.com/in/rajendra-pancholi-11a3a5286/)
+
+---
+
+Happy Coding Journey! 👨‍💻👩‍💻
