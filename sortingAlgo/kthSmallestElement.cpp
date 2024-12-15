@@ -8,14 +8,14 @@ Organization        : NIT Patna
 #include <vector>
 using namespace std;
 
-int partition(vector<int> &arr, int low, int high, int k)
+int partition(vector<int> &arr, int low, int high)
 {
     int pvt = arr[low]; // Pivot element
     int i = low, j = high;
 
     while (i < j)
     {
-        while (arr[i] <= pvt && i <= high)
+        while (arr[i] <= pvt && i <= high - 1)
         {
             i++;
         }
@@ -37,7 +37,7 @@ void findKthSmallest(vector<int> &arr, int low, int high, int k)
     {
         return;
     }
-    int pvtIndex = partition(arr, low, high, k);
+    int pvtIndex = partition(arr, low, high);
     if (pvtIndex == k)
     {
         cout << k + 1 << "th element is: " << arr[pvtIndex] << endl;
