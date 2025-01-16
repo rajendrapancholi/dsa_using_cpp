@@ -51,16 +51,42 @@ public:
         }
         temp->next = newNode;
     }
+
+    // Delete element alternatively
+    void deleteAlter()
+    {
+        if (head == NULL)
+        { // if list is empty
+            cout << "List is empty!\n";
+            return;
+        }
+        Node *temp = head;
+
+        while (temp->next != NULL && temp != NULL)
+        {
+            Node *del = temp->next; // delete node
+            temp->next = temp->next->next;
+            free(del); // free the del node
+            temp = temp->next;
+        }
+    }
+
     // Display element of the linked list
     void display()
     {
         Node *temp = head;
-        while (temp->next != NULL)
+        while (temp != NULL)
         {
             cout << temp->value << " > ";
             temp = temp->next;
         }
         cout << "null" << endl;
+    }
+
+    // destructor
+    ~LinkedList()
+    {
+        cout << "\nDone" << endl;
     }
 };
 
@@ -70,6 +96,10 @@ int main()
     ll.insertAtTail(1);
     ll.insertAtTail(2);
     ll.insertAtTail(3);
+    ll.insertAtTail(4);
+    ll.insertAtTail(5);
+    ll.display();
+    ll.deleteAlter();
     ll.display();
     return 0;
 }
