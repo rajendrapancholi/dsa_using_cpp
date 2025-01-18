@@ -94,6 +94,42 @@ public:
             cout << "null > ";
         cout << head->value << " > ";
     }
+
+    // Reverse the linked list
+    void reverseLst()
+    {
+        // if list is empty.
+        if (!head)
+        {
+            cout << "List is empty!" << endl;
+            return;
+        }
+
+        Node *prev = NULL; // points to null value
+        Node *curr = head; // points to first node of the list
+        Node *nxt = NULL;  // points to second node of the list
+        while (curr != NULL)
+        {
+            nxt = curr->next;
+            curr->next = prev;
+            prev = curr;
+            curr = nxt;
+        }
+        // End of the loop prev points to the last element of the list
+        head = prev;
+    }
+
+    // Reverse the linked list using recursion
+    Node *reverse(Node *head)
+    {
+        if (head == NULL || head->next == NULL)
+            return head;
+        Node *rest = reverse(head->next);
+        head->next->next = head;
+        head->next = NULL;
+        return rest;
+    }
+
     // destructor
     ~LinkedList()
     {
@@ -110,8 +146,11 @@ int main()
     ll.insertAtTail(4);
     ll.insertAtTail(5);
     ll.display();
+    ll.head = ll.reverse(ll.head);
     // ll.deleteAlter();
     // ll.display();
-    ll.printReverse(ll.head);
+    // ll.printReverse(ll.head);
+    // ll.reverseLst();
+    ll.display();
     return 0;
 }
