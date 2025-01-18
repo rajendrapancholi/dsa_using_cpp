@@ -83,6 +83,17 @@ public:
         cout << "null" << endl;
     }
 
+    // Print element in reverse order
+    void printReverse(Node *head)
+    {
+
+        if (!head) // head == NULL
+            return;
+        printReverse(head->next);
+        if (!head->next)
+            cout << "null > ";
+        cout << head->value << " > ";
+    }
     // destructor
     ~LinkedList()
     {
@@ -99,7 +110,8 @@ int main()
     ll.insertAtTail(4);
     ll.insertAtTail(5);
     ll.display();
-    ll.deleteAlter();
-    ll.display();
+    // ll.deleteAlter();
+    // ll.display();
+    ll.printReverse(ll.head);
     return 0;
 }
