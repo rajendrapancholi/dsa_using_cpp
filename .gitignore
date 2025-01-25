@@ -1,5 +1,7 @@
-/learn
-*.exe
-*.txt
-/.vscode
-*/.vscode
+# Ignore all files
+*
+# Do not ignore directories
+!*/
+learn
+!*.cpp
+!*.c
