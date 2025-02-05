@@ -57,7 +57,7 @@ int minPages(vector<int> &arr, int students)
     return -1;
 }
 
-// Optimized method (binary method) [TC = O(sizzOfArr*log(maxPg))]
+// Optimized method (binary search) [TC = O(sizzOfArr*log(maxPg))]
 int minPagesM2(vector<int> &arr, int students)
 {
     // Count the total number of pages in all the books.
