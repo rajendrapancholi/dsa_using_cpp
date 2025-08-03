@@ -29,7 +29,7 @@ class TreeNode{
             q.pop();
             Node* node = qel.first;
             int lvl = qel.second;
-            if(mpp.find(lvl)==mpp.end())
+            if(mpp.find(lvl)==mpp.end()) // tc = O(logn)
                 mpp[lvl]=node->val;
             if(node->left)
                 q.push({node->left, lvl-1});
