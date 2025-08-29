@@ -24,6 +24,7 @@ public:
                 for (char ch = 'a'; ch <= 'z'; ch++)
                 {
                     word[i] = ch;
+                    // The comparison != st.end() is used because find() returns an iterator to the found element, or a special "past-the-end" iterator (st.end()) if nothing is found. The condition is only true for real, unvisited words in the set.
                     if (st.find(word) != st.end())
                     {
                         st.erase(word);
