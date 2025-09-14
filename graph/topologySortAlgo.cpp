@@ -22,7 +22,7 @@ class Solution{
                     dfs(i, adj, st, vis);
                 }    
             }
-            while(!st.empty()){
+            while(!st.empty()){ // reverse the stack
                 ans.push_back(st.top());
                 st.pop();
             }
