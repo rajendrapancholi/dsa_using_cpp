@@ -19,7 +19,7 @@ class Solution
                 int adjNode = it[0]; 
                 int edgW = it[1]; 
                 
-                if(dis + edgW > dist[adjNode]) {
+                if(dis + edgW < dist[adjNode]) {
                     if(dist[adjNode] != 1e9) 
                         st.erase({dist[adjNode], adjNode}); 
                     dist[adjNode] = dis + edgW; 
