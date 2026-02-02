@@ -87,6 +87,5 @@ int main(){
     vector<vector<int>> stones2 = {{0, 0}, {0, 2}, {1, 3}, {3, 1}, {3, 2}, {4, 3}}; // expected o/p: 4
     Solution sl;
     cout<<sl.mostStoneRemove(stones2)<<endl;
-
     return 0;
 }

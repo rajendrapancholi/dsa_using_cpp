@@ -77,7 +77,6 @@ class Solution{
                     dsu.unionBySize(i, emailNode[email]);
                 }
             }
-            
         }
         
         // Group emails to its ultimate parent

@@ -2,7 +2,7 @@
 *
 # Do not ignore directories
 !*/
+**/.vscode/
 learn
 !*.cpp
 !*.c
-.vscode/*
