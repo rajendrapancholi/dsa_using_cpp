@@ -18,7 +18,7 @@ using namespace std;
 
 class DisjointSetUnion{
 public:
-vector<int> rank, size, parent;
+    vector<int> rank, size, parent;
     DisjointSetUnion(int n){
         rank.resize(n+1, 0);
         size.resize(n+1, 1);
