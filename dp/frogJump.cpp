@@ -1,4 +1,4 @@
-/* Frog Jump
+/* Frog Jump (DP 3)
 Problem Statement: Given a number of stairs and a frog, the frog wants to climb from the 0th stair to the (N-1)th stair. At a time the frog can climb either one or two steps. A height[N] array is also given. Whenever the frog jumps from a stair i to stair j, the energy consumed in the jump is abs(height[i]- height[j]), where abs() means the absolute difference. We need to return the minimum energy that can be used by the frog to jump from stair 0 to stair N-1..
 
 Examples
@@ -80,11 +80,11 @@ int main() {
   vector<int> heights = {7, 5, 1, 2, 6};
   Solution sl;
 
-  cout<<"Using Recursion (top-down):\n";
+  cout<<"Using Recursion (top-down)\n";
   cout<<sl.frogJump(heights)<<endl;
-  cout<<"Using tabulation (bottom-up):\n";
+  cout<<"Using tabulation (bottom-up)\n";
   cout<<sl.tabulation(heights, 5)<<endl;
-  cout<<"Space optimization:\n";
+  cout<<"Space optimization\n";
   cout<<sl.spaceOptimization(heights, 5)<<endl;
   return 0;
 }

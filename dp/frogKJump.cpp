@@ -78,8 +78,6 @@ int main() {
   cout<<sl.frogKJump(heights2, k)<<endl;
   cout<<"Using tabulation (bottom-up)\n";
   cout<<sl.tabulation(heights2, k)<<endl;
-  // cout<<"Space optimization\n";
-  // cout<<sl.spaceOptimization(heights, 5)<<endl;
 
   return 0;
 }
