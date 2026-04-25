@@ -61,8 +61,8 @@ public:
 };
 
 int main() {
-  string s1 = "abcde";
-  string s2 = "ace"; Solution sol;
+  string s1 = "dynamic", s2 = "program";
+  Solution sol;
   cout << "LCS: " << sol.longestCommonSubsequence(s1, s2) << endl;
   cout<<"LCS lenght: " << sol.longestCommonSubsequence(s1, s2).size()<<endl;
   return 0;
