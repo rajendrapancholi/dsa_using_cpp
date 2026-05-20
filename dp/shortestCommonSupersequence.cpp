@@ -25,22 +25,24 @@ using namespace std;
 
 class Solution {
 private:
-  int helper(int i, int j, string &s, string &t){
+  int helper(int i, int j, string &s, string &t, vector<vector<int>> &dp){
     if(j == t.size()) return 1;
     if(i == s.size()) return 0;
     
+    if(dp[i][j] != -1) return dp[i][j];
     if(s[i] == t[j]){
-      int pick = helper(i+1, j+1, s, t);
-      int notPick = helper(i+1, j, s, t);
+      int pick = helper(i+1, j+1, s, t, dp);
+      int notPick = helper(i+1, j, s, t, dp);
       return pick + notPick;
     } else {
-      return helper(i+1, j, s, t);
+      return helper(i+1, j, s, t, dp);
 
     }
   }
 public:
   int shortestCommSub(string &s, string &t){
-    return helper(0, 0, s, t);
+    vector<vector<int>> dp(s.size(), vector<int>(t.size(), -1));
+    return helper(0, 0, s, t, dp);
   }
 };
 
