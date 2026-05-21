@@ -12,15 +12,16 @@ private:
 
         int profit = 0;
         
-        // buy
+        // buy logic (when buy == 0, hold 0 stocks and are allowed to buy)
         // Option 1: Skip buying today.
-        // Option 2: Buy the stock today.
+        // Option 2: Buy the stock today. (subtracting prices[i])
         if(buy == 0) profit = max(0 + helper(prices, i + 1, 0, capacity, dp), -prices[i] + helper(prices, i + 1, 1, capacity, dp));
         
-        // sell
+        // sell logic (when buy == 1, hold 1 stock and are allowed to sell)
         // Option 1: Skip selling today.
-        // Option 2: Sell the stock today.
+        // Option 2: Sell the stock today (adding prices[i] and reducing capacity).
         if(buy == 1) profit = max(0 + helper(prices, i + 1, 1, capacity, dp), prices[i] + helper(prices, i + 1, 0, capacity - 1, dp));
+        
         return dp[i][buy][capacity] = profit;
     }
 
