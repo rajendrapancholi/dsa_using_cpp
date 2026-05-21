@@ -41,7 +41,7 @@ public:
     vector<int> curr(n + 1, 0);
     
     
-    for(int i = 0; i < n; i++){
+    for(int i = 0; i <= n; i++){
       prev[i] = i;
     }
 
@@ -62,7 +62,7 @@ public:
 };
 
 int main() {
-  string start = "planet", target = "plan";
+  string start = "horse", target = "ros";
   Solution sl;
   cout<<sl.editDistance(start, target);
   return 0;
