@@ -49,6 +49,21 @@ public:
     }
     return temp.size();
   }
+  int LIS_Tabulation(vector<int> &nums){
+    int maxLen = 0, n = nums.size();
+    
+    vector<int> dp(n, 1);
+    
+    for(int i = 0; i < n; i++){
+      for(int prevI = 0; prevI < i; prevI++){
+        if(nums[i] < nums[prevI] && dp[i] < dp[prevI] + 1)
+          dp[i] = dp[prevI] + 1;
+      }
+      if(maxLen < dp[i])
+        maxLen = dp[i];
+    }
+    return maxLen;
+  }
 };
 
 int main() {
@@ -56,5 +71,6 @@ int main() {
   Solution sl;
 
   cout<<sl.LIS(nums)<<endl;
+  cout<<sl.LIS_Tabulation(nums)<<endl;
   return 0;
 }
