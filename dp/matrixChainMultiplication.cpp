@@ -37,11 +37,30 @@ public:
     vector<vector<int>> dp(n, vector<int>(n, -1));
     return helper(1, n - 1, mat, dp);
   }
+
+  int mcmTabulation(vector<int> &mat){
+  int n = mat.size();
+  vector<vector<int>> dp(n, vector<int>(n, 0)); 
+  for(int i = n - 1; i >= 1; i--){
+    for(int j = i + 1; j < n; j++){   
+      int minCost = 1e9;
+      for(int k = i; k < j; k++){
+        int cost = mat[i - 1] * mat[k] * mat[j] + dp[i][k] + dp[k + 1][j];
+        if(cost < minCost) {
+          minCost = cost;
+        }
+      }
+      dp[i][j] = minCost;
+    }
+  }
+  return dp[1][n - 1];
+}
 };
 
 int main() {
   vector<int> mat = {40, 20, 30, 10, 30};
   Solution sl;
   cout<<sl.matrixChainMulti(mat)<<endl;
+  cout<<sl.mcmTabulation(mat)<<endl;
   return 0;
 }
