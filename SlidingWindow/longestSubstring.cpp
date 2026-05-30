@@ -19,10 +19,28 @@ Explanation:
 */
 
 #include <bits/stdc++.h>
+
 using namespace std;
 
 class Solution {
 public:
+  // Brute force method
+  int longestNonRepeatingSubstringN2(string& s){
+    int n = s.size();
+    int maxLen = 0;
+    for(int i = 0; i < n; i++){
+      int hash[256] = {0};
+      for(int j = i; j < n; j++){
+        if(hash[s[j]] == 1) break;
+        hash[s[j]] = 1;
+        int len = j - i + 1;
+        maxLen = max(maxLen, len);
+      }
+    }
+    return maxLen;
+  }
+  
+  // Optimized method
   int longestNonRepeatingSubstring(string& s) {
     int n = s.size();
     int HashLen = 256;
@@ -50,5 +68,6 @@ int main() {
   Solution sol;
   int result = sol.longestNonRepeatingSubstring(s);
   cout << result << endl;
+  cout<<sol.longestNonRepeatingSubstringN2(s)<<endl;
   return 0;
 }
