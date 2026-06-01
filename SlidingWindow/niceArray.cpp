@@ -34,6 +34,7 @@ public:
     }
     return countOdd;
   }
+  
   int niceArrSW(vector<int> &nums, int k){
     if(k < 0) return 0;
     int countOdd = 0, left = 0, sum = 0;
