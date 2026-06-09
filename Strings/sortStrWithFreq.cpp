@@ -35,25 +35,25 @@ using namespace std;
 class Solution {
 private:
   static bool comparator(pair<int, char> p1, pair<int, char> p2) {
-      if (p1.first > p2.first) return true;
-      if (p1.first < p2.first) return false;
-      return p1.second < p2.second; // if both equal then check order in alphabetically.
+    if (p1.first > p2.first) return true; 
+    if (p1.first < p2.first) return false;
+    return p1.second < p2.second; // Alphabetical fallback if frequencies match
   }
 public:
   string sortStr(string s){
     string ans = "";
-    pair<int, char> freq[26];
-    for(int i = 0; i < 26; i++){
-      freq[i] = {0, i + 'a'};
+    pair<int, char> freq[256];
+    for(int i = 0; i < 256; i++){
+      freq[i] = {0, (char)i};
     }
     for(auto c: s){
-      freq[c - 'a'].first++;
+      freq[c].first++;
     }
     
-    sort(freq, freq + 26, comparator);
+    sort(freq, freq + 256, comparator);
 
-    for(int i = 0; i < 26; i++){
-      if(freq[i].first > 0) ans += freq[i].second;
+    for(int i = 0; i < 256; i++){
+      if(freq[i].first > 0) ans += string(freq[i].first, freq[i].second);
     }
     
     return ans;
