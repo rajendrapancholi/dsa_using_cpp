@@ -35,6 +35,7 @@ public:
       if(c != '0') break;
       zerosIdx++;
     }
+    if(zerosIdx == n-1) return "";
     for(int i = n - 1; i >= 0; i--)
       if((s[i] - '0')%2 == 1 && ans.size() < i - zerosIdx + 1)
         ans = s.substr(zerosIdx, i - zerosIdx+1);
