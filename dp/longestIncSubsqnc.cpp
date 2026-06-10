@@ -10,17 +10,17 @@ Note: In this article, we will solve the problem of the longest-increasing subse
 Examples
 Example 1:
 Input:
- nums = [10, 9, 2, 5, 3, 7, 101, 18]  
+ nums = [10, 9, 2, 5, 3, 7, 101, 18]
 Output:
- 4  
+ 4
 Explanation:
  The longest increasing subsequence is [2, 3, 7, 101], and its length is 4.
 
 Example 2:
 Input:
- nums = [0, 1, 0, 3, 2, 3]  
+ nums = [0, 1, 0, 3, 2, 3]
 Output:
- 4  
+ 4
 Explanation:
  The longest increasing subsequence is [0, 1, 2, 3], and its length is 4.
 */
@@ -49,6 +49,7 @@ public:
     }
     return temp.size();
   }
+  
   int LIS_Tabulation(vector<int> &nums){
     int maxLen = 0, n = nums.size();
     
