@@ -17,18 +17,22 @@ using namespace std;
 
 class Solution {
 public:
-  vector<pair<int, int>> replaceByRank(vector<int> &arr){
-    vector<pair<int, int>> temp;
-    int i = 1;
-    for(auto e: arr){
-      temp.push_back({e, i++});
+  vector<int> replaceByRank(vector<int> &arr){
+    vector<int> sortedArr = arr;
+    sort(sortedArr.begin(), sortedArr.end());
+    unordered_map<int, int> rankMap;
+    int rank = 1;
+    for (int num : sortedArr) {
+      if (rankMap.find(num) == rankMap.end()) {
+        rankMap[num] = rank;
+        rank++;
+      }
     }
-
-    sort(temp.begin(), temp.end(), [](pair<int, int> a, pair<int, int> b){
-      return a.first > b.first;
-    });
-
-    return temp;
+    vector<int> result;
+    for (int num : arr) {
+      result.push_back(rankMap[num]);
+    }
+    return result;
   }
 };
 
@@ -36,17 +40,18 @@ int main() {
   vector<int> arr = {20, 15, 26, 2, 98, 6}; // Output: 4 3 5 1 6 2
 
   Solution sl;
-  vector<pair<int, int>> rank = sl.replaceByRank(arr);
+  vector<int> rank = sl.replaceByRank(arr);
 
   for(auto el: arr){
     cout<<el<<",\t";
   } cout<<endl;
-
+  
   int i = 1;
-
+  
   for(auto el: rank){
-    cout<<el.first<<": "<<el.second<<" : "<<i++<<endl;
+    cout<<el<<",\t";
   } cout<<endl;
 
   return 0;
 }
+
