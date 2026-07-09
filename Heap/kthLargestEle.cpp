@@ -22,44 +22,37 @@ add(60): stream = [5, 5, 5, 5, 2, 6, 60] -> returns 6
 */
 
 #include <bits/stdc++.h>
-
 using namespace std;
+class Solution {
+    priority_queue<int, vector<int>, greater<int>> minHeap;
+    int size;
 
-class KthLargest {
-private:
-  priority_queue<int, vector<int>, greater<>> pq;
-  int kk;
 public:
-  KthLargest(int k, vector<int> &nums){
-    kk = k;
-    for(int i = 0; i  < nums.size(); i++){
-      pq.push(nums[i]);
-      if(pq.size() > k) pq.pop();
+    Solution(int k, vector<int>& nums) {
+        size = k;
+        for (int num : nums) {
+            minHeap.push(num);
+            if (minHeap.size() > k) {
+                minHeap.pop();
+            }
+        }
     }
-
-    cout<<"null"<<", ";
-  }
-  int add(int e){
-    if(pq.top() < e){
-      pq.pop();
-      pq.push(e);
+    int add(int val) {
+        minHeap.push(val);
+        if (minHeap.size() > size) {
+            minHeap.pop();
+        }
+        return minHeap.top();
     }
-    return pq.top();
-  }
 };
-
 int main() {
-  // Input: [KthLargest(3, [1, 2, 3, 4]), add(5), add(2), add(7)]
-  // Output: [null, 3, 3, 4]
-  // vector<int> nums = {1, 2, 3, 4};
-
-  // Input: [KthLargest(2, [5, 5, 5, 5], add(2), add(6), add(60)]
-  // Output: [null, 5, 5, 6]
-  vector<int> nums = {5, 5, 5, 5};
-  int k = 2;
-  KthLargest kl(k, nums);
-  cout<<kl.add(2)<<", ";
-  cout<<kl.add(6)<<", ";
-  cout<<kl.add(60)<<endl;
-  return 0;
+    vector<int> nums = {4, 5, 8, 2};
+    Solution kthLargest(3, nums);
+    cout << kthLargest.add(3) << endl;  // Output: 4
+    cout << kthLargest.add(5) << endl;  // Output: 5
+    cout << kthLargest.add(10) << endl; // Output: 5
+    cout << kthLargest.add(9) << endl;  // Output: 8
+    cout << kthLargest.add(4) << endl;  // Output: 8
+    return 0;
 }
+
