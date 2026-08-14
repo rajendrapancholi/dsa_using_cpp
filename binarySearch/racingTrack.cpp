@@ -1,8 +1,6 @@
 /**********************
 Program Name        : ProgramName
 Author              : Rajendra Pancholi
-Date of creation    : 06/02/2025
-Organization        : NIT Patna
 ***********************/
 /**********************
  * A new racing track for kids is being built in New York with 'n' starting spots. The spots are located along a straight line at possitions x1, x2.....xb(xu<= 10^9). For each 'i', xi+1>xi. At a time only 'm' children are allowed to enter the race. Since the race track is for kids, they may run into each other while running. To prevent this, we want to choose the starting spots such that the minimum distance between any two of them is as  large as possible. What is the largest minimum distance?

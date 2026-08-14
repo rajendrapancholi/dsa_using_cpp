@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find the index of minimum element in the array.
 Author              : Rajendra Pancholi
-Date of creation    : 17/12/2024
-Organization        : NIT Patna
 ***********************/
 /**********************
  * A rotated sorted array is a sorted array on which rotation opearation has been performed some number of times. Given a rotated sorted array, Find the index of minimum element in the array. Follow 0-based indexing.

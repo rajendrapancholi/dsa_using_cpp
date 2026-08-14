@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Given a string, we have to find out all its subsequences of it.
 Author              : Rajendra Pancholi
-Date of creation    : 11/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 #include <vector>

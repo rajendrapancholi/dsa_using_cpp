@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Merge sort
 Author              : Rajendra Pancholi
-Date of creation    : 13/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 #include <vector>

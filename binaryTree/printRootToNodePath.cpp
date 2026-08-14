@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Print Root to Node Path in binary tree.
 Author              : Rajendra Pancholi
-Date of creation    : 26/07/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Given an array of integers, print sum of all subsets in it.
 Author              : Rajendra Pancholi
-Date of creation    : 10/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 #include <vector>

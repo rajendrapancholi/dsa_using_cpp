@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Given an array of n integers and a target value x. Print whether x exits in the array or not.
 Author              : Rajendra Pancholi
-Date of creation    : 10/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 using namespace std;

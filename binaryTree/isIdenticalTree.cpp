@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Check if two trees are identical
 Author              : Rajendra Pancholi
-Date of creation    : 29/07/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Spiral order of matrix
 Author              : Rajendra Pancholi
-Date of creation    : 03/10/2024
-Organization        : NIT Patna
 ***********************/
 
 /*

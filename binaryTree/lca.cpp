@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Lowest Common Ancestor for two given Nodes
 Author              : Rajendra Pancholi
-Date of creation    : 04/08/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

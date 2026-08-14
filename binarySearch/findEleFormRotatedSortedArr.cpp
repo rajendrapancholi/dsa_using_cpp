@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find the index of target if it is in teh array. Otherwise return -1.
 Author              : Rajendra Pancholi
-Date of creation    : 17/12/2024
-Organization        : NIT Patna
 ***********************/
 /***********************
  *  Given the rotated sorted array of integers, which contains distinct elements, and an interger target return the index of target if it is in teh array. Otherwise return -1.

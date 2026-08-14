@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find target element index in the sorted rotated array.
 Author              : Rajendra Pancholi
-Date of creation    : 25/01/2025
-Organization        : NIT Patna
 ***********************/
 /**********************
  * Given the sorted rotated array of intergers. Which contains distinct elements, and an interger, return the index of target if it is in the array. Otherwise return -1

@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Given a number 'num' and a value 'k'. Print k multiples of num.
 Author              : Rajendra Pancholi
-Date of creation    : 08/11/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

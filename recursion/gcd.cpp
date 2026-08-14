@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find Greatest common divisor.
 Author              : Rajendra Pancholi
-Date of creation    : 09/11/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 using namespace std;

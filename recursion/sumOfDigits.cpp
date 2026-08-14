@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Given an integer find out the sum of its digit using recursion.
 Author              : Rajendra Pancholi
-Date of creation    : 07/11/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

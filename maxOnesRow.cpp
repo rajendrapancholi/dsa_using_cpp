@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find the row with the maximum number of ones
 Author              : Rajendra Pancholi
-Date of creation    : 02/10/2024
-Organization        : NIT Patna
 ***********************/
 
 /*

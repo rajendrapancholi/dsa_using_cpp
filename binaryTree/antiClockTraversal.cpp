@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Boundary Traversal of a Binary Tree
 Author              : Rajendra Pancholi
-Date of creation    : 30/07/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

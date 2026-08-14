@@ -1,8 +1,6 @@
 /**********************
 Program Name        : find minimum frog jump
 Author              : Rajendra Pancholi
-Date of creation    : 10/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 using namespace std;

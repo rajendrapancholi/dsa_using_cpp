@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find the height of the binary tree.
 Author              : Rajendra Pancholi
-Date of creation    : 28/07/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

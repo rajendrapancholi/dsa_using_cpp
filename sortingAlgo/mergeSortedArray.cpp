@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Given two sorted arrays, Write a program to merge them in a sorted manner.
 Author              : Rajendra Pancholi
-Date of creation    : 14/12/2024
-Organization        : NIT Patna
 ***********************/
 /***********************
  Input: arr1[]={5, 8, 10}, arr2[]={2, 7, 8}

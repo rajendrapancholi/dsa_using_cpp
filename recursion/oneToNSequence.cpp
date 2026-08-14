@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find the increasing sequence from 1 to n without using any loop.
 Author              : Rajendra Pancholi
-Date of creation    : 08/11/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

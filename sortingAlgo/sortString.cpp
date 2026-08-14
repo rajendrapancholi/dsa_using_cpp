@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Sort string in lexicographical order.
 Author              : Rajendra Pancholi
-Date of creation    : 12/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 #include <string.h>

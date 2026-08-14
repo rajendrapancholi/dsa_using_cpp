@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Balance binary tree.
 Author              : Rajendra Pancholi
-Date of creation    : 28/07/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

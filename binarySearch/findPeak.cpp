@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find the peak element in the given unsorted array.
 Author              : Rajendra Pancholi
-Date of creation    : 26/01/2025
-Organization        : NIT Patna
 ***********************/
 /***********************
  * A peak element is an element that is strictly greater than its neighbors. Given a 0-indexed interger array nums, find a peak element, and return its index if the array contains multiple peaks, return the index to any of the peaks, You may imagine that nums[-1]=nums[n]=-infite. In other words, and element is always considered to be strictly greater than a neightbor that is outside the array.

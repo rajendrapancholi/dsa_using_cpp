@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Remove all the occurences of 'a' from the string "abcdaef".
 Author              : Rajendra Pancholi
-Date of creation    : 08/11/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

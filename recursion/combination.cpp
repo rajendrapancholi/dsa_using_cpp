@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Combination of string.
 Author              : Rajendra Pancholi
-Date of creation    : 11/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 #include <vector>

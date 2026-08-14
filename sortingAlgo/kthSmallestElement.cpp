@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find Kth smallest element in an array using QuickSort Algorithm.
 Author              : Rajendra Pancholi
-Date of creation    : 14/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 #include <vector>

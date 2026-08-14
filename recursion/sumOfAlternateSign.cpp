@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Given a number n. Find the sum of natural numbers till n but with alternate
 Author              : Rajendra Pancholi
-Date of creation    : 08/11/2024
-Organization        : NIT Patna
 ***********************/
 /*
 input: n = 5;

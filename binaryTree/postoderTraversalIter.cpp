@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Postorder traversal using 2 satcks
 Author              : Rajendra Pancholi
-Date of creation    : 26/07/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

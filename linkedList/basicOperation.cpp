@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Basic operation on linked list
 Author              : Rajendra Pancholi
-Date of creation    : 16/01/2025
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 using namespace std;

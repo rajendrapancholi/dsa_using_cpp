@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Print Root to Node Path
 Author              : Rajendra Pancholi
-Date of creation    : 03/08/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

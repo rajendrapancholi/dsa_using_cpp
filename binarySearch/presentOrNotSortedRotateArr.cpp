@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Sorted rotated array
 Author              : Rajendra Pancholi
-Date of creation    : 26/01/2025
-Organization        : NIT Patna
 ***********************/
 /**********************
  * Search element in rotated sorted array with duplicate elements. Return 1 if the element is found, else return 0.

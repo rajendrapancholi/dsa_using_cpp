@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Representation of Graph
 Author              : Rajendra Pancholi
-Date of creation    : 22/04/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

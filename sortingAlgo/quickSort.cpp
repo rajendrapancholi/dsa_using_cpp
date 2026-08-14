@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Quick Sort
 Author              : Rajendra Pancholi
-Date of creation    : 14/12/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

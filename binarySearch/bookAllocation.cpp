@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Book Allocation problem
 Author              : Rajendra Pancholi
-Date of creation    : 05/02/2025
-Organization        : NIT Patna
 ***********************/
 /**********************
  * Given an array 'arr' of interger numbers,'arr[i]' represents the number of pages in the 'i-th' book.

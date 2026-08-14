@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Check number is armstrong.
 Author              : Rajendra Pancholi
-Date of creation    : 09/11/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

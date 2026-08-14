@@ -1,8 +1,6 @@
 /**********************
 Program Name        : The problem is to count all the possible paths on an mxn grid from top left(gred[0][0]) to bottom right(grid[m-1][n-1]). Having constraints that from each cell you can either move only to right or down.
 Author              : Rajendra Pancholi
-Date of creation    : 10/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 using namespace std;

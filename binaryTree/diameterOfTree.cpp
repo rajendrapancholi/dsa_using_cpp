@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Finding the diameter of a given tree.
 Author              : Rajendra Pancholi
-Date of creation    : 28/07/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

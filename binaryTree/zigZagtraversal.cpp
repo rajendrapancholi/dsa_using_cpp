@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Zig Zag Traversal Of Binary Tree
 Author              : Rajendra Pancholi
-Date of creation    : 29/07/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

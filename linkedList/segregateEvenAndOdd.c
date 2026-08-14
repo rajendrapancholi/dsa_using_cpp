@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Segregate even and odd nodes in a singly linked list.
 Author              : Rajendra Pancholi
-Date of creation    : 12/02/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <stdio.h>

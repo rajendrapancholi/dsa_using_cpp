@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Print maximum element of the array using recursion.
 Author              : Rajendra Pancholi
-Date of creation    : 07/11/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Merge two sorted linked lists into one sorted linked list.
 Author              : Rajendra Pancholi
-Date of creation    : 15/02/2025
-Organization        : NIT Patna
 ***********************/
 
 #include <stdio.h>

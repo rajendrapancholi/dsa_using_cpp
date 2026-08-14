@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Check whether a given number is palindrome or not using recursively.
 Author              : Rajendra Pancholi
-Date of creation    : 07/11/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

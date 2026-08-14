@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Print all the elements of the array using recursion.
 Author              : Rajendra Pancholi
-Date of creation    : 07/11/2024
-Organization        : NIT Patna
 ***********************/
 
 #include <iostream>

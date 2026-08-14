@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Frog problem-1
 Author              : Rajendra Pancholi
-Date of creation    : 10/11/2024
-Organization        : NIT Patna
 ***********************/
 /* Problem-1
 There are N stones, numbered 1,2,3,...,N for each i (1 <= i <= N), the height of stone i is hi. There is a frog who is initially on stone 1. He will repeat the following action same number of times to reach stone N.

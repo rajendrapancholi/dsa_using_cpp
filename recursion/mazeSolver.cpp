@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Implement Maze Solver.
 Author              : Rajendra Pancholi
-Date of creation    : 15/12/2024
-Organization        : NIT Patna
 ***********************/
 #include <iostream>
 #include <vector>

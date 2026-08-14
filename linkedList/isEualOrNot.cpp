@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Solve problems on singly linked list.
 Author              : Rajendra Pancholi
-Date of creation    : 08/02/2025
-Organization        : NIT Patna
 ***********************/
 /***********************
 Check list is equal or not and also check the same order of the elements present in list.

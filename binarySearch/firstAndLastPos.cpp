@@ -1,8 +1,6 @@
 /**********************
 Program Name        : Find the first and the last position of the gien 'target' element in the sorted array.
 Author              : Rajendra Pancholi
-Date of creation    : 17/12/2024
-Organization        : NIT Patna
 ***********************/
 /***********************
  * Given an arrayof integers 'a' that is sorted in non-decreasing order. Find the first and the last position of the gien 'target' element in the sorted array. follow 0-based indexing.
