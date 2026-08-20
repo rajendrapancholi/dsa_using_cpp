@@ -20,25 +20,36 @@ using namespace std;
 
 class Solution {
 public:
-  void uniqSubsets(int i, vector<int> &arr, vector<int> temp, set<vector<int>> &ans) {
-    if(i == arr.size()){
-      ans.insert(temp);
-      return;
+  void uniqSubsets(int i, vector<int> &arr, vector<int>& temp, set<vector<int>> &ans) {
+    // if(i == arr.size()){
+    //   ans.insert(temp);
+    //   return;
+    // }
+    // temp.push_back(arr[i]);
+    // uniqSubsets(i + 1, arr, temp, ans);
+    // temp.pop_back();
+    // uniqSubsets(i + 1, arr, temp, ans);
+     
+    ans.insert(temp);
+    for(int idx = i; idx < arr.size(); idx++){
+      if (idx > i && arr[idx] == arr[idx - 1]) continue;
+      temp.push_back(arr[i]);
+      uniqSubsets(i + 1, arr, temp, ans);
+      temp.pop_back();
     }
-    temp.push_back(arr[i]);
-    uniqSubsets(i + 1, arr, temp, ans);
-    temp.pop_back();
-    uniqSubsets(i + 1, arr, temp, ans);
+
   }
 };
 
 int main() {
-  vector<int> arr = {1, 2, 2};
+  vector<int> arr = {4,4,4,1,4};
   // Output: [ [ ], [1], [1,2], [1,2,2], [2], [2,2] ]
 
   Solution sl;
   set<vector<int>> ans;
-  sl.uniqSubsets(0, arr, {}, ans);
+  vector<int> temp;
+  sort(arr.begin(), arr.end());
+  sl.uniqSubsets(0, arr, temp, ans);
   for(auto it: ans) {
     cout<<"[";
     for(auto e: it) {

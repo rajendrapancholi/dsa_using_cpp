@@ -32,6 +32,7 @@ private:
     }
     for(int i = start; i < nums.size(); i++){
       if(i > start && nums[i] == nums[i-1]) continue;
+      if (nums[i] > target) break;
       temp.push_back(nums[i]);
       helper(i + 1, target - nums[i], temp, nums, ans);
       temp.pop_back();
