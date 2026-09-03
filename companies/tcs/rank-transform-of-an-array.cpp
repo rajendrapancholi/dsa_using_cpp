@@ -11,7 +11,7 @@ public:
     sort(sortedArr.begin(), sortedArr.end()); // Sort
     int rank = 1;
     for (int num : sortedArr) {
-      if (map.find(num) == map.end()) {
+      if (map.find(num) == map.end()) { // is present
         map[num] = rank;
         rank++;
       }
