@@ -7,44 +7,15 @@ class Solution {
 public:
   vector<int> sortedArr(vector<int> &arr1, vector<int> &arr2) {
     int n = arr1.size(), m = arr2.size(), i = 0, j = 0;
-    vector<int> sortedA;
-
-    while (i < n && j < m) {
-      if (arr1[i] < arr2[j]) {
-        sortedA.push_back(arr1[i++]);
-        while (i < n && arr1[i - 1] == arr1[i]) {
-          i++;
-        }
-      } else if (arr1[i] > arr2[j]) {
-        sortedA.push_back(arr2[j++]);
-        while (j < m && arr2[j - 1] == arr2[j]) {
-          j++;
-        }
-      } else {
-        sortedA.push_back(arr1[i]);
-        int val = arr1[i];
-
-        while (i < n && arr1[i] == val)
-          i++;
-        while (j < m && arr2[j] == val)
-          j++;
-      }
+    set<int> st;
+    for(int e: arr1){
+      st.insert(e);
     }
-
-    while (i < n) {
-      if (sortedA.empty() || sortedA.back() != arr1[i]) {
-        sortedA.push_back(arr1[i]);
-      }
-      i++;
+    for(int e: arr2){
+      st.insert(e);
     }
-
-    while (j < m) {
-      if (sortedA.empty() || sortedA.back() != arr2[j]) {
-        sortedA.push_back(arr2[j]);
-      }
-      j++;
-    }
-
+    vector<int> sortedA(st.begin(), st.end());
+    
     return sortedA;
   }
 };
