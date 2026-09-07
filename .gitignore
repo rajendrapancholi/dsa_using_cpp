@@ -6,3 +6,5 @@
 learn
 !*.cpp
 !*.c
+temp.cpp
+*test.*
