@@ -1,0 +1,2416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DSA Pattern Recognition &mdash; Cheat-Sheet</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231E1E2E'/%3E%3Cpath d='M8 12 L16 8 L24 12 L24 20 L16 24 L8 20 Z' fill='none' stroke='%2345475A' stroke-width='1' stroke-dasharray='2,2'/%3E%3Cline x1='16' y1='8' x2='16' y2='24' stroke='%2345475A' stroke-width='1' stroke-dasharray='2,2'/%3E%3Cline x1='8' y1='12' x2='24' y2='20' stroke='%2345475A' stroke-width='1' stroke-dasharray='2,2'/%3E%3Cline x1='8' y1='20' x2='24' y2='12' stroke='%2345475A' stroke-width='1' stroke-dasharray='2,2'/%3E%3Cpath d='M11 10 L6 16 L11 22' fill='none' stroke='%2389B4FA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M21 10 L26 16 L21 22' fill='none' stroke='%2389B4FA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23F38BA8'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%231E1E2E'/%3E%3Ccircle cx='6' cy='16' r='2' fill='%23A6E3A1'/%3E%3Ccircle cx='26' cy='16' r='2' fill='%23A6E3A1'/%3E%3Ccircle cx='16' cy='8' r='1.5' fill='%23FAB387'/%3E%3Ccircle cx='16' cy='24' r='1.5' fill='%23FAB387'/%3E%3C/svg%3E">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/cpp.min.js"></script>
+<style>
+:root{
+  --bg:#030303;
+  --bg-panel:#2b2b2b;
+  --bg-alt:#1f1e1a;
+  --bg-hover:#35352d;
+  --ink:#EDEAE0;
+  --ink-muted:#A3A69B;
+  --pine:#4FA88C;
+  --pine-dim:#3d8069;
+  --rust:#DD8A52;
+  --code-bg:#1B2420;
+  --code-text:#E7E4D8;
+  --border:#3D3D36;
+  --sidebar-w:280px;
+}
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Newsreader', Georgia, serif;
+  font-size:17px;
+  line-height:1.55;
+}
+@supports (-moz-appearance: none) {
+    * {
+        scrollbar-width: thin;
+        scrollbar-color: var(--border) #080b0e;
+    }
+    html:hover,
+    .modal:hover,
+    .notes-preview-body:hover,
+    .detail-body:hover,
+    .mpd-menu:hover {
+        scrollbar-color: var(--pine-dim) #080b0e;
+    }
+}
+
+*.scrollbar-active {
+scrollbar-color: var(--pine-dim) #080b0e;
+}
+::-webkit-scrollbar {
+width: 2px;
+}
+::-webkit-scrollbar-track {
+background: #080b0e;
+}
+::-webkit-scrollbar-thumb {
+background: var(--border);
+border-radius: 1px;
+}
+::-webkit-scrollbar-thumb:hover {
+background: var(--pine-dim);
+}
+::selection {
+background:var(--pine);color:#fff;;
+}
+
+/* ---------- layout ---------- */
+.wrap{display:flex; min-height:100vh;}
+.sidebar{
+  width:var(--sidebar-w);
+  flex-shrink:0;
+  border-right:1px solid var(--border);
+  padding:28px 22px;
+  position:sticky;
+  top:0;
+  height:100vh;
+  overflow-y:auto;
+}
+.brand{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:13px;
+  letter-spacing:.02em;
+  color:var(--ink-muted);
+  margin-bottom:4px;
+}
+.brand-title{
+  font-family:'Newsreader', serif;
+  font-weight:600;
+  font-size:22px;
+  line-height:1.25;
+  margin:0 0 18px 0;
+  color:var(--ink);
+}
+.search-box{
+  width:100%;
+  padding:9px 12px;
+  border:1px solid var(--border);
+  background:var(--bg-panel);
+  border-radius:3px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:13px;
+  color:var(--ink);
+  margin-bottom:20px;
+}
+.search-box:focus{outline:none; border-color:var(--pine);}
+.search-box::placeholder{color:#8A8D7F;}
+
+nav{display:flex; flex-direction:column; gap:1px;}
+.nav-link{
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  padding:7px 8px;
+  border-radius:3px;
+  text-decoration:none;
+  color:var(--ink);
+  font-family:'IBM Plex Mono', monospace;
+  font-size:13px;
+  transition:background .12s ease, color .12s ease;
+}
+.nav-num{
+  color:var(--ink-muted);
+  font-size:11px;
+  width:18px;
+  flex-shrink:0;
+}
+.nav-link:hover{background:var(--bg-panel);}
+.nav-link.active{background:var(--pine); color:#fff;}
+.nav-link.active .nav-num{color:#cfe3dd;}
+
+main{
+  max-width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+}
+.hero{margin-bottom:56px;}
+.hero h1{
+  font-family:'Newsreader', serif;
+  font-weight:600;
+  font-size:44px;
+  line-height:1.12;
+  margin:0 0 14px 0;
+  max-width:15ch;
+}
+.hero p{
+  color:var(--ink-muted);
+  font-size:18px;
+  max-width:60ch;
+  margin:0 0 22px 0;
+}
+.hero .meta{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12.5px;
+  color:var(--rust);
+  border-top:1px solid var(--border);
+  padding-top:14px;
+  max-width:60ch;
+}
+
+/* ---------- topic sections ---------- */
+.topic{
+  padding-top:36px;
+  margin-top:36px;
+  border-top:1px solid var(--border);
+  scroll-margin-top:24px;
+}
+.topic:first-of-type{border-top:none;}
+.topic-head{
+  display:flex;
+  align-items:baseline;
+  gap:16px;
+  margin-bottom:6px;
+}
+.topic-num{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:15px;
+  color:var(--rust);
+}
+.topic h2{
+  font-family:'Newsreader', serif;
+  font-weight:600;
+  font-size:28px;
+  margin:0;
+}
+.topic-intro{
+  color:var(--ink-muted);
+  font-size:16px;
+  max-width:66ch;
+  margin:6px 0 22px 0;
+}
+.block-label{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:12.5px;
+  font-weight:500;
+  color:var(--pine);
+  margin:26px 0 10px 0;
+  letter-spacing:.01em;
+}
+.topic > .block-label:first-of-type{margin-top:20px;}
+
+/* ---------- tables ---------- */
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:15px;
+  margin-bottom:6px;
+  background:var(--bg-panel);
+  border:1px solid var(--border);
+  border-radius:4px;
+  overflow:hidden;
+}
+th{
+  text-align:left;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11.5px;
+  font-weight:500;
+  color:var(--ink-muted);
+  padding:10px 14px;
+  border-bottom:1px solid var(--border);
+  background:var(--bg-alt);
+}
+td{
+  padding:11px 14px;
+  border-bottom:1px solid var(--border);
+  vertical-align:top;
+}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:var(--bg-hover);}
+.sig-table td.sig{color:var(--ink); width:fit-content;}
+.pat-tag{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:13px;
+  color:var(--pine);
+  font-weight:500;
+}
+.complexity-table td:first-child{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--rust);}
+
+/* ---------- code ---------- */
+.examples-grid{display:flex; flex-direction:column; gap:22px;}
+.example h4{
+  font-family:'Newsreader', serif;
+  font-weight:600;
+  font-size:18px;
+  margin:0 0 4px 0;
+}
+.ex-note{color:var(--ink-muted); font-size:14.5px; margin:0 0 10px 0;}
+.code-wrap{position:relative; margin-top:8px;}
+.code-label{
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px;
+  color:#8f9686;
+  margin-bottom:4px;
+}
+pre{
+  margin:0;
+  background:var(--code-bg);
+  color:var(--code-text);
+  padding:18px 20px;
+  border-radius:6px;
+  border:1px solid var(--border);
+  overflow-x:auto;
+  font-size:13.5px;
+  line-height:1.6;
+}
+code{
+  font-family:'IBM Plex Mono', monospace;
+}
+.copy-btn{
+  position:absolute;
+  top:10px;
+  right:10px;
+  font-family:'IBM Plex Mono', monospace;
+  font-size:11px;
+  color:#cfd3c5;
+  background:rgba(255,255,255,.06);
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:3px;
+  padding:4px 9px;
+  cursor:pointer;
+  transition:background .12s ease;
+}
+.copy-btn:hover{background:rgba(255,255,255,.14);}
+.copy-btn.copied{color:#a9e0c8; border-color:#3f6f5f;}
+
+/* hljs token colors, tuned to palette */
+.hljs-keyword,.hljs-built_in{color:#e39a63;}
+.hljs-type{color:#8fbcbb;}
+.hljs-string{color:#b8cf8a;}
+.hljs-number{color:#d9a86c;}
+.hljs-comment{color:#7a8175; font-style:italic;}
+.hljs-title,.hljs-function_{color:#9fc3d6;}
+.hljs-literal{color:#d9a86c;}
+.hljs-params{color:var(--code-text);}
+.hljs-operator{color:#c9cdbd;}
+
+.closing-tip{
+  margin-top:22px;
+  padding:16px 20px;
+  background:var(--bg-panel);
+  border-left:3px solid var(--rust);
+  border-radius:0 4px 4px 0;
+  color:var(--ink-muted);
+  font-size:15.5px;
+}
+
+.hidden{display:none !important;}
+
+/* ---------- mobile ---------- */
+.menu-toggle{display:none;}
+@media (max-width: 880px){
+  .wrap{flex-direction:column;}
+  .sidebar{
+    width:100%;
+    height:auto;
+    position:sticky;
+    top:0;
+    max-height:60px;
+    overflow:hidden;
+    padding:14px 18px;
+    z-index:10;
+    background:var(--bg);
+    transition:max-height .2s ease;
+  }
+  .sidebar.open{max-height:80vh; overflow-y:auto;}
+  .brand-title{display:inline;}
+  .sidebar-top{display:flex; align-items:center; justify-content:space-between;}
+  .menu-toggle{
+    display:block;
+    font-family:'IBM Plex Mono', monospace;
+    font-size:12px;
+    background:var(--bg-panel);
+    border:1px solid var(--border);
+    border-radius:3px;
+    padding:6px 10px;
+    cursor:pointer;
+  }
+  .search-box, nav{margin-top:16px;}
+  main{padding:36px 22px 100px;}
+  .hero h1{font-size:32px;}
+}</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-top">
+      <div>
+        <div class="brand">Field Manual</div>
+        <h1 class="brand-title">DSA Pattern Index</h1>
+      </div>
+      <button class="menu-toggle" id="menuToggle">menu</button>
+    </div>
+    <input type="text" class="search-box" id="searchBox" placeholder="Filter patterns&hellip;">
+    <nav>
+      <a href="#sorting" class="nav-link" data-id="sorting"><span class="nav-num">01</span>Sorting Techniques</a>
+      <a href="#arrays" class="nav-link" data-id="arrays"><span class="nav-num">02</span>Arrays</a>
+      <a href="#strings" class="nav-link" data-id="strings"><span class="nav-num">03</span>Strings</a>
+      <a href="#binary-search" class="nav-link" data-id="binary-search"><span class="nav-num">04</span>Binary Search</a>
+      <a href="#bit-manipulation" class="nav-link" data-id="bit-manipulation"><span class="nav-num">05</span>Bit Manipulation</a>
+      <a href="#linked-list" class="nav-link" data-id="linked-list"><span class="nav-num">06</span>Linked List</a>
+      <a href="#sliding-window" class="nav-link" data-id="sliding-window"><span class="nav-num">07</span>Sliding Window &amp; Two Pointer</a>
+      <a href="#recursion" class="nav-link" data-id="recursion"><span class="nav-num">08</span>Recursion &mdash; Pattern-wise</a>
+      <a href="#stacks-queues" class="nav-link" data-id="stacks-queues"><span class="nav-num">09</span>Stack and Queues</a>
+      <a href="#greedy" class="nav-link" data-id="greedy"><span class="nav-num">10</span>Greedy Algorithms</a>
+      <a href="#dp" class="nav-link" data-id="dp"><span class="nav-num">11</span>Dynamic Programming</a>
+      <a href="#heaps" class="nav-link" data-id="heaps"><span class="nav-num">12</span>Heaps</a>
+      <a href="#binary-trees" class="nav-link" data-id="binary-trees"><span class="nav-num">13</span>Binary Trees</a>
+      <a href="#bst" class="nav-link" data-id="bst"><span class="nav-num">14</span>Binary Search Trees</a>
+      <a href="#graphs" class="nav-link" data-id="graphs"><span class="nav-num">15</span>Graphs</a>
+      <a href="#tries" class="nav-link" data-id="tries"><span class="nav-num">16</span>Tries</a>
+      <!-- ADVANCED SECTIONS (17-22) -->
+      <a href="#segment-trees" class="nav-link" data-id="segment-trees"><span class="nav-num">17</span>Segment Trees &amp; Fenwick</a>
+      <a href="#string-algorithms" class="nav-link" data-id="string-algorithms"><span class="nav-num">18</span>String Algorithms</a>
+      <a href="#math-theory" class="nav-link" data-id="math-theory"><span class="nav-num">19</span>Math &amp; Number Theory</a>
+      <a href="#advanced-dp" class="nav-link" data-id="advanced-dp"><span class="nav-num">20</span>Advanced DP</a>
+      <a href="#advanced-union-find" class="nav-link" data-id="advanced-union-find"><span class="nav-num">21</span>Advanced Union-Find</a>
+      <a href="#tree-patterns" class="nav-link" data-id="tree-patterns"><span class="nav-num">22</span>Advanced Tree Patterns</a>
+      <a href="#master-index" class="nav-link" data-id="master-index"><span class="nav-num">&#8734;</span>Master Index</a>
+    </nav>
+  </aside>
+
+  <main>
+    <div class="hero">
+      <h1>Twenty-two advanced patterns, one unified filing system for recognizing any problem.</h1>
+      <p>Every table follows the same rule: read the left column as the clue in the problem statement, the right column as the technique it's pointing to. Worked C++ examples follow the classic patterns in each section.</p>
+      <p class="meta">Assume <code>#include &lt;bits/stdc++.h&gt;</code> and <code>using namespace std;</code> ahead of every snippet below.</p>
+    </div>
+
+    
+<section class="topic" id="sorting">
+  <div class="topic-head">
+    <span class="topic-num">01</span>
+    <h2>Sorting Techniques</h2>
+  </div>
+  <p class="topic-intro">Recognizing which sort a problem is secretly asking for &mdash; often the whole solution once you see it.</p>
+  <h3 class="block-label">Recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Sort in-place, values already in range 1..n or 0..n-1</td><td class="pat"><span class="pat-tag">Cyclic Sort</span></td></tr><tr><td class="sig">Count inversions / merge two sorted halves</td><td class="pat"><span class="pat-tag">Merge Sort (merge step)</span></td></tr><tr><td class="sig">Kth smallest / largest without a full sort</td><td class="pat"><span class="pat-tag">Quickselect (partition-based)</span></td></tr><tr><td class="sig">Array of only 0s, 1s, 2s (3 distinct values)</td><td class="pat"><span class="pat-tag">Dutch National Flag (3-way partition)</span></td></tr><tr><td class="sig">Sort by frequency, small integer range</td><td class="pat"><span class="pat-tag">Counting Sort / Bucket Sort</span></td></tr><tr><td class="sig">Need guaranteed O(n log n), in-place, stability not required</td><td class="pat"><span class="pat-tag">Heap Sort</span></td></tr><tr><td class="sig">Need a stable sort and can afford O(n) extra space</td><td class="pat"><span class="pat-tag">Merge Sort</span></td></tr><tr><td class="sig">General-purpose, fastest average case, in-place</td><td class="pat"><span class="pat-tag">Quick Sort</span></td></tr><tr><td class="sig">Fixed-width integers or strings, digit by digit</td><td class="pat"><span class="pat-tag">Radix Sort</span></td></tr></tbody></table>
+<h3 class="block-label">Complexity at a glance</h3>
+<table class="complexity-table"><thead><tr><th>Algorithm</th><th>Time</th><th>Space</th><th>Stable</th></tr></thead><tbody><tr><td>Bubble</td><td>O(n&sup2;)</td><td>O(1)</td><td>Yes</td></tr><tr><td>Selection</td><td>O(n&sup2;)</td><td>O(1)</td><td>No</td></tr><tr><td>Insertion</td><td>O(n&sup2;), O(n) best</td><td>O(1)</td><td>Yes</td></tr><tr><td>Merge</td><td>O(n log n)</td><td>O(n)</td><td>Yes</td></tr><tr><td>Quick</td><td>O(n log n) avg, O(n&sup2;) worst</td><td>O(log n)</td><td>No</td></tr><tr><td>Heap</td><td>O(n log n)</td><td>O(1)</td><td>No</td></tr><tr><td>Counting</td><td>O(n+k)</td><td>O(k)</td><td>Yes</td></tr><tr><td>Radix</td><td>O(d(n+k))</td><td>O(n+k)</td><td>Yes</td></tr><tr><td>Cyclic</td><td>O(n)</td><td>O(1)</td><td>&mdash;</td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Quick Sort (Lomuto partition)</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int partition(vector&lt;int&gt;&amp; a, int lo, int hi) {
+    int pivot = a[hi], i = lo - 1;
+    for (int j = lo; j &lt; hi; j++) {
+        if (a[j] &lt; pivot) swap(a[++i], a[j]);
+    }
+    swap(a[i + 1], a[hi]);
+    return i + 1;
+}
+
+void quickSort(vector&lt;int&gt;&amp; a, int lo, int hi) {
+    if (lo &gt;= hi) return;
+    int p = partition(a, lo, hi);
+    quickSort(a, lo, p - 1);
+    quickSort(a, p + 1, hi);
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Merge Sort</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">void merge(vector&lt;int&gt;&amp; a, int lo, int mid, int hi) {
+    vector&lt;int&gt; tmp;
+    int i = lo, j = mid + 1;
+    while (i &lt;= mid &amp;&amp; j &lt;= hi)
+        tmp.push_back(a[i] &lt;= a[j] ? a[i++] : a[j++]);
+    while (i &lt;= mid) tmp.push_back(a[i++]);
+    while (j &lt;= hi)  tmp.push_back(a[j++]);
+    for (int k = lo; k &lt;= hi; k++) a[k] = tmp[k - lo];
+}
+
+void mergeSort(vector&lt;int&gt;&amp; a, int lo, int hi) {
+    if (lo &gt;= hi) return;
+    int mid = lo + (hi - lo) / 2;
+    mergeSort(a, lo, mid);
+    mergeSort(a, mid + 1, hi);
+    merge(a, lo, mid, hi);
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Cyclic Sort &amp;mdash; find the missing number in [0, n]</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int missingNumber(vector&lt;int&gt;&amp; a) {
+    int n = a.size(), i = 0;
+    while (i &lt; n) {
+        int correct = a[i];
+        if (correct &lt; n &amp;&amp; a[correct] != a[i]) swap(a[i], a[correct]);
+        else i++;
+    }
+    for (i = 0; i &lt; n; i++)
+        if (a[i] != i) return i;
+    return n;
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="arrays">
+  <div class="topic-head">
+    <span class="topic-num">02</span>
+    <h2>Arrays</h2>
+  </div>
+  <p class="topic-intro">Ordered easy &rarr; medium &rarr; hard, since later patterns often build on earlier ones.</p>
+  <h3 class="block-label">Easy</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Find the max/min sum contiguous subarray</td><td class="pat"><span class="pat-tag">Kadane's Algorithm</span></td></tr><tr><td class="sig">Move zeros / remove duplicates in-place</td><td class="pat"><span class="pat-tag">Two-pointer (read/write pointer)</span></td></tr><tr><td class="sig">Rotate array by k positions</td><td class="pat"><span class="pat-tag">Reversal trick (reverse whole, then parts)</span></td></tr><tr><td class="sig">Union / intersection of two sorted arrays</td><td class="pat"><span class="pat-tag">Two-pointer merge</span></td></tr><tr><td class="sig">Leaders in array / next greater on the right</td><td class="pat"><span class="pat-tag">Right-to-left scan, track running max</span></td></tr></tbody></table>
+<h3 class="block-label">Medium</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Rearrange positives and negatives alternately</td><td class="pat"><span class="pat-tag">Two-pointer with placeholder swap</span></td></tr><tr><td class="sig">Next permutation</td><td class="pat"><span class="pat-tag">Find pivot from right, swap, reverse suffix</span></td></tr><tr><td class="sig">Subarray sum equals K</td><td class="pat"><span class="pat-tag">Prefix sum + HashMap</span></td></tr><tr><td class="sig">Majority element (appears &amp;gt; n/2 times)</td><td class="pat"><span class="pat-tag">Boyer&amp;ndash;Moore Voting</span></td></tr><tr><td class="sig">Majority element (appears &amp;gt; n/3 times)</td><td class="pat"><span class="pat-tag">Extended Boyer&amp;ndash;Moore (2 candidates)</span></td></tr><tr><td class="sig">3Sum / 4Sum</td><td class="pat"><span class="pat-tag">Sort + two-pointer, fix k&amp;minus;2 elements</span></td></tr><tr><td class="sig">Merge overlapping intervals</td><td class="pat"><span class="pat-tag">Sort by start, sweep &amp;amp; merge</span></td></tr><tr><td class="sig">Merge two sorted arrays in-place</td><td class="pat"><span class="pat-tag">Gap method, or two-pointer from the back</span></td></tr><tr><td class="sig">Count inversions</td><td class="pat"><span class="pat-tag">Merge sort modification</span></td></tr><tr><td class="sig">Max product subarray</td><td class="pat"><span class="pat-tag">Track running max &lt;em&gt;and&lt;/em&gt; min (negatives flip)</span></td></tr></tbody></table>
+<h3 class="block-label">Hard</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Median of two sorted arrays</td><td class="pat"><span class="pat-tag">Binary search on the smaller array's partition</span></td></tr><tr><td class="sig">Trapping rain water</td><td class="pat"><span class="pat-tag">Two-pointer with leftMax/rightMax</span></td></tr><tr><td class="sig">Largest rectangle in histogram / binary matrix</td><td class="pat"><span class="pat-tag">Monotonic stack</span></td></tr><tr><td class="sig">Count subarrays with XOR = K</td><td class="pat"><span class="pat-tag">Prefix XOR + HashMap</span></td></tr><tr><td class="sig">Smallest window containing all elements</td><td class="pat"><span class="pat-tag">Sliding window + HashMap</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Kadane's Algorithm &amp;mdash; max subarray sum</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int maxSubArray(vector&lt;int&gt;&amp; a) {
+    int best = a[0], cur = a[0];
+    for (int i = 1; i &lt; (int)a.size(); i++) {
+        cur = max(a[i], cur + a[i]);
+        best = max(best, cur);
+    }
+    return best;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Next Permutation</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">void nextPermutation(vector&lt;int&gt;&amp; a) {
+    int n = a.size(), i = n - 2;
+    while (i &gt;= 0 &amp;&amp; a[i] &gt;= a[i + 1]) i--;
+    if (i &gt;= 0) {
+        int j = n - 1;
+        while (a[j] &lt;= a[i]) j--;
+        swap(a[i], a[j]);
+    }
+    reverse(a.begin() + i + 1, a.end());
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>3Sum &amp;mdash; all unique triplets summing to 0</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">vector&lt;vector&lt;int&gt;&gt; threeSum(vector&lt;int&gt; a) {
+    sort(a.begin(), a.end());
+    vector&lt;vector&lt;int&gt;&gt; res;
+    int n = a.size();
+    for (int i = 0; i &lt; n - 2; i++) {
+        if (i &gt; 0 &amp;&amp; a[i] == a[i - 1]) continue;
+        int lo = i + 1, hi = n - 1;
+        while (lo &lt; hi) {
+            int sum = a[i] + a[lo] + a[hi];
+            if (sum &lt; 0) lo++;
+            else if (sum &gt; 0) hi--;
+            else {
+                res.push_back({a[i], a[lo], a[hi]});
+                lo++; hi--;
+                while (lo &lt; hi &amp;&amp; a[lo] == a[lo - 1]) lo++;
+                while (lo &lt; hi &amp;&amp; a[hi] == a[hi + 1]) hi--;
+            }
+        }
+    }
+    return res;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Trapping Rain Water &amp;mdash; two pointer</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int trap(vector&lt;int&gt;&amp; h) {
+    int lo = 0, hi = h.size() - 1;
+    int leftMax = 0, rightMax = 0, water = 0;
+    while (lo &lt; hi) {
+        if (h[lo] &lt;= h[hi]) {
+            leftMax = max(leftMax, h[lo]);
+            water += leftMax - h[lo];
+            lo++;
+        } else {
+            rightMax = max(rightMax, h[hi]);
+            water += rightMax - h[hi];
+            hi--;
+        }
+    }
+    return water;
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="strings">
+  <div class="topic-head">
+    <span class="topic-num">03</span>
+    <h2>Strings</h2>
+  </div>
+  
+  <h3 class="block-label">Recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Check anagram</td><td class="pat"><span class="pat-tag">Frequency array / HashMap comparison</span></td></tr><tr><td class="sig">Longest palindromic substring</td><td class="pat"><span class="pat-tag">Expand around center, DP, or Manacher's (optimal)</span></td></tr><tr><td class="sig">Check palindrome ignoring case / punctuation</td><td class="pat"><span class="pat-tag">Two-pointer from both ends</span></td></tr><tr><td class="sig">Longest common prefix</td><td class="pat"><span class="pat-tag">Vertical scanning, or sort &amp;amp; compare first/last</span></td></tr><tr><td class="sig">Pattern matching (substring search)</td><td class="pat"><span class="pat-tag">KMP (LPS array), Z-function, or Rabin&amp;ndash;Karp</span></td></tr><tr><td class="sig">Minimum insertions/deletions to make palindrome</td><td class="pat"><span class="pat-tag">LCS with reversed string (DP)</span></td></tr><tr><td class="sig">Group anagrams</td><td class="pat"><span class="pat-tag">HashMap keyed by sorted string or char-count signature</span></td></tr><tr><td class="sig">Roman &amp;harr; integer</td><td class="pat"><span class="pat-tag">Greedy symbol mapping</span></td></tr><tr><td class="sig">Word break</td><td class="pat"><span class="pat-tag">DP + HashSet dictionary lookup</span></td></tr><tr><td class="sig">Longest repeating substring / distinct substrings</td><td class="pat"><span class="pat-tag">Suffix Array or Trie</span></td></tr><tr><td class="sig">String compression / run-length encoding</td><td class="pat"><span class="pat-tag">Two-pointer, count consecutive chars</span></td></tr><tr><td class="sig">Valid parentheses / balanced brackets</td><td class="pat"><span class="pat-tag">Stack</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>KMP &amp;mdash; substring search in O(n+m)</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">vector&lt;int&gt; buildLPS(const string&amp; p) {
+    int m = p.size();
+    vector&lt;int&gt; lps(m, 0);
+    int len = 0, i = 1;
+    while (i &lt; m) {
+        if (p[i] == p[len]) lps[i++] = ++len;
+        else if (len) len = lps[len - 1];
+        else lps[i++] = 0;
+    }
+    return lps;
+}
+
+vector&lt;int&gt; kmpSearch(const string&amp; text, const string&amp; pat) {
+    vector&lt;int&gt; lps = buildLPS(pat), matches;
+    int i = 0, j = 0;
+    while (i &lt; (int)text.size()) {
+        if (text[i] == pat[j]) { i++; j++; }
+        if (j == (int)pat.size()) {
+            matches.push_back(i - j);
+            j = lps[j - 1];
+        } else if (i &lt; (int)text.size() &amp;&amp; text[i] != pat[j]) {
+            j ? j = lps[j - 1] : i++;
+        }
+    }
+    return matches;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Longest Palindromic Substring &amp;mdash; expand around center</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">string longestPalindrome(string s) {
+    int start = 0, best = 0;
+    auto expand = [&amp;](int l, int r) {
+        while (l &gt;= 0 &amp;&amp; r &lt; (int)s.size() &amp;&amp; s[l] == s[r]) { l--; r++; }
+        if (r - l - 1 &gt; best) { best = r - l - 1; start = l + 1; }
+    };
+    for (int i = 0; i &lt; (int)s.size(); i++) {
+        expand(i, i);       // odd length
+        expand(i, i + 1);   // even length
+    }
+    return s.substr(start, best);
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="binary-search">
+  <div class="topic-head">
+    <span class="topic-num">04</span>
+    <h2>Binary Search</h2>
+  </div>
+  <p class="topic-intro">Core signal: the search space is sorted <em>or</em> monotonic &mdash; even a yes/no feasibility check that flips once as a value increases counts.</p>
+  <h3 class="block-label">1D array</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Find an element in a sorted array</td><td class="pat"><span class="pat-tag">Standard binary search</span></td></tr><tr><td class="sig">Find first / last occurrence</td><td class="pat"><span class="pat-tag">Lower-bound / upper-bound variants</span></td></tr><tr><td class="sig">Search in a rotated sorted array</td><td class="pat"><span class="pat-tag">Identify which half is sorted each step</span></td></tr><tr><td class="sig">Find a peak element</td><td class="pat"><span class="pat-tag">Compare mid with mid+1, move toward the larger side</span></td></tr><tr><td class="sig">Find the minimum in a rotated sorted array</td><td class="pat"><span class="pat-tag">Compare mid with hi</span></td></tr><tr><td class="sig">Single element in a sorted array (others appear twice)</td><td class="pat"><span class="pat-tag">Binary search on index parity</span></td></tr><tr><td class="sig">Sqrt(x), Nth root</td><td class="pat"><span class="pat-tag">Binary search on the answer value</span></td></tr></tbody></table>
+<h3 class="block-label">2D array</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Row-wise and column-wise sorted matrix</td><td class="pat"><span class="pat-tag">Start top-right / bottom-left corner, eliminate a row or column</span></td></tr><tr><td class="sig">Matrix sorted like a flattened 1D array</td><td class="pat"><span class="pat-tag">Treat as 1D: mid &amp;rarr; (mid / cols, mid % cols)</span></td></tr><tr><td class="sig">Kth smallest in a sorted matrix</td><td class="pat"><span class="pat-tag">Binary search on the value range + count &amp;le; mid</span></td></tr></tbody></table>
+<h3 class="block-label">Search space / binary search on the answer</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Minimize the maximum, or maximize the minimum</td><td class="pat"><span class="pat-tag">Binary search on the answer + a feasibility check</span></td></tr><tr><td class="sig">Allocate books / painters / ship packages within D days</td><td class="pat"><span class="pat-tag">Binary search on max load, verify with greedy simulation</span></td></tr><tr><td class="sig">Aggressive cows &amp;mdash; maximize the minimum distance</td><td class="pat"><span class="pat-tag">Binary search on distance, greedy placement check</span></td></tr><tr><td class="sig">Koko eating bananas &amp;mdash; minimize the eating speed</td><td class="pat"><span class="pat-tag">Binary search on speed, check total hours</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Binary Search &amp;mdash; the template everything else builds on</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int binarySearch(vector&lt;int&gt;&amp; a, int target) {
+    int lo = 0, hi = a.size() - 1;
+    while (lo &lt;= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (a[mid] == target) return mid;
+        else if (a[mid] &lt; target) lo = mid + 1;
+        else hi = mid - 1;
+    }
+    return -1;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Search in Rotated Sorted Array</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int search(vector&lt;int&gt;&amp; a, int target) {
+    int lo = 0, hi = a.size() - 1;
+    while (lo &lt;= hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (a[mid] == target) return mid;
+        if (a[lo] &lt;= a[mid]) {                 // left half sorted
+            if (a[lo] &lt;= target &amp;&amp; target &lt; a[mid]) hi = mid - 1;
+            else lo = mid + 1;
+        } else {                               // right half sorted
+            if (a[mid] &lt; target &amp;&amp; target &lt;= a[hi]) lo = mid + 1;
+            else hi = mid - 1;
+        }
+    }
+    return -1;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Binary Search on the Answer &amp;mdash; Koko Eating Bananas</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">long long hoursNeeded(vector&lt;int&gt;&amp; piles, int speed) {
+    long long hours = 0;
+    for (int p : piles) hours += (p + speed - 1) / speed;
+    return hours;
+}
+
+int minEatingSpeed(vector&lt;int&gt;&amp; piles, int h) {
+    int lo = 1, hi = *max_element(piles.begin(), piles.end());
+    while (lo &lt; hi) {
+        int mid = lo + (hi - lo) / 2;
+        if (hoursNeeded(piles, mid) &lt;= h) hi = mid;   // feasible, try slower
+        else lo = mid + 1;                             // too slow, speed up
+    }
+    return lo;
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="bit-manipulation">
+  <div class="topic-head">
+    <span class="topic-num">05</span>
+    <h2>Bit Manipulation</h2>
+  </div>
+  
+  <h3 class="block-label">Recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Single number, all others appear twice</td><td class="pat"><span class="pat-tag">XOR every element (a ^ a = 0)</span></td></tr><tr><td class="sig">Two numbers appear once, rest appear twice</td><td class="pat"><span class="pat-tag">XOR all &amp;rarr; find a differing bit &amp;rarr; split into two groups</span></td></tr><tr><td class="sig">One number appears three times, rest twice</td><td class="pat"><span class="pat-tag">Bit counting mod 3</span></td></tr><tr><td class="sig">Count set bits from 0 to n</td><td class="pat"><span class="pat-tag">DP: bits[i] = bits[i&amp;gt;&amp;gt;1] + (i &amp;amp; 1)</span></td></tr><tr><td class="sig">Generate all subsets / power set</td><td class="pat"><span class="pat-tag">Bitmask, iterate 0 to 2&amp;#8319; &amp;minus; 1</span></td></tr><tr><td class="sig">Minimum bit flips to convert A to B</td><td class="pat"><span class="pat-tag">Count set bits in A ^ B</span></td></tr><tr><td class="sig">Maximum XOR of two numbers in an array</td><td class="pat"><span class="pat-tag">Binary Trie over bits</span></td></tr><tr><td class="sig">Divide two integers without * or /</td><td class="pat"><span class="pat-tag">Subtract powers of two via bit shifting</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Bit tricks cheat sheet</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">bool getBit(int n, int i)   { return (n &gt;&gt; i) &amp; 1; }
+int  setBit(int n, int i)   { return n | (1 &lt;&lt; i); }
+int  clearBit(int n, int i) { return n &amp; ~(1 &lt;&lt; i); }
+int  toggleBit(int n, int i){ return n ^ (1 &lt;&lt; i); }
+int  removeLastSetBit(int n){ return n &amp; (n - 1); }
+int  isolateLastSetBit(int n){ return n &amp; (-n); }
+bool isPowerOfTwo(int n)    { return n &gt; 0 &amp;&amp; (n &amp; (n - 1)) == 0; }</code></pre>
+</div>
+</div><div class="example">
+<h4>Single Number &amp;mdash; XOR trick</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int singleNumber(vector&lt;int&gt;&amp; a) {
+    int result = 0;
+    for (int x : a) result ^= x;
+    return result;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Count Set Bits &amp;mdash; Brian Kernighan's algorithm</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int countSetBits(int n) {
+    int count = 0;
+    while (n) {
+        n &amp;= (n - 1);   // drops the lowest set bit each time
+        count++;
+    }
+    return count;
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="linked-list">
+  <div class="topic-head">
+    <span class="topic-num">06</span>
+    <h2>Linked List</h2>
+  </div>
+  
+  <h3 class="block-label">Single linked list</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Detect a cycle</td><td class="pat"><span class="pat-tag">Floyd's slow/fast pointer</span></td></tr><tr><td class="sig">Find the start of the cycle</td><td class="pat"><span class="pat-tag">After meeting, reset one pointer to head, move both by 1</span></td></tr><tr><td class="sig">Find the middle of the list</td><td class="pat"><span class="pat-tag">Slow/fast pointer (fast moves 2x)</span></td></tr><tr><td class="sig">Reverse a linked list</td><td class="pat"><span class="pat-tag">Iterative 3-pointer (prev/curr/next), or recursive</span></td></tr><tr><td class="sig">Reverse in groups of K</td><td class="pat"><span class="pat-tag">Recursive or iterative with a group-boundary check</span></td></tr><tr><td class="sig">Remove the Nth node from the end</td><td class="pat"><span class="pat-tag">Two-pointer with an N-node gap</span></td></tr><tr><td class="sig">Check palindrome list</td><td class="pat"><span class="pat-tag">Find middle &amp;rarr; reverse second half &amp;rarr; compare</span></td></tr><tr><td class="sig">Merge two sorted lists</td><td class="pat"><span class="pat-tag">Dummy node + two-pointer merge</span></td></tr><tr><td class="sig">Add two numbers as linked lists</td><td class="pat"><span class="pat-tag">Simulate addition with carry, dummy node</span></td></tr><tr><td class="sig">Intersection point of two lists</td><td class="pat"><span class="pat-tag">Two-pointer, switch heads to equalize path length</span></td></tr><tr><td class="sig">Sort a linked list</td><td class="pat"><span class="pat-tag">Merge sort (slow/fast pointer to split)</span></td></tr></tbody></table>
+<h3 class="block-label">Doubly linked list</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">LRU Cache</td><td class="pat"><span class="pat-tag">DLL + HashMap &amp;mdash; O(1) get/put, move node to front</span></td></tr><tr><td class="sig">Flatten a multilevel / child-pointer list</td><td class="pat"><span class="pat-tag">Recursive merge, similar to merge-sort's merge step</span></td></tr></tbody></table>
+<h3 class="block-label">Medium / Hard</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Clone a list with a random pointer</td><td class="pat"><span class="pat-tag">HashMap old&amp;rarr;new, or interweaving trick</span></td></tr><tr><td class="sig">Rotate list by K places</td><td class="pat"><span class="pat-tag">Make it circular, break at the right point</span></td></tr><tr><td class="sig">Reorder list: L0 &amp;rarr; Ln &amp;rarr; L1 &amp;rarr; Ln&amp;minus;1 &amp;hellip;</td><td class="pat"><span class="pat-tag">Find middle, reverse second half, merge alternately</span></td></tr><tr><td class="sig">Merge K sorted lists</td><td class="pat"><span class="pat-tag">Min-heap of size K, or divide &amp;amp; conquer merge</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Reverse a Linked List</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">struct ListNode { int val; ListNode* next; };
+
+ListNode* reverseList(ListNode* head) {
+    ListNode *prev = nullptr, *curr = head;
+    while (curr) {
+        ListNode* nxt = curr-&gt;next;
+        curr-&gt;next = prev;
+        prev = curr;
+        curr = nxt;
+    }
+    return prev;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Detect Cycle &amp;amp; Find Its Start &amp;mdash; Floyd's algorithm</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">ListNode* detectCycleStart(ListNode* head) {
+    ListNode *slow = head, *fast = head;
+    while (fast &amp;&amp; fast-&gt;next) {
+        slow = slow-&gt;next;
+        fast = fast-&gt;next-&gt;next;
+        if (slow == fast) {
+            slow = head;
+            while (slow != fast) { slow = slow-&gt;next; fast = fast-&gt;next; }
+            return slow;   // start of the cycle
+        }
+    }
+    return nullptr;        // no cycle
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Merge Two Sorted Lists</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+    ListNode dummy(0);
+    ListNode* tail = &amp;dummy;
+    while (l1 &amp;&amp; l2) {
+        if (l1-&gt;val &lt;= l2-&gt;val) { tail-&gt;next = l1; l1 = l1-&gt;next; }
+        else                    { tail-&gt;next = l2; l2 = l2-&gt;next; }
+        tail = tail-&gt;next;
+    }
+    tail-&gt;next = l1 ? l1 : l2;
+    return dummy.next;
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="sliding-window">
+  <div class="topic-head">
+    <span class="topic-num">07</span>
+    <h2>Sliding Window &amp; Two Pointer</h2>
+  </div>
+  <p class="topic-intro">Core signal: a contiguous subarray/substring with a condition on sum, count, or distinct elements &mdash; or two sorted sequences being compared from both ends.</p>
+  <h3 class="block-label">Recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Fixed-size K subarray, max/min sum</td><td class="pat"><span class="pat-tag">Fixed window: add the new element, remove the old one</span></td></tr><tr><td class="sig">Longest substring without repeating characters</td><td class="pat"><span class="pat-tag">Variable window + HashSet/HashMap, shrink on violation</span></td></tr><tr><td class="sig">Longest substring with at most K distinct characters</td><td class="pat"><span class="pat-tag">Variable window + frequency map</span></td></tr><tr><td class="sig">Minimum window substring containing all of T</td><td class="pat"><span class="pat-tag">Expand until valid, then contract while still valid</span></td></tr><tr><td class="sig">Max consecutive ones with at most K flips</td><td class="pat"><span class="pat-tag">Variable window tracking the zero count</span></td></tr><tr><td class="sig">Subarray with sum exactly K (all positive)</td><td class="pat"><span class="pat-tag">Variable window, shrink when sum &amp;gt; K</span></td></tr><tr><td class="sig">Subarray with sum exactly K (has negatives)</td><td class="pat"><span class="pat-tag">Prefix sum + HashMap &amp;mdash; &lt;em&gt;not&lt;/em&gt; sliding window</span></td></tr><tr><td class="sig">Longest repeating character replacement</td><td class="pat"><span class="pat-tag">Window + track the max-frequency char</span></td></tr><tr><td class="sig">Fruits into baskets / at most 2 distinct types</td><td class="pat"><span class="pat-tag">Variable window, frequency-map size &amp;le; 2</span></td></tr><tr><td class="sig">Two Sum in a sorted array</td><td class="pat"><span class="pat-tag">Two-pointer from both ends</span></td></tr><tr><td class="sig">Container with most water</td><td class="pat"><span class="pat-tag">Two-pointer, move the pointer with the smaller height</span></td></tr><tr><td class="sig">Sliding window maximum</td><td class="pat"><span class="pat-tag">Monotonic deque (decreasing)</span></td></tr><tr><td class="sig">Count subarrays with exactly K distinct elements</td><td class="pat"><span class="pat-tag">atMost(K) &amp;minus; atMost(K&amp;minus;1) trick</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Variable window &amp;mdash; the template</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int slidingWindowTemplate(vector&lt;int&gt;&amp; a) {
+    int left = 0, best = 0;
+    // running state, e.g. a frequency map, a sum, a counter...
+    for (int right = 0; right &lt; (int)a.size(); right++) {
+        // add(a[right]) into the window state
+
+        while (/* window is invalid */ false) {
+            // remove(a[left]) from the window state
+            left++;
+        }
+        best = max(best, right - left + 1);
+    }
+    return best;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Longest Substring Without Repeating Characters</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int lengthOfLongestSubstring(string s) {
+    unordered_map&lt;char, int&gt; last;
+    int left = 0, best = 0;
+    for (int right = 0; right &lt; (int)s.size(); right++) {
+        if (last.count(s[right]) &amp;&amp; last[s[right]] &gt;= left)
+            left = last[s[right]] + 1;
+        last[s[right]] = right;
+        best = max(best, right - left + 1);
+    }
+    return best;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Minimum Window Substring</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">string minWindow(string s, string t) {
+    unordered_map&lt;char, int&gt; need;
+    for (char c : t) need[c]++;
+    int required = need.size(), formed = 0;
+    unordered_map&lt;char, int&gt; window;
+    int left = 0, bestLen = INT_MAX, bestStart = 0;
+
+    for (int right = 0; right &lt; (int)s.size(); right++) {
+        char c = s[right];
+        window[c]++;
+        if (need.count(c) &amp;&amp; window[c] == need[c]) formed++;
+
+        while (formed == required) {
+            if (right - left + 1 &lt; bestLen) {
+                bestLen = right - left + 1;
+                bestStart = left;
+            }
+            char lc = s[left];
+            window[lc]--;
+            if (need.count(lc) &amp;&amp; window[lc] &lt; need[lc]) formed--;
+            left++;
+        }
+    }
+    return bestLen == INT_MAX ? "" : s.substr(bestStart, bestLen);
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="recursion">
+  <div class="topic-head">
+    <span class="topic-num">08</span>
+    <h2>Recursion &mdash; Pattern-wise</h2>
+  </div>
+  
+  <h3 class="block-label">Recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Generate all subsets / subsequences</td><td class="pat"><span class="pat-tag">Include/exclude recursion (pick / not-pick)</span></td></tr><tr><td class="sig">Subsets with duplicates, unique only</td><td class="pat"><span class="pat-tag">Sort first, skip adjacent duplicates at the same recursion level</span></td></tr><tr><td class="sig">Combination Sum (reuse allowed)</td><td class="pat"><span class="pat-tag">Pick/not-pick, stay at the same index when picking</span></td></tr><tr><td class="sig">Combination Sum II (no reuse, has duplicates)</td><td class="pat"><span class="pat-tag">Sort, skip &lt;code&gt;i &amp;gt; start &amp;amp;&amp;amp; a[i]==a[i-1]&lt;/code&gt;</span></td></tr><tr><td class="sig">Permutations</td><td class="pat"><span class="pat-tag">Swap-based recursion, or a visited[] array with backtracking</span></td></tr><tr><td class="sig">Permutations with duplicates</td><td class="pat"><span class="pat-tag">Sort + visited[] + skip same-adjacent unless the previous was used</span></td></tr><tr><td class="sig">Palindrome partitioning</td><td class="pat"><span class="pat-tag">Backtrack: try every prefix, recurse on the rest if it's a palindrome</span></td></tr><tr><td class="sig">N-Queens / Sudoku solver</td><td class="pat"><span class="pat-tag">Backtracking with a placement-validity check</span></td></tr><tr><td class="sig">Word search in a grid</td><td class="pat"><span class="pat-tag">DFS backtracking with visited marking/unmarking</span></td></tr><tr><td class="sig">Kth permutation sequence</td><td class="pat"><span class="pat-tag">Factorial number system &amp;mdash; no need to generate all</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Subsets &amp;mdash; pick / not-pick</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">void solve(vector&lt;int&gt;&amp; nums, int i, vector&lt;int&gt;&amp; cur, vector&lt;vector&lt;int&gt;&gt;&amp; res) {
+    if (i == (int)nums.size()) { res.push_back(cur); return; }
+    // exclude nums[i]
+    solve(nums, i + 1, cur, res);
+    // include nums[i]
+    cur.push_back(nums[i]);
+    solve(nums, i + 1, cur, res);
+    cur.pop_back();
+}
+
+vector&lt;vector&lt;int&gt;&gt; subsets(vector&lt;int&gt;&amp; nums) {
+    vector&lt;vector&lt;int&gt;&gt; res;
+    vector&lt;int&gt; cur;
+    solve(nums, 0, cur, res);
+    return res;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>N-Queens &amp;mdash; backtracking</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">bool isSafe(vector&lt;string&gt;&amp; board, int row, int col, int n) {
+    for (int i = 0; i &lt; row; i++)
+        if (board[i][col] == 'Q') return false;
+    for (int i = row, j = col; i &gt;= 0 &amp;&amp; j &gt;= 0; i--, j--)
+        if (board[i][j] == 'Q') return false;
+    for (int i = row, j = col; i &gt;= 0 &amp;&amp; j &lt; n; i--, j++)
+        if (board[i][j] == 'Q') return false;
+    return true;
+}
+
+void solve(int row, int n, vector&lt;string&gt;&amp; board, vector&lt;vector&lt;string&gt;&gt;&amp; res) {
+    if (row == n) { res.push_back(board); return; }
+    for (int col = 0; col &lt; n; col++) {
+        if (isSafe(board, row, col, n)) {
+            board[row][col] = 'Q';
+            solve(row + 1, n, board, res);
+            board[row][col] = '.';
+        }
+    }
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="stacks-queues">
+  <div class="topic-head">
+    <span class="topic-num">09</span>
+    <h2>Stack and Queues</h2>
+  </div>
+  
+  <h3 class="block-label">Prefix / Infix / Postfix</h3>
+<table class="complexity-table"><thead><tr><th>Task</th><th>Approach</th></tr></thead><tbody><tr><td>Infix &rarr; Postfix</td><td>Operator stack, precedence + associativity check</td></tr><tr><td>Infix &rarr; Prefix</td><td>Reverse infix, swap ( &harr; ), convert to postfix, reverse result</td></tr><tr><td>Postfix evaluation</td><td>Push operands; on an operator, pop 2 and apply</td></tr><tr><td>Prefix evaluation</td><td>Scan right&rarr;left with the same stack logic</td></tr></tbody></table>
+<h3 class="block-label">Monotonic stack</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Next Greater Element</td><td class="pat"><span class="pat-tag">Monotonic decreasing stack, traverse right&amp;rarr;left</span></td></tr><tr><td class="sig">Next Smaller Element</td><td class="pat"><span class="pat-tag">Monotonic increasing stack</span></td></tr><tr><td class="sig">Previous Greater / Smaller Element</td><td class="pat"><span class="pat-tag">Same idea, traverse left&amp;rarr;right</span></td></tr><tr><td class="sig">Largest rectangle in histogram</td><td class="pat"><span class="pat-tag">Monotonic stack of indices, nearest smaller left/right</span></td></tr><tr><td class="sig">Maximal rectangle in a binary matrix</td><td class="pat"><span class="pat-tag">Per-row histogram trick + largest-rectangle-in-histogram</span></td></tr><tr><td class="sig">Stock span problem</td><td class="pat"><span class="pat-tag">Monotonic decreasing stack of (price, span)</span></td></tr><tr><td class="sig">Remove K digits to form the smallest number</td><td class="pat"><span class="pat-tag">Monotonic increasing stack, pop larger digits</span></td></tr><tr><td class="sig">Sum of subarray minimums / maximums</td><td class="pat"><span class="pat-tag">Monotonic stack, contribution via nearest smaller/greater bound</span></td></tr></tbody></table>
+<h3 class="block-label">Implementation</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Implement a stack using queues, or vice versa</td><td class="pat"><span class="pat-tag">Two-container simulation</span></td></tr><tr><td class="sig">Min Stack (O(1) getMin)</td><td class="pat"><span class="pat-tag">Auxiliary stack, or store (val, currentMin) pairs</span></td></tr><tr><td class="sig">Circular queue / deque</td><td class="pat"><span class="pat-tag">Array with front/rear modulo indexing</span></td></tr><tr><td class="sig">Valid parentheses</td><td class="pat"><span class="pat-tag">Stack: push opens, pop &amp;amp; match on close</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Infix to Postfix conversion</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int precedence(char op) {
+    if (op == '+' || op == '-') return 1;
+    if (op == '*' || op == '/') return 2;
+    return 0;
+}
+
+string infixToPostfix(string s) {
+    stack&lt;char&gt; st;
+    string res;
+    for (char c : s) {
+        if (isalnum(c)) res += c;
+        else if (c == '(') st.push(c);
+        else if (c == ')') {
+            while (!st.empty() &amp;&amp; st.top() != '(') { res += st.top(); st.pop(); }
+            st.pop();
+        } else {
+            while (!st.empty() &amp;&amp; precedence(st.top()) &gt;= precedence(c)) {
+                res += st.top(); st.pop();
+            }
+            st.push(c);
+        }
+    }
+    while (!st.empty()) { res += st.top(); st.pop(); }
+    return res;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Next Greater Element &amp;mdash; monotonic stack</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">vector&lt;int&gt; nextGreaterElement(vector&lt;int&gt;&amp; a) {
+    int n = a.size();
+    vector&lt;int&gt; res(n, -1);
+    stack&lt;int&gt; st;   // stores indices, values decreasing bottom to top
+    for (int i = n - 1; i &gt;= 0; i--) {
+        while (!st.empty() &amp;&amp; a[st.top()] &lt;= a[i]) st.pop();
+        if (!st.empty()) res[i] = a[st.top()];
+        st.push(i);
+    }
+    return res;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Min Stack &amp;mdash; O(1) getMin</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">class MinStack {
+    stack&lt;pair&lt;int,int&gt;&gt; st;   // (value, minSoFar)
+public:
+    void push(int val) {
+        int mn = st.empty() ? val : min(val, st.top().second);
+        st.push({val, mn});
+    }
+    void pop() { st.pop(); }
+    int top() { return st.top().first; }
+    int getMin() { return st.top().second; }
+};</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="greedy">
+  <div class="topic-head">
+    <span class="topic-num">10</span>
+    <h2>Greedy Algorithms</h2>
+  </div>
+  <p class="topic-intro">Works when a locally optimal choice provably leads to a globally optimal one. If you can find a counterexample, it's probably DP instead.</p>
+  <h3 class="block-label">Easy</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Assign cookies / minimize resource matching</td><td class="pat"><span class="pat-tag">Sort both, greedy two-pointer</span></td></tr><tr><td class="sig">Lemonade change</td><td class="pat"><span class="pat-tag">Track denominations greedily</span></td></tr><tr><td class="sig">Minimum coins (canonical coin system)</td><td class="pat"><span class="pat-tag">Greedy from the largest denomination</span></td></tr><tr><td class="sig">Fractional knapsack</td><td class="pat"><span class="pat-tag">Sort by value/weight ratio, descending</span></td></tr></tbody></table>
+<h3 class="block-label">Medium / Hard</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Activity selection / max non-overlapping intervals</td><td class="pat"><span class="pat-tag">Sort by end time, greedily pick</span></td></tr><tr><td class="sig">Minimum meeting rooms / platforms</td><td class="pat"><span class="pat-tag">Sort starts &amp;amp; ends separately, sweep, or min-heap</span></td></tr><tr><td class="sig">Job sequencing with deadlines</td><td class="pat"><span class="pat-tag">Sort by profit desc, place in the latest free slot &amp;le; deadline</span></td></tr><tr><td class="sig">Minimum jumps to reach the end</td><td class="pat"><span class="pat-tag">Greedy range-extension (BFS-like)</span></td></tr><tr><td class="sig">Gas station (circuit tour)</td><td class="pat"><span class="pat-tag">If total gas &amp;ge; total cost, a single pass finds the start</span></td></tr><tr><td class="sig">Candy distribution</td><td class="pat"><span class="pat-tag">Two-pass greedy (left&amp;rarr;right, then right&amp;rarr;left)</span></td></tr><tr><td class="sig">Insert interval / merge intervals</td><td class="pat"><span class="pat-tag">Sort + sweep</span></td></tr><tr><td class="sig">Partition labels</td><td class="pat"><span class="pat-tag">Track last occurrence, greedily widen the window</span></td></tr><tr><td class="sig">Huffman encoding</td><td class="pat"><span class="pat-tag">Min-heap, always combine the two smallest</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Activity Selection / N Meetings in One Room</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int maxMeetings(vector&lt;int&gt;&amp; start, vector&lt;int&gt;&amp; end) {
+    int n = start.size();
+    vector&lt;int&gt; idx(n);
+    iota(idx.begin(), idx.end(), 0);
+    sort(idx.begin(), idx.end(), [&amp;](int i, int j) {
+        return end[i] &lt; end[j];
+    });
+
+    int count = 0, lastEnd = -1;
+    for (int i : idx) {
+        if (start[i] &gt; lastEnd) {
+            count++;
+            lastEnd = end[i];
+        }
+    }
+    return count;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Job Sequencing with Deadlines</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">struct Job { int id, deadline, profit; };
+
+int jobSequencing(vector&lt;Job&gt;&amp; jobs) {
+    sort(jobs.begin(), jobs.end(), [](Job&amp; a, Job&amp; b) {
+        return a.profit &gt; b.profit;
+    });
+    int maxDeadline = 0;
+    for (auto&amp; j : jobs) maxDeadline = max(maxDeadline, j.deadline);
+
+    vector&lt;bool&gt; slot(maxDeadline + 1, false);
+    int totalProfit = 0;
+    for (auto&amp; j : jobs) {
+        for (int d = j.deadline; d &gt; 0; d--) {
+            if (!slot[d]) { slot[d] = true; totalProfit += j.profit; break; }
+        }
+    }
+    return totalProfit;
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="dp">
+  <div class="topic-head">
+    <span class="topic-num">11</span>
+    <h2>Dynamic Programming</h2>
+  </div>
+  <p class="topic-intro">Overlapping subproblems + optimal substructure. Ask &ldquo;what changes as I move forward?&rdquo; &mdash; that becomes your state.</p>
+  <h3 class="block-label">Pattern recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Ways to reach step N &amp;mdash; depends linearly on i&amp;minus;1, i&amp;minus;2</td><td class="pat"><span class="pat-tag">1D DP (climbing stairs, house robber)</span></td></tr><tr><td class="sig">Paths in a grid, min/max path sum</td><td class="pat"><span class="pat-tag">2D grid DP</span></td></tr><tr><td class="sig">Include or exclude an item, weight limit</td><td class="pat"><span class="pat-tag">0/1 Knapsack (subset sum, equal partition)</span></td></tr><tr><td class="sig">Unlimited use of items</td><td class="pat"><span class="pat-tag">Unbounded Knapsack (coin change, rod cutting)</span></td></tr><tr><td class="sig">Two strings, common subsequence/substring</td><td class="pat"><span class="pat-tag">LCS family (LCS, LPS, edit distance)</span></td></tr><tr><td class="sig">Longest increasing subsequence</td><td class="pat"><span class="pat-tag">LIS &amp;mdash; O(n&amp;sup2;) or O(n log n) with binary search</span></td></tr><tr><td class="sig">Count/find a subsequence satisfying a condition</td><td class="pat"><span class="pat-tag">DP on subsequences (distinct subsequences)</span></td></tr><tr><td class="sig">Partition or count palindromic substrings</td><td class="pat"><span class="pat-tag">DP on strings / palindromes</span></td></tr><tr><td class="sig">Optimal way to split or parenthesize a range</td><td class="pat"><span class="pat-tag">Interval DP (matrix chain multiplication, burst balloons)</span></td></tr><tr><td class="sig">Max path sum or diameter in a tree</td><td class="pat"><span class="pat-tag">DP on trees</span></td></tr><tr><td class="sig">Assign N items to N slots optimally, small N (&amp;le;20)</td><td class="pat"><span class="pat-tag">Bitmask DP (TSP, assignment problem)</span></td></tr><tr><td class="sig">Count numbers in a range with a digit property</td><td class="pat"><span class="pat-tag">Digit DP</span></td></tr><tr><td class="sig">Buy/sell stock with cooldown, fee, or K transactions</td><td class="pat"><span class="pat-tag">State machine DP</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>0/1 Knapsack</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int knapsack(vector&lt;int&gt;&amp; wt, vector&lt;int&gt;&amp; val, int W) {
+    int n = wt.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(W + 1, 0));
+    for (int i = 1; i &lt;= n; i++) {
+        for (int w = 0; w &lt;= W; w++) {
+            dp[i][w] = dp[i - 1][w];
+            if (wt[i - 1] &lt;= w)
+                dp[i][w] = max(dp[i][w], val[i - 1] + dp[i - 1][w - wt[i - 1]]);
+        }
+    }
+    return dp[n][W];
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Longest Common Subsequence</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int longestCommonSubsequence(string a, string b) {
+    int n = a.size(), m = b.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(m + 1, 0));
+    for (int i = 1; i &lt;= n; i++)
+        for (int j = 1; j &lt;= m; j++)
+            dp[i][j] = (a[i - 1] == b[j - 1])
+                ? 1 + dp[i - 1][j - 1]
+                : max(dp[i - 1][j], dp[i][j - 1]);
+    return dp[n][m];
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Longest Increasing Subsequence &amp;mdash; O(n log n)</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int lengthOfLIS(vector&lt;int&gt;&amp; a) {
+    vector&lt;int&gt; tails;   // tails[i] = smallest tail of an LIS of length i+1
+    for (int x : a) {
+        auto it = lower_bound(tails.begin(), tails.end(), x);
+        if (it == tails.end()) tails.push_back(x);
+        else *it = x;
+    }
+    return tails.size();
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Coin Change &amp;mdash; unbounded knapsack, min coins</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int coinChange(vector&lt;int&gt;&amp; coins, int amount) {
+    vector&lt;int&gt; dp(amount + 1, INT_MAX - 1);
+    dp[0] = 0;
+    for (int a = 1; a &lt;= amount; a++)
+        for (int c : coins)
+            if (c &lt;= a) dp[a] = min(dp[a], 1 + dp[a - c]);
+    return dp[amount] &gt;= INT_MAX - 1 ? -1 : dp[amount];
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="heaps">
+  <div class="topic-head">
+    <span class="topic-num">12</span>
+    <h2>Heaps</h2>
+  </div>
+  
+  <h3 class="block-label">Recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Kth largest / smallest element</td><td class="pat"><span class="pat-tag">Min-heap of size K (largest) / Max-heap of size K (smallest)</span></td></tr><tr><td class="sig">K closest points to the origin</td><td class="pat"><span class="pat-tag">Max-heap of size K by distance</span></td></tr><tr><td class="sig">Top K frequent elements</td><td class="pat"><span class="pat-tag">Min-heap of size K by frequency, or bucket sort</span></td></tr><tr><td class="sig">Merge K sorted lists / arrays</td><td class="pat"><span class="pat-tag">Min-heap of size K, one element per list</span></td></tr><tr><td class="sig">Median from a data stream</td><td class="pat"><span class="pat-tag">Two heaps: max-heap (lower half) + min-heap (upper half)</span></td></tr><tr><td class="sig">Task scheduler / rearrange with a cooldown</td><td class="pat"><span class="pat-tag">Max-heap by frequency + a cooldown queue</span></td></tr><tr><td class="sig">Connect ropes with minimum cost</td><td class="pat"><span class="pat-tag">Min-heap, always combine the two smallest</span></td></tr><tr><td class="sig">Dijkstra's / Prim's shortest path</td><td class="pat"><span class="pat-tag">Min-heap (priority queue) for greedy edge selection</span></td></tr><tr><td class="sig">Reorganize string (no adjacent same characters)</td><td class="pat"><span class="pat-tag">Max-heap by frequency</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Kth Largest Element in an Array</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int findKthLargest(vector&lt;int&gt;&amp; nums, int k) {
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; minHeap;
+    for (int x : nums) {
+        minHeap.push(x);
+        if ((int)minHeap.size() &gt; k) minHeap.pop();
+    }
+    return minHeap.top();
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Merge K Sorted Lists</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">struct ListNode { int val; ListNode* next; };
+
+ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) {
+    auto cmp = [](ListNode* a, ListNode* b) { return a-&gt;val &gt; b-&gt;val; };
+    priority_queue&lt;ListNode*, vector&lt;ListNode*&gt;, decltype(cmp)&gt; pq(cmp);
+    for (auto l : lists) if (l) pq.push(l);
+
+    ListNode dummy(0);
+    ListNode* tail = &amp;dummy;
+    while (!pq.empty()) {
+        ListNode* node = pq.top(); pq.pop();
+        tail-&gt;next = node;
+        tail = tail-&gt;next;
+        if (node-&gt;next) pq.push(node-&gt;next);
+    }
+    return dummy.next;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Median from a Data Stream &amp;mdash; two heaps</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">class MedianFinder {
+    priority_queue&lt;int&gt; lower;                         // max-heap
+    priority_queue&lt;int, vector&lt;int&gt;, greater&lt;int&gt;&gt; upper; // min-heap
+public:
+    void addNum(int num) {
+        lower.push(num);
+        upper.push(lower.top()); lower.pop();
+        if (upper.size() &gt; lower.size()) {
+            lower.push(upper.top()); upper.pop();
+        }
+    }
+    double findMedian() {
+        if (lower.size() &gt; upper.size()) return lower.top();
+        return (lower.top() + upper.top()) / 2.0;
+    }
+};</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="binary-trees">
+  <div class="topic-head">
+    <span class="topic-num">13</span>
+    <h2>Binary Trees</h2>
+  </div>
+  
+  <h3 class="block-label">Traversals</h3>
+<table class="complexity-table"><thead><tr><th>Type</th><th>Method</th></tr></thead><tbody><tr><td>Preorder (Root&ndash;L&ndash;R)</td><td>Recursive, or a stack (push right then left)</td></tr><tr><td>Inorder (L&ndash;Root&ndash;R)</td><td>Recursive, or a stack, unwinding via <code>cur = cur-&gt;left</code></td></tr><tr><td>Postorder (L&ndash;R&ndash;Root)</td><td>Recursive, or two stacks / one stack + reversed preorder</td></tr><tr><td>Level order (BFS)</td><td>Queue, snapshot the level size for level-wise grouping</td></tr><tr><td>Morris Traversal</td><td>O(1) space, threaded tree via predecessor links</td></tr></tbody></table>
+<h3 class="block-label">Medium / Hard</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Height / diameter of the tree</td><td class="pat"><span class="pat-tag">DFS returning height, update a global max at each node</span></td></tr><tr><td class="sig">Balanced binary tree check</td><td class="pat"><span class="pat-tag">DFS returning height, &amp;minus;1 sentinel signals imbalance</span></td></tr><tr><td class="sig">Lowest common ancestor</td><td class="pat"><span class="pat-tag">Recursive &amp;mdash; return the node if found in both subtrees</span></td></tr><tr><td class="sig">Max path sum (any node to any node)</td><td class="pat"><span class="pat-tag">DFS returning the max single-path gain, track a global max</span></td></tr><tr><td class="sig">Zigzag / spiral level order</td><td class="pat"><span class="pat-tag">BFS + an alternating direction flag</span></td></tr><tr><td class="sig">Construct tree from inorder + preorder/postorder</td><td class="pat"><span class="pat-tag">Recursive split using an index map for inorder</span></td></tr><tr><td class="sig">Symmetric / mirror tree check</td><td class="pat"><span class="pat-tag">Recursive compare of left.left vs right.right, left.right vs right.left</span></td></tr><tr><td class="sig">Serialize / deserialize a tree</td><td class="pat"><span class="pat-tag">Preorder with null markers, or level order with a queue</span></td></tr><tr><td class="sig">Right / left view of the tree</td><td class="pat"><span class="pat-tag">BFS take last/first per level, or DFS with depth tracking</span></td></tr><tr><td class="sig">Flatten tree to a linked list</td><td class="pat"><span class="pat-tag">Reverse postorder (right, left, root) with a prev pointer</span></td></tr><tr><td class="sig">Vertical order traversal</td><td class="pat"><span class="pat-tag">BFS/DFS + HashMap&amp;lt;column, list&amp;gt;</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Traversals &amp;mdash; recursive + level order</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">struct TreeNode { int val; TreeNode *left, *right; };
+
+void inorder(TreeNode* root, vector&lt;int&gt;&amp; out) {
+    if (!root) return;
+    inorder(root-&gt;left, out);
+    out.push_back(root-&gt;val);
+    inorder(root-&gt;right, out);
+}
+
+vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* root) {
+    vector&lt;vector&lt;int&gt;&gt; res;
+    if (!root) return res;
+    queue&lt;TreeNode*&gt; q;
+    q.push(root);
+    while (!q.empty()) {
+        int sz = q.size();
+        vector&lt;int&gt; level;
+        for (int i = 0; i &lt; sz; i++) {
+            TreeNode* node = q.front(); q.pop();
+            level.push_back(node-&gt;val);
+            if (node-&gt;left)  q.push(node-&gt;left);
+            if (node-&gt;right) q.push(node-&gt;right);
+        }
+        res.push_back(level);
+    }
+    return res;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Diameter of a Binary Tree</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int diameter = 0;
+
+int height(TreeNode* node) {
+    if (!node) return 0;
+    int lh = height(node-&gt;left);
+    int rh = height(node-&gt;right);
+    diameter = max(diameter, lh + rh);
+    return 1 + max(lh, rh);
+}
+
+int diameterOfBinaryTree(TreeNode* root) {
+    diameter = 0;
+    height(root);
+    return diameter;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Lowest Common Ancestor</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+    if (!root || root == p || root == q) return root;
+    TreeNode* left  = lowestCommonAncestor(root-&gt;left, p, q);
+    TreeNode* right = lowestCommonAncestor(root-&gt;right, p, q);
+    if (left &amp;&amp; right) return root;   // p and q found in different subtrees
+    return left ? left : right;
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="bst">
+  <div class="topic-head">
+    <span class="topic-num">14</span>
+    <h2>Binary Search Trees</h2>
+  </div>
+  
+  <h3 class="block-label">Recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Search / insert / delete in a BST</td><td class="pat"><span class="pat-tag">Use the BST property to go left/right &amp;mdash; O(h)</span></td></tr><tr><td class="sig">Validate a BST</td><td class="pat"><span class="pat-tag">Inorder must be strictly increasing, or a min/max bound recursion</span></td></tr><tr><td class="sig">Kth smallest / largest in a BST</td><td class="pat"><span class="pat-tag">Inorder traversal (Morris for O(1) space)</span></td></tr><tr><td class="sig">LCA in a BST</td><td class="pat"><span class="pat-tag">Compare values with root &amp;mdash; go left/right/stop based on range</span></td></tr><tr><td class="sig">Convert a sorted array to a balanced BST</td><td class="pat"><span class="pat-tag">Recursive: pick the middle element as root</span></td></tr><tr><td class="sig">BST iterator with O(1) amortized next()</td><td class="pat"><span class="pat-tag">Controlled inorder traversal with an explicit stack</span></td></tr><tr><td class="sig">Two Sum in a BST</td><td class="pat"><span class="pat-tag">Inorder &amp;rarr; two-pointer, or a forward + backward BST iterator</span></td></tr><tr><td class="sig">Recover a BST (two nodes swapped)</td><td class="pat"><span class="pat-tag">Inorder traversal, track the two violating nodes</span></td></tr><tr><td class="sig">Floor / ceiling in a BST</td><td class="pat"><span class="pat-tag">O(h) traversal tracking the closest &amp;le; / &amp;ge;</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Validate a Binary Search Tree</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">bool valid(TreeNode* node, long low, long high) {
+    if (!node) return true;
+    if (node-&gt;val &lt;= low || node-&gt;val &gt;= high) return false;
+    return valid(node-&gt;left, low, node-&gt;val) &amp;&amp;
+           valid(node-&gt;right, node-&gt;val, high);
+}
+
+bool isValidBST(TreeNode* root) {
+    return valid(root, LONG_MIN, LONG_MAX);
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Insert into a BST</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">TreeNode* insertIntoBST(TreeNode* root, int val) {
+    if (!root) return new TreeNode{val, nullptr, nullptr};
+    if (val &lt; root-&gt;val) root-&gt;left  = insertIntoBST(root-&gt;left, val);
+    else                 root-&gt;right = insertIntoBST(root-&gt;right, val);
+    return root;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Kth Smallest Element in a BST</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">int kthSmallest(TreeNode* root, int k) {
+    stack&lt;TreeNode*&gt; st;
+    TreeNode* cur = root;
+    while (true) {
+        while (cur) { st.push(cur); cur = cur-&gt;left; }
+        cur = st.top(); st.pop();
+        if (--k == 0) return cur-&gt;val;
+        cur = cur-&gt;right;
+    }
+}</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="graphs">
+  <div class="topic-head">
+    <span class="topic-num">15</span>
+    <h2>Graphs</h2>
+  </div>
+  
+  <h3 class="block-label">Concepts</h3>
+<table class="complexity-table"><thead><tr><th>Concept</th><th>Notes</th></tr></thead><tbody><tr><td>Representation</td><td>Adjacency list (sparse) vs. matrix (dense)</td></tr><tr><td>BFS</td><td>Level-by-level; shortest path in an <em>unweighted</em> graph</td></tr><tr><td>DFS</td><td>Recursion/stack; connectivity, cycles, topological sort</td></tr><tr><td>Topological sort</td><td>DFS (finish-time stack) or Kahn's BFS (indegree) &mdash; DAG only</td></tr><tr><td>Union&ndash;Find (DSU)</td><td>Path compression + union by rank/size, near O(1) ops</td></tr><tr><td>MST</td><td>Prim's (heap-based, dense) or Kruskal's (DSU-based, sparse)</td></tr><tr><td>Shortest path, non-negative weights</td><td>Dijkstra's (min-heap)</td></tr><tr><td>Shortest path, negative weights</td><td>Bellman&ndash;Ford (also detects negative cycles)</td></tr><tr><td>All-pairs shortest path</td><td>Floyd&ndash;Warshall, O(V&sup3;)</td></tr></tbody></table>
+<h3 class="block-label">Problems</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Number of islands / connected components</td><td class="pat"><span class="pat-tag">DFS/BFS flood fill, or Union&amp;ndash;Find</span></td></tr><tr><td class="sig">Shortest path in an unweighted graph/grid</td><td class="pat"><span class="pat-tag">BFS</span></td></tr><tr><td class="sig">Shortest path with weights</td><td class="pat"><span class="pat-tag">Dijkstra's</span></td></tr><tr><td class="sig">Shortest path with negative weights</td><td class="pat"><span class="pat-tag">Bellman&amp;ndash;Ford</span></td></tr><tr><td class="sig">Cycle detection (undirected)</td><td class="pat"><span class="pat-tag">DFS with parent tracking, or Union&amp;ndash;Find</span></td></tr><tr><td class="sig">Cycle detection (directed)</td><td class="pat"><span class="pat-tag">DFS with a recursion-stack, or Kahn's (leftover nodes)</span></td></tr><tr><td class="sig">Course schedule / task ordering</td><td class="pat"><span class="pat-tag">Topological sort</span></td></tr><tr><td class="sig">Clone a graph</td><td class="pat"><span class="pat-tag">DFS/BFS + HashMap old&amp;rarr;new</span></td></tr><tr><td class="sig">Word ladder (min transformations)</td><td class="pat"><span class="pat-tag">BFS over a graph of word transformations</span></td></tr><tr><td class="sig">Rotten oranges / multi-source spread</td><td class="pat"><span class="pat-tag">Multi-source BFS</span></td></tr><tr><td class="sig">Bipartite graph check</td><td class="pat"><span class="pat-tag">BFS/DFS 2-coloring</span></td></tr><tr><td class="sig">Minimum spanning tree</td><td class="pat"><span class="pat-tag">Prim's or Kruskal's</span></td></tr><tr><td class="sig">Alien dictionary (letter order)</td><td class="pat"><span class="pat-tag">Build a graph from adjacent-word comparison + topological sort</span></td></tr><tr><td class="sig">Critical connections / bridges</td><td class="pat"><span class="pat-tag">Tarjan's bridge-finding</span></td></tr><tr><td class="sig">Cheapest flights within K stops</td><td class="pat"><span class="pat-tag">Bellman&amp;ndash;Ford limited to K iterations</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>BFS &amp;amp; DFS traversal</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">void bfs(int src, vector&lt;vector&lt;int&gt;&gt;&amp; adj, vector&lt;bool&gt;&amp; visited) {
+    queue&lt;int&gt; q;
+    q.push(src);
+    visited[src] = true;
+    while (!q.empty()) {
+        int node = q.front(); q.pop();
+        for (int next : adj[node]) {
+            if (!visited[next]) { visited[next] = true; q.push(next); }
+        }
+    }
+}
+
+void dfs(int node, vector&lt;vector&lt;int&gt;&gt;&amp; adj, vector&lt;bool&gt;&amp; visited) {
+    visited[node] = true;
+    for (int next : adj[node])
+        if (!visited[next]) dfs(next, adj, visited);
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Dijkstra's Algorithm</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">vector&lt;int&gt; dijkstra(int src, int n, vector&lt;vector&lt;pair&lt;int,int&gt;&gt;&gt;&amp; adj) {
+    vector&lt;int&gt; dist(n, INT_MAX);
+    priority_queue&lt;pair&lt;int,int&gt;, vector&lt;pair&lt;int,int&gt;&gt;, greater&lt;&gt;&gt; pq;
+    dist[src] = 0;
+    pq.push({0, src});
+    while (!pq.empty()) {
+        auto [d, u] = pq.top(); pq.pop();
+        if (d &gt; dist[u]) continue;
+        for (auto&amp; [v, w] : adj[u]) {
+            if (dist[u] + w &lt; dist[v]) {
+                dist[v] = dist[u] + w;
+                pq.push({dist[v], v});
+            }
+        }
+    }
+    return dist;
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Topological Sort &amp;mdash; Kahn's algorithm (BFS)</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">vector&lt;int&gt; topoSort(int n, vector&lt;vector&lt;int&gt;&gt;&amp; adj) {
+    vector&lt;int&gt; indegree(n, 0);
+    for (int u = 0; u &lt; n; u++)
+        for (int v : adj[u]) indegree[v]++;
+
+    queue&lt;int&gt; q;
+    for (int i = 0; i &lt; n; i++) if (indegree[i] == 0) q.push(i);
+
+    vector&lt;int&gt; order;
+    while (!q.empty()) {
+        int u = q.front(); q.pop();
+        order.push_back(u);
+        for (int v : adj[u])
+            if (--indegree[v] == 0) q.push(v);
+    }
+    return order;   // size &lt; n means a cycle exists
+}</code></pre>
+</div>
+</div><div class="example">
+<h4>Union&amp;ndash;Find (Disjoint Set) with path compression</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">struct DSU {
+    vector&lt;int&gt; parent, rank_;
+    DSU(int n) : parent(n), rank_(n, 0) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int find(int x) {
+        if (parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    void unite(int x, int y) {
+        int rx = find(x), ry = find(y);
+        if (rx == ry) return;
+        if (rank_[rx] &lt; rank_[ry]) swap(rx, ry);
+        parent[ry] = rx;
+        if (rank_[rx] == rank_[ry]) rank_[rx]++;
+    }
+};</code></pre>
+</div>
+</div></div>
+</section>
+
+<section class="topic" id="tries">
+  <div class="topic-head">
+    <span class="topic-num">16</span>
+    <h2>Tries</h2>
+  </div>
+  
+  <h3 class="block-label">Recognition</h3>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Implement a trie: insert / search / startsWith</td><td class="pat"><span class="pat-tag">Node with children[26] (or a map) + isEndOfWord flag</span></td></tr><tr><td class="sig">Longest word built entirely from other words in the dict</td><td class="pat"><span class="pat-tag">Trie + DFS, track valid words</span></td></tr><tr><td class="sig">Word search II &amp;mdash; multiple words in a grid</td><td class="pat"><span class="pat-tag">Build a trie of the words + DFS/backtracking on the grid</span></td></tr><tr><td class="sig">Maximum XOR of two numbers</td><td class="pat"><span class="pat-tag">Binary trie (32-bit), greedy bit by bit</span></td></tr><tr><td class="sig">Autocomplete / prefix matching</td><td class="pat"><span class="pat-tag">Trie + DFS collecting words under a node</span></td></tr><tr><td class="sig">Replace words with their shortest dictionary root</td><td class="pat"><span class="pat-tag">Insert dictionary into a trie, search each word for its shortest valid prefix</span></td></tr></tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+<div class="examples-grid"><div class="example">
+<h4>Trie &amp;mdash; insert, search, startsWith</h4>
+
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">struct TrieNode {
+    TrieNode* children[26] = {};
+    bool isEnd = false;
+};
+
+class Trie {
+    TrieNode* root = new TrieNode();
+public:
+    void insert(const string&amp; word) {
+        TrieNode* node = root;
+        for (char c : word) {
+            int i = c - 'a';
+            if (!node-&gt;children[i]) node-&gt;children[i] = new TrieNode();
+            node = node-&gt;children[i];
+        }
+        node-&gt;isEnd = true;
+    }
+
+    bool search(const string&amp; word) {
+        TrieNode* node = find(word);
+        return node &amp;&amp; node-&gt;isEnd;
+    }
+
+    bool startsWith(const string&amp; prefix) {
+        return find(prefix) != nullptr;
+    }
+
+private:
+    TrieNode* find(const string&amp; s) {
+        TrieNode* node = root;
+        for (char c : s) {
+            int i = c - 'a';
+            if (!node-&gt;children[i]) return nullptr;
+            node = node-&gt;children[i];
+        }
+        return node;
+    }
+};</code></pre>
+</div>
+</div></div>
+</section>
+</section>
+
+<section class="topic" id="segment-trees">
+  <div class="topic-head">
+    <span class="topic-num">17</span>
+    <h2>Segment Trees</h2>
+  </div>
+  <p class="topic-intro">Efficient range queries and updates in logarithmic time.</p>
+  
+  <h3 class="block-label">Recognition</h3>
+  <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody>
+    <tr><td class="sig">Range sum/min/max queries + point updates</td><td class="pat"><span class="pat-tag">Segment Tree or Fenwick Tree</span></td></tr>
+    <tr><td class="sig">Range update (lazy propagation needed)</td><td class="pat"><span class="pat-tag">Segment Tree with lazy propagation</span></td></tr>
+    <tr><td class="sig">Find kth smallest in range</td><td class="pat"><span class="pat-tag">Segment Tree + binary search</span></td></tr>
+    <tr><td class="sig">Range GCD / LCM queries</td><td class="pat"><span class="pat-tag">Segment Tree combining GCD</span></td></tr>
+    <tr><td class="sig">Count queries with updates</td><td class="pat"><span class="pat-tag">Segment Tree or Fenwick Tree</span></td></tr>
+  </tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+  <div class="examples-grid">
+    <div class="example">
+      <h4>Segment Tree &mdash; Range Sum Query</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">class SegmentTree {
+    vector&lt;int&gt; tree;
+    int n;
+    
+    void build(vector&lt;int&gt;&amp; arr, int node, int start, int end) {
+        if (start == end) tree[node] = arr[start];
+        else {
+            int mid = (start + end) / 2;
+            build(arr, 2*node, start, mid);
+            build(arr, 2*node+1, mid+1, end);
+            tree[node] = tree[2*node] + tree[2*node+1];
+        }
+    }
+    
+    void update(int node, int start, int end, int idx, int val) {
+        if (start == end) tree[node] = val;
+        else {
+            int mid = (start + end) / 2;
+            if (idx &lt;= mid) update(2*node, start, mid, idx, val);
+            else update(2*node+1, mid+1, end, idx, val);
+            tree[node] = tree[2*node] + tree[2*node+1];
+        }
+    }
+    
+    int query(int node, int start, int end, int l, int r) {
+        if (r &lt; start || end &lt; l) return 0;
+        if (l &lt;= start &amp;&amp; end &lt;= r) return tree[node];
+        int mid = (start + end) / 2;
+        return query(2*node, start, mid, l, r) + 
+               query(2*node+1, mid+1, end, l, r);
+    }
+    
+public:
+    SegmentTree(vector&lt;int&gt;&amp; arr) {
+        n = arr.size();
+        tree.resize(4 * n);
+        build(arr, 1, 0, n-1);
+    }
+    
+    void update(int idx, int val) { update(1, 0, n-1, idx, val); }
+    int query(int l, int r) { return query(1, 0, n-1, l, r); }
+};</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Fenwick Tree (Binary Indexed Tree)</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">class FenwickTree {
+    vector&lt;int&gt; tree;
+    int n;
+    
+public:
+    FenwickTree(int n) : n(n), tree(n+1, 0) {}
+    
+    void update(int i, int delta) {
+        i++; // 1-indexed
+        while (i &lt;= n) {
+            tree[i] += delta;
+            i += i &amp; (-i);
+        }
+    }
+    
+    int query(int i) { // prefix sum [0, i]
+        i++; // 1-indexed
+        int sum = 0;
+        while (i &gt; 0) {
+            sum += tree[i];
+            i -= i &amp; (-i);
+        }
+        return sum;
+    }
+    
+    int rangeQuery(int l, int r) {
+        if (l == 0) return query(r);
+        return query(r) - query(l - 1);
+    }
+};</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="topic" id="string-algorithms">
+  <div class="topic-head">
+    <span class="topic-num">18</span>
+    <h2>String Algorithms</h2>
+  </div>
+  <p class="topic-intro">Pattern matching, substring search, and string manipulation at scale.</p>
+  
+  <h3 class="block-label">Recognition</h3>
+  <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody>
+    <tr><td class="sig">Find pattern in text (multiple occurrences)</td><td class="pat"><span class="pat-tag">KMP or Z-algorithm</span></td></tr>
+    <tr><td class="sig">String rolling hash (avoid collision)</td><td class="pat"><span class="pat-tag">Rabin-Karp with double hashing</span></td></tr>
+    <tr><td class="sig">Longest common prefix / LCS</td><td class="pat"><span class="pat-tag">KMP failure function or Z-algorithm</span></td></tr>
+    <tr><td class="sig">Shortest palindrome / manacher</td><td class="pat"><span class="pat-tag">Manacher's algorithm (O(n))</span></td></tr>
+    <tr><td class="sig">All rotations of a string</td><td class="pat"><span class="pat-tag">KMP on s + s</span></td></tr>
+    <tr><td class="sig">Minimum window substring</td><td class="pat"><span class="pat-tag">Sliding window with hash/frequency map</span></td></tr>
+    <tr><td class="sig">Anagram detection</td><td class="pat"><span class="pat-tag">Frequency array or rolling hash</span></td></tr>
+  </tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+  <div class="examples-grid">
+    <div class="example">
+      <h4>KMP &mdash; Pattern Matching</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">vector&lt;int&gt; computeLPS(const string&amp; pattern) {
+    int n = pattern.size();
+    vector&lt;int&gt; lps(n, 0);
+    int len = 0, i = 1;
+    
+    while (i &lt; n) {
+        if (pattern[i] == pattern[len]) {
+            lps[i] = ++len;
+            i++;
+        } else if (len != 0) {
+            len = lps[len - 1];
+        } else {
+            i++;
+        }
+    }
+    return lps;
+}
+
+vector&lt;int&gt; findPattern(const string&amp; text, const string&amp; pattern) {
+    vector&lt;int&gt; result;
+    vector&lt;int&gt; lps = computeLPS(pattern);
+    int j = 0;
+    
+    for (int i = 0; i &lt; text.size(); i++) {
+        while (j &gt; 0 &amp;&amp; text[i] != pattern[j]) j = lps[j - 1];
+        if (text[i] == pattern[j]) j++;
+        if (j == pattern.size()) {
+            result.push_back(i - j + 1);
+            j = lps[j - 1];
+        }
+    }
+    return result;
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Z-Algorithm &mdash; Pattern Matching</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">vector&lt;int&gt; computeZ(const string&amp; s) {
+    int n = s.size();
+    vector&lt;int&gt; z(n, 0);
+    int l = 0, r = 0;
+    
+    for (int i = 1; i &lt; n; i++) {
+        if (i &lt;= r) z[i] = min(r - i + 1, z[i - l]);
+        while (i + z[i] &lt; n &amp;&amp; s[z[i]] == s[i + z[i]]) z[i]++;
+        if (i + z[i] - 1 &gt; r) {
+            l = i;
+            r = i + z[i] - 1;
+        }
+    }
+    return z;
+}
+
+vector&lt;int&gt; findPattern(const string&amp; text, const string&amp; pattern) {
+    string combined = pattern + &quot;#&quot; + text;
+    vector&lt;int&gt; z = computeZ(combined);
+    vector&lt;int&gt; result;
+    int patLen = pattern.size();
+    
+    for (int i = patLen + 1; i &lt; combined.size(); i++) {
+        if (z[i] == patLen) result.push_back(i - patLen - 1);
+    }
+    return result;
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Rabin-Karp &mdash; Rolling Hash</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">const long long MOD = 1e9 + 7, BASE = 31;
+
+vector&lt;int&gt; rabinKarp(const string&amp; text, const string&amp; pattern) {
+    int n = text.size(), m = pattern.size();
+    vector&lt;int&gt; result;
+    
+    long long patHash = 0, textHash = 0, pow_base = 1;
+    for (int i = 0; i &lt; m; i++) {
+        patHash = (patHash * BASE + pattern[i]) % MOD;
+        textHash = (textHash * BASE + text[i]) % MOD;
+        if (i &lt; m - 1) pow_base = (pow_base * BASE) % MOD;
+    }
+    
+    for (int i = 0; i &lt;= n - m; i++) {
+        if (patHash == textHash &amp;&amp; text.substr(i, m) == pattern) {
+            result.push_back(i);
+        }
+        if (i &lt; n - m) {
+            textHash = (textHash - (long long)text[i] * pow_base % MOD + MOD) % MOD;
+            textHash = (textHash * BASE + text[i + m]) % MOD;
+        }
+    }
+    return result;
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="topic" id="math-theory">
+  <div class="topic-head">
+    <span class="topic-num">19</span>
+    <h2>Math & Number Theory</h2>
+  </div>
+  <p class="topic-intro">Mathematical foundations for competitive programming: modular arithmetic, number theory, combinatorics.</p>
+  
+  <h3 class="block-label">Recognition</h3>
+  <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody>
+    <tr><td class="sig">GCD / LCM problems</td><td class="pat"><span class="pat-tag">Euclidean algorithm; LCM = (a*b)/GCD</span></td></tr>
+    <tr><td class="sig">Modular exponentiation</td><td class="pat"><span class="pat-tag">Fast exponentiation with % MOD</span></td></tr>
+    <tr><td class="sig">Modular inverse</td><td class="pat"><span class="pat-tag">Fermat's little theorem (if MOD is prime)</span></td></tr>
+    <tr><td class="sig">Prime checking</td><td class="pat"><span class="pat-tag">Sieve of Eratosthenes or Miller-Rabin</span></td></tr>
+    <tr><td class="sig">Factorization / divisors</td><td class="pat"><span class="pat-tag">Trial division up to sqrt(n)</span></td></tr>
+    <tr><td class="sig">Combinatorics (nCr, nPr)</td><td class="pat"><span class="pat-tag">Precompute factorials &amp; inverse factorials</span></td></tr>
+    <tr><td class="sig">Chinese Remainder Theorem</td><td class="pat"><span class="pat-tag">Solve x ≡ a₁ (mod m₁), x ≡ a₂ (mod m₂)</span></td></tr>
+    <tr><td class="sig">Extended GCD (linear Diophantine)</td><td class="pat"><span class="pat-tag">Find x, y such that ax + by = gcd(a, b)</span></td></tr>
+  </tbody></table>
+
+  <h3 class="block-label">Cheat Sheet</h3>
+  <table class="sig-table"><thead><tr><th>Function</th><th>Code</th></tr></thead><tbody>
+    <tr><td class="sig">GCD</td><td class="pat"><code>int gcd(int a, int b) { return b ? gcd(b, a % b) : a; }</code></td></tr>
+    <tr><td class="sig">Modular Exponentiation</td><td class="pat"><code>long long pow(long long a, long long b, long long m) { long long r=1; a%=m; while(b){if(b&1)r=r*a%m; a=a*a%m; b>>=1;} return r; }</code></td></tr>
+    <tr><td class="sig">Modular Inverse (prime MOD)</td><td class="pat"><code>long long inv(long long a, long long m) { return pow(a, m-2, m); }</code></td></tr>
+  </tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+  <div class="examples-grid">
+    <div class="example">
+      <h4>Sieve of Eratosthenes</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">vector&lt;bool&gt; sieve(int n) {
+    vector&lt;bool&gt; is_prime(n+1, true);
+    is_prime[0] = is_prime[1] = false;
+    
+    for (int i = 2; i * i &lt;= n; i++) {
+        if (is_prime[i]) {
+            for (int j = i * i; j &lt;= n; j += i) {
+                is_prime[j] = false;
+            }
+        }
+    }
+    return is_prime;
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Extended GCD &mdash; Linear Diophantine</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">long long extgcd(long long a, long long b, long long &amp;x, long long &amp;y) {
+    if (b == 0) {
+        x = 1; y = 0;
+        return a;
+    }
+    long long x1, y1;
+    long long g = extgcd(b, a % b, x1, y1);
+    x = y1;
+    y = x1 - (a / b) * y1;
+    return g;
+}
+
+// Solve ax + by = c
+bool diophantine(long long a, long long b, long long c, 
+                 long long &amp;x, long long &amp;y) {
+    long long x0, y0;
+    long long g = extgcd(a, b, x0, y0);
+    if (c % g != 0) return false; // no solution
+    x = x0 * (c / g);
+    y = y0 * (c / g);
+    return true;
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Combinatorics with Precomputed Factorials</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">const int MAXN = 1e5 + 5, MOD = 1e9 + 7;
+long long fact[MAXN], inv_fact[MAXN];
+
+long long power(long long a, long long b, long long m) {
+    long long r = 1; a %= m;
+    while (b) { if (b &amp; 1) r = r * a % m; a = a * a % m; b &gt;&gt;= 1; }
+    return r;
+}
+
+void precompute() {
+    fact[0] = 1;
+    for (int i = 1; i &lt; MAXN; i++) fact[i] = fact[i-1] * i % MOD;
+    inv_fact[MAXN-1] = power(fact[MAXN-1], MOD-2, MOD);
+    for (int i = MAXN-2; i &gt;= 0; i--) 
+        inv_fact[i] = inv_fact[i+1] * (i+1) % MOD;
+}
+
+long long C(int n, int r) {
+    if (r &lt; 0 || r &gt; n) return 0;
+    return fact[n] * inv_fact[r] % MOD * inv_fact[n-r] % MOD;
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="topic" id="advanced-dp">
+  <div class="topic-head">
+    <span class="topic-num">20</span>
+    <h2>Advanced DP</h2>
+  </div>
+  <p class="topic-intro">Beyond standard recurrence: digit DP, tree DP, state compression, and profile optimization.</p>
+  
+  <h3 class="block-label">Recognition</h3>
+  <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody>
+    <tr><td class="sig">Count numbers up to N with property</td><td class="pat"><span class="pat-tag">Digit DP (pos, tight, leading_zero)</span></td></tr>
+    <tr><td class="sig">Tree DP: count/maximize on tree structure</td><td class="pat"><span class="pat-tag">DFS returning DP values from children</span></td></tr>
+    <tr><td class="sig">State compression (small bitmask states)</td><td class="pat"><span class="pat-tag">DP[mask] where mask encodes subset</span></td></tr>
+    <tr><td class="sig">Min/max matching / pairing</td><td class="pat"><span class="pat-tag">Profile DP or bitmask DP</span></td></tr>
+    <tr><td class="sig">Game theory / minimax</td><td class="pat"><span class="pat-tag">DP[state] = can current player win?</span></td></tr>
+    <tr><td class="sig">Convex hull trick / CHT optimization</td><td class="pat"><span class="pat-tag">DP + line optimization for recurrence</span></td></tr>
+  </tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+  <div class="examples-grid">
+    <div class="example">
+      <h4>Digit DP &mdash; Count Numbers with Property</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">// Count numbers in [0, N] with digit sum = S
+string num;
+int memo[20][2][200]; // [position][tight][sum]
+
+int solve(int pos, int tight, int sum) {
+    if (sum &lt; 0) return 0;
+    if (pos == num.size()) return sum == 0 ? 1 : 0;
+    
+    if (memo[pos][tight][sum] != -1) 
+        return memo[pos][tight][sum];
+    
+    int limit = tight ? (num[pos] - '0') : 9;
+    int result = 0;
+    
+    for (int digit = 0; digit &lt;= limit; digit++) {
+        int new_tight = tight &amp;&amp; (digit == limit);
+        result += solve(pos + 1, new_tight, sum - digit);
+    }
+    
+    return memo[pos][tight][sum] = result;
+}
+
+int countDigitSum(int n, int target_sum) {
+    num = to_string(n);
+    memset(memo, -1, sizeof(memo));
+    return solve(0, 1, target_sum);
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Tree DP &mdash; Max Path Sum</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">struct TreeNode {
+    int val;
+    TreeNode *left, *right;
+};
+
+int maxPathSum;
+
+int dfs(TreeNode* node) {
+    if (!node) return 0;
+    
+    int left_sum = max(0, dfs(node-&gt;left));
+    int right_sum = max(0, dfs(node-&gt;right));
+    
+    // Update global max with path through this node
+    maxPathSum = max(maxPathSum, node-&gt;val + left_sum + right_sum);
+    
+    // Return best path going down from this node
+    return node-&gt;val + max(left_sum, right_sum);
+}
+
+int maxPathSumTree(TreeNode* root) {
+    maxPathSum = INT_MIN;
+    dfs(root);
+    return maxPathSum;
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Bitmask DP &mdash; Traveling Salesman (TSP)</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">int n;
+vector&lt;vector&lt;int&gt;&gt; dist;
+int dp[1 &lt;&lt; 16][16]; // [mask][last_city]
+
+int tsp(int mask, int last) {
+    if (mask == (1 &lt;&lt; n) - 1) return dist[last][0];
+    
+    if (dp[mask][last] != -1) return dp[mask][last];
+    
+    int ans = INT_MAX;
+    for (int city = 0; city &lt; n; city++) {
+        if (!(mask &amp; (1 &lt;&lt; city))) {
+            int new_mask = mask | (1 &lt;&lt; city);
+            ans = min(ans, dist[last][city] + tsp(new_mask, city));
+        }
+    }
+    
+    return dp[mask][last] = ans;
+}
+
+int solveTSP(vector&lt;vector&lt;int&gt;&gt;&amp; distance) {
+    dist = distance;
+    n = dist.size();
+    memset(dp, -1, sizeof(dp));
+    return tsp(1, 0); // start from city 0
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="topic" id="advanced-union-find">
+  <div class="topic-head">
+    <span class="topic-num">21</span>
+    <h2>Advanced Union-Find</h2>
+  </div>
+  <p class="topic-intro">Union-Find extensions: weighted edges, cycle detection, bipartite checking, and MST applications.</p>
+  
+  <h3 class="block-label">Recognition</h3>
+  <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody>
+    <tr><td class="sig">Minimum spanning tree (Kruskal)</td><td class="pat"><span class="pat-tag">Sort edges by weight, union-find to add safely</span></td></tr>
+    <tr><td class="sig">Bipartite graph checking</td><td class="pat"><span class="pat-tag">Union-find with enemy/relation tracking</span></td></tr>
+    <tr><td class="sig">Cycle detection in undirected graph</td><td class="pat"><span class="pat-tag">Union returns false if nodes already connected</span></td></tr>
+    <tr><td class="sig">Connected components with weights</td><td class="pat"><span class="pat-tag">Weighted union-find tracking rank/height</span></td></tr>
+    <tr><td class="sig">Potential equation (difference constraint)</td><td class="pat"><span class="pat-tag">Weighted union-find storing relative distances</span></td></tr>
+  </tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+  <div class="examples-grid">
+    <div class="example">
+      <h4>Kruskal's Algorithm &mdash; MST</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">struct Edge {
+    int u, v, weight;
+    bool operator&lt;(const Edge&amp; other) const {
+        return weight &lt; other.weight;
+    }
+};
+
+struct DSU {
+    vector&lt;int&gt; parent, rank_;
+    DSU(int n) : parent(n), rank_(n, 0) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    int find(int x) {
+        if (parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    bool unite(int x, int y) {
+        int rx = find(x), ry = find(y);
+        if (rx == ry) return false;
+        if (rank_[rx] &lt; rank_[ry]) swap(rx, ry);
+        parent[ry] = rx;
+        if (rank_[rx] == rank_[ry]) rank_[rx]++;
+        return true;
+    }
+};
+
+long long kruskal(int n, vector&lt;Edge&gt;&amp; edges) {
+    sort(edges.begin(), edges.end());
+    DSU dsu(n);
+    long long mst_weight = 0;
+    
+    for (auto&amp; e : edges) {
+        if (dsu.unite(e.u, e.v)) {
+            mst_weight += e.weight;
+        }
+    }
+    return mst_weight;
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Bipartite Checking with Union-Find</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">struct BipartiteDSU {
+    vector&lt;int&gt; parent;
+    
+    BipartiteDSU(int n) : parent(2 * n) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    
+    int find(int x) {
+        if (parent[x] != x) parent[x] = find(parent[x]);
+        return parent[x];
+    }
+    
+    bool isBipartite(int u, int v) {
+        // u and v are in same partition if find(u) == find(v)
+        // u and v should be in different partitions
+        return find(u) != find(v) &amp;&amp; find(u + n) != find(v + n);
+    }
+    
+    void addEdge(int u, int v, int n) {
+        // u ~ v means they're enemies
+        // merge u with ~v, and v with ~u
+        int pu = find(u), pv = find(v);
+        int pu_enemy = find(u + n), pv_enemy = find(v + n);
+        
+        if (pu == pv) return; // already in same partition (ok)
+        
+        // Union u with v's enemy
+        parent[pu] = pv_enemy;
+        parent[pu_enemy] = pv;
+    }
+    int n; // separate storage for n
+};</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Weighted Union-Find &mdash; Potential Graph</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">struct WeightedDSU {
+    vector&lt;int&gt; parent;
+    vector&lt;long long&gt; weight; // weight[x] = weight of edge from x to parent[x]
+    
+    WeightedDSU(int n) : parent(n), weight(n, 0) {
+        iota(parent.begin(), parent.end(), 0);
+    }
+    
+    pair&lt;int, long long&gt; find(int x) {
+        if (parent[x] == x) return {x, 0};
+        auto [root, w] = find(parent[x]);
+        weight[x] += w;
+        parent[x] = root;
+        return {root, weight[x]};
+    }
+    
+    bool unite(int x, int y, long long w) {
+        // constraint: y - x = w
+        auto [rx, wx] = find(x);
+        auto [ry, wy] = find(y);
+        if (rx == ry) return false;
+        
+        parent[ry] = rx;
+        weight[ry] = wx - wy + w;
+        return true;
+    }
+};</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="topic" id="tree-patterns">
+  <div class="topic-head">
+    <span class="topic-num">22</span>
+    <h2>Advanced Tree Patterns</h2>
+  </div>
+  <p class="topic-intro">Efficient algorithms on tree structures: LCA, rerooting, heavy-light decomposition, and tree algorithms.</p>
+  
+  <h3 class="block-label">Recognition</h3>
+  <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody>
+    <tr><td class="sig">Lowest common ancestor (LCA) queries</td><td class="pat"><span class="pat-tag">Binary lifting or sparse table</span></td></tr>
+    <tr><td class="sig">Subtree / path queries on tree</td><td class="pat"><span class="pat-tag">DFS + Euler tour + segment tree</span></td></tr>
+    <tr><td class="sig">Rerooting (DP on all nodes as root)</td><td class="pat"><span class="pat-tag">DFS down + DFS up pass</span></td></tr>
+    <tr><td class="sig">Heavy-light decomposition</td><td class="pat"><span class="pat-tag">Path decomposition + segment trees on chains</span></td></tr>
+    <tr><td class="sig">Tree centroid / center</td><td class="pat"><span class="pat-tag">Find node with min max subtree size</span></td></tr>
+    <tr><td class="sig">Find diameter of tree</td><td class="pat"><span class="pat-tag">DFS twice: find farthest from any node, then farthest from that</span></td></tr>
+    <tr><td class="sig">Tree DP with ancestor constraint</td><td class="pat"><span class="pat-tag">DFS order + segment tree on depth range</span></td></tr>
+  </tbody></table>
+
+  <h3 class="block-label">Example algorithms</h3>
+  <div class="examples-grid">
+    <div class="example">
+      <h4>LCA &mdash; Binary Lifting</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">const int LOG = 20;
+
+vector&lt;int&gt; adj[100005];
+int up[100005][LOG];
+int depth[100005];
+
+void dfs(int u, int p) {
+    up[u][0] = p;
+    for (int i = 1; i &lt; LOG; i++) {
+        up[u][i] = up[up[u][i-1]][i-1];
+    }
+    for (int v : adj[u]) {
+        if (v != p) {
+            depth[v] = depth[u] + 1;
+            dfs(v, u);
+        }
+    }
+}
+
+int lca(int u, int v) {
+    if (depth[u] &lt; depth[v]) swap(u, v);
+    
+    // Bring u to same level as v
+    int diff = depth[u] - depth[v];
+    for (int i = 0; i &lt; LOG; i++) {
+        if ((diff &gt;&gt; i) &amp; 1) u = up[u][i];
+    }
+    
+    if (u == v) return u;
+    
+    // Binary search for LCA
+    for (int i = LOG - 1; i &gt;= 0; i--) {
+        if (up[u][i] != up[v][i]) {
+            u = up[u][i];
+            v = up[v][i];
+        }
+    }
+    return up[u][0];
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Tree Diameter</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">vector&lt;int&gt; adj[100005];
+
+pair&lt;int, int&gt; farthest; // {node, distance}
+
+void dfs(int u, int p, int dist) {
+    if (dist &gt; farthest.second) {
+        farthest = {u, dist};
+    }
+    for (int v : adj[u]) {
+        if (v != p) dfs(v, u, dist + 1);
+    }
+}
+
+int treeDiameter(int n) {
+    // First DFS from node 0
+    farthest = {0, 0};
+    dfs(0, -1, 0);
+    
+    int first_end = farthest.first;
+    
+    // Second DFS from first_end
+    farthest = {0, 0};
+    dfs(first_end, -1, 0);
+    
+    return farthest.second;
+}</code></pre>
+      </div>
+    </div>
+    <div class="example">
+      <h4>Rerooting DP</h4>
+      <div class="code-wrap">
+        <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+        <pre><code class="language-cpp">// Find sum of distances from each node to all other nodes
+vector&lt;int&gt; adj[100005];
+long long dp[100005]; // dp[u] = sum of distances in subtree of u
+long long ans[100005]; // ans[u] = answer when u is root
+
+void dfs1(int u, int p, int n) {
+    dp[u] = 0;
+    for (int v : adj[u]) {
+        if (v != p) {
+            dfs1(v, u, n);
+            dp[u] += dp[v] + 1; // +1 for edge (u, v)
+        }
+    }
+}
+
+void dfs2(int u, int p) {
+    for (int v : adj[u]) {
+        if (v != p) {
+            // When moving root from u to v:
+            // We remove v's subtree and add the rest
+            int n = adj[u].size() + (p != -1 ? 1 : 0); // approx, adjust for actual graph size
+            ans[v] = ans[u] - dp[v] - 1 + (/*total nodes*/ - dp[v] - 1);
+            dfs2(v, u);
+        }
+    }
+}
+
+void rerootDP(int n) {
+    dfs1(0, -1, n);
+    ans[0] = dp[0];
+    dfs2(0, -1);
+}</code></pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="topic" id="master-index">
+  <div class="topic-head">
+    <span class="topic-num">&#8734;</span>
+    <h2>Master Recognition Index</h2>
+  </div>
+  <p class="topic-intro">Cross-topic quick lookup &mdash; the fastest way in when you're not sure which section to open.</p>
+  <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Contiguous subarray/substring</td><td class="pat"><span class="pat-tag">Sliding Window</span></td></tr><tr><td class="sig">Sorted array</td><td class="pat"><span class="pat-tag">Two Pointer / Binary Search</span></td></tr><tr><td class="sig">Kth largest/smallest</td><td class="pat"><span class="pat-tag">Heap or Quickselect</span></td></tr><tr><td class="sig">All subsets/permutations/combinations</td><td class="pat"><span class="pat-tag">Recursion / Backtracking</span></td></tr><tr><td class="sig">Minimum/maximum ways to&amp;hellip;</td><td class="pat"><span class="pat-tag">Dynamic Programming</span></td></tr><tr><td class="sig">Next greater/smaller element</td><td class="pat"><span class="pat-tag">Monotonic Stack</span></td></tr><tr><td class="sig">Shortest path</td><td class="pat"><span class="pat-tag">BFS (unweighted) / Dijkstra (weighted)</span></td></tr><tr><td class="sig">Connected components / grouping</td><td class="pat"><span class="pat-tag">DFS/BFS / Union&amp;ndash;Find</span></td></tr><tr><td class="sig">Prefix matching</td><td class="pat"><span class="pat-tag">Trie</span></td></tr><tr><td class="sig">Range sum queries</td><td class="pat"><span class="pat-tag">Prefix Sum / Segment Tree / Fenwick Tree</span></td></tr><tr><td class="sig">Values in range [1, n], O(1) space</td><td class="pat"><span class="pat-tag">Cyclic Sort / Index Marking</span></td></tr><tr><td class="sig">Top K / frequency</td><td class="pat"><span class="pat-tag">Heap or Bucket Sort</span></td></tr><tr><td class="sig">Overlapping intervals</td><td class="pat"><span class="pat-tag">Sort + Sweep</span></td></tr><tr><td class="sig">Two sequences comparison</td><td class="pat"><span class="pat-tag">DP (LCS family)</span></td></tr><tr><td class="sig">Minimize the max / maximize the min</td><td class="pat"><span class="pat-tag">Binary Search on the Answer</span></td></tr><tr><td class="sig">Tree path / ancestor</td><td class="pat"><span class="pat-tag">DFS with return-value propagation</span></td></tr><tr><td class="sig">Circular array</td><td class="pat"><span class="pat-tag">Modulo indexing, or double the array</span></td></tr><tr><td class="sig">In-place O(1) space array trick</td><td class="pat"><span class="pat-tag">Two-pointer / Cyclic sort / index-as-marker</span></td></tr>    <tr><td class="sig">Bitwise operations / subset encoding</td><td class="pat"><span class="pat-tag">Bit Manipulation</span></td></tr>
+    <tr><td class="sig">Range queries with updates</td><td class="pat"><span class="pat-tag">Segment Tree or Fenwick Tree</span></td></tr>
+    <tr><td class="sig">Pattern matching / substring search</td><td class="pat"><span class="pat-tag">KMP, Z-algorithm, or Rabin-Karp</span></td></tr>
+    <tr><td class="sig">GCD / LCM / primes / modular math</td><td class="pat"><span class="pat-tag">Math & Number Theory</span></td></tr>
+    <tr><td class="sig">Local optimization / non-overlapping selection</td><td class="pat"><span class="pat-tag">Greedy Patterns</span></td></tr>
+    <tr><td class="sig">Counting with digit constraints / state-based DP</td><td class="pat"><span class="pat-tag">Advanced DP (Digit, Tree, Bitmask)</span></td></tr>
+    <tr><td class="sig">Minimum spanning tree / bipartite checking</td><td class="pat"><span class="pat-tag">Advanced Union-Find</span></td></tr>
+    <tr><td class="sig">LCA / tree path queries / rerooting</td><td class="pat"><span class="pat-tag">Advanced Tree Patterns</span></td></tr></tbody></table>
+  <p class="closing-tip">When stuck, ask three questions: is there a monotonic/sorted property (&rarr; binary search)? Do choices repeat with overlapping subproblems (&rarr; DP)? Do I need <em>all</em> ways rather than the <em>best</em> way (&rarr; backtracking)?</p>
+</section>
+  </main>
+</div>
+<script>
+
+function copyCode(btn){
+  const code = btn.parentElement.querySelector('code').innerText;
+  navigator.clipboard.writeText(code).then(() => {
+    const old = btn.textContent;
+    btn.textContent = 'copied';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = old; btn.classList.remove('copied'); }, 1400);
+  });
+}
+
+// active section highlighting
+const links = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('.topic');
+const byId = {};
+links.forEach(l => byId[l.dataset.id] = l);
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    const link = byId[entry.target.id];
+    if (!link) return;
+    if (entry.isIntersecting) {
+      links.forEach(l => l.classList.remove('active'));
+      link.classList.add('active');
+    }
+  });
+}, { rootMargin: '-10% 0px -75% 0px', threshold: 0 });
+
+sections.forEach(s => observer.observe(s));
+
+// search filter
+const searchBox = document.getElementById('searchBox');
+searchBox.addEventListener('input', () => {
+  const q = searchBox.value.trim().toLowerCase();
+  document.querySelectorAll('.topic').forEach(topic => {
+    if (!q) { topic.classList.remove('hidden'); topic.querySelectorAll('tr').forEach(r=>r.classList.remove('hidden')); return; }
+    let anyMatch = false;
+    topic.querySelectorAll('tbody tr').forEach(row => {
+      const match = row.innerText.toLowerCase().includes(q);
+      row.classList.toggle('hidden', !match);
+      if (match) anyMatch = true;
+    });
+    const exampleMatch = topic.innerText.toLowerCase().includes(q);
+    topic.classList.toggle('hidden', !(anyMatch || exampleMatch));
+  });
+});
+
+// mobile menu toggle
+const menuToggle = document.getElementById('menuToggle');
+const sidebar = document.getElementById('sidebar');
+if (menuToggle) {
+  menuToggle.addEventListener('click', () => sidebar.classList.toggle('open'));
+  links.forEach(l => l.addEventListener('click', () => sidebar.classList.remove('open')));
+}
+
+if (window.hljs) { hljs.highlightAll(); }
+
+</script>
+</body>
+</html>
