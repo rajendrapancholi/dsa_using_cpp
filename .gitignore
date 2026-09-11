@@ -8,3 +8,5 @@ learn
 !*.c
 temp.cpp
 *test.*
+!DSA_Pattern_Recognition_Cheatsheet.html
+!DSA_Pattern_Recognition_Cheatsheet.md
