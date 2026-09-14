@@ -451,7 +451,7 @@ void mergeSort(vector&lt;int&gt;&amp; a, int lo, int hi) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Cyclic Sort &amp;mdash; find the missing number in [0, n]</h4>
+<h4>Cyclic Sort &mdash; find the missing number in [0, n]</h4>
 
 <div class="code-wrap">
 
@@ -486,7 +486,7 @@ void mergeSort(vector&lt;int&gt;&amp; a, int lo, int hi) {
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
-<h4>Kadane's Algorithm &amp;mdash; max subarray sum</h4>
+<h4>Kadane's Algorithm &mdash; max subarray sum</h4>
 
 <div class="code-wrap">
 
@@ -518,7 +518,7 @@ void mergeSort(vector&lt;int&gt;&amp; a, int lo, int hi) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>3Sum &amp;mdash; all unique triplets summing to 0</h4>
+<h4>3Sum &mdash; all unique triplets summing to 0</h4>
 
 <div class="code-wrap">
 
@@ -546,7 +546,7 @@ void mergeSort(vector&lt;int&gt;&amp; a, int lo, int hi) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Trapping Rain Water &amp;mdash; two pointer</h4>
+<h4>Trapping Rain Water &mdash; two pointer</h4>
 
 <div class="code-wrap">
 
@@ -582,7 +582,7 @@ void mergeSort(vector&lt;int&gt;&amp; a, int lo, int hi) {
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
-<h4>KMP &amp;mdash; substring search in O(n+m)</h4>
+<h4>KMP &mdash; substring search in O(n+m)</h4>
 
 <div class="code-wrap">
 
@@ -615,7 +615,7 @@ vector&lt;int&gt; kmpSearch(const string&amp; text, const string&amp; pat) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Longest Palindromic Substring &amp;mdash; expand around center</h4>
+<h4>Longest Palindromic Substring &mdash; expand around center</h4>
 
 <div class="code-wrap">
 
@@ -647,11 +647,11 @@ vector&lt;int&gt; kmpSearch(const string&amp; text, const string&amp; pat) {
 <h3 class="block-label">2D array</h3>
 <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Row-wise and column-wise sorted matrix</td><td class="pat"><span class="pat-tag">Start top-right / bottom-left corner, eliminate a row or column</span></td></tr><tr><td class="sig">Matrix sorted like a flattened 1D array</td><td class="pat"><span class="pat-tag">Treat as 1D: mid &amp;rarr; (mid / cols, mid % cols)</span></td></tr><tr><td class="sig">Kth smallest in a sorted matrix</td><td class="pat"><span class="pat-tag">Binary search on the value range + count &amp;le; mid</span></td></tr></tbody></table>
 <h3 class="block-label">Search space / binary search on the answer</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Minimize the maximum, or maximize the minimum</td><td class="pat"><span class="pat-tag">Binary search on the answer + a feasibility check</span></td></tr><tr><td class="sig">Allocate books / painters / ship packages within D days</td><td class="pat"><span class="pat-tag">Binary search on max load, verify with greedy simulation</span></td></tr><tr><td class="sig">Aggressive cows &amp;mdash; maximize the minimum distance</td><td class="pat"><span class="pat-tag">Binary search on distance, greedy placement check</span></td></tr><tr><td class="sig">Koko eating bananas &amp;mdash; minimize the eating speed</td><td class="pat"><span class="pat-tag">Binary search on speed, check total hours</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Minimize the maximum, or maximize the minimum</td><td class="pat"><span class="pat-tag">Binary search on the answer + a feasibility check</span></td></tr><tr><td class="sig">Allocate books / painters / ship packages within D days</td><td class="pat"><span class="pat-tag">Binary search on max load, verify with greedy simulation</span></td></tr><tr><td class="sig">Aggressive cows &mdash; maximize the minimum distance</td><td class="pat"><span class="pat-tag">Binary search on distance, greedy placement check</span></td></tr><tr><td class="sig">Koko eating bananas &mdash; minimize the eating speed</td><td class="pat"><span class="pat-tag">Binary search on speed, check total hours</span></td></tr></tbody></table>
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
-<h4>Binary Search &amp;mdash; the template everything else builds on</h4>
+<h4>Binary Search &mdash; the template everything else builds on</h4>
 
 <div class="code-wrap">
 
@@ -690,7 +690,7 @@ vector&lt;int&gt; kmpSearch(const string&amp; text, const string&amp; pat) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Binary Search on the Answer &amp;mdash; Koko Eating Bananas</h4>
+<h4>Binary Search on the Answer &mdash; Koko Eating Bananas</h4>
 
 <div class="code-wrap">
 
@@ -739,7 +739,7 @@ int  isolateLastSetBit(int n){ return n &amp; (-n); }
 bool isPowerOfTwo(int n)    { return n &gt; 0 &amp;&amp; (n &amp; (n - 1)) == 0; }</code></pre>
 </div>
 </div><div class="example">
-<h4>Single Number &amp;mdash; XOR trick</h4>
+<h4>Single Number &mdash; XOR trick</h4>
 
 <div class="code-wrap">
 
@@ -751,7 +751,7 @@ bool isPowerOfTwo(int n)    { return n &gt; 0 &amp;&amp; (n &amp; (n - 1)) == 0;
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Count Set Bits &amp;mdash; Brian Kernighan's algorithm</h4>
+<h4>Count Set Bits &mdash; Brian Kernighan's algorithm</h4>
 
 <div class="code-wrap">
 
@@ -777,7 +777,7 @@ bool isPowerOfTwo(int n)    { return n &gt; 0 &amp;&amp; (n &amp; (n - 1)) == 0;
   <h3 class="block-label">Single linked list</h3>
 <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Detect a cycle</td><td class="pat"><span class="pat-tag">Floyd's slow/fast pointer</span></td></tr><tr><td class="sig">Find the start of the cycle</td><td class="pat"><span class="pat-tag">After meeting, reset one pointer to head, move both by 1</span></td></tr><tr><td class="sig">Find the middle of the list</td><td class="pat"><span class="pat-tag">Slow/fast pointer (fast moves 2x)</span></td></tr><tr><td class="sig">Reverse a linked list</td><td class="pat"><span class="pat-tag">Iterative 3-pointer (prev/curr/next), or recursive</span></td></tr><tr><td class="sig">Reverse in groups of K</td><td class="pat"><span class="pat-tag">Recursive or iterative with a group-boundary check</span></td></tr><tr><td class="sig">Remove the Nth node from the end</td><td class="pat"><span class="pat-tag">Two-pointer with an N-node gap</span></td></tr><tr><td class="sig">Check palindrome list</td><td class="pat"><span class="pat-tag">Find middle &amp;rarr; reverse second half &amp;rarr; compare</span></td></tr><tr><td class="sig">Merge two sorted lists</td><td class="pat"><span class="pat-tag">Dummy node + two-pointer merge</span></td></tr><tr><td class="sig">Add two numbers as linked lists</td><td class="pat"><span class="pat-tag">Simulate addition with carry, dummy node</span></td></tr><tr><td class="sig">Intersection point of two lists</td><td class="pat"><span class="pat-tag">Two-pointer, switch heads to equalize path length</span></td></tr><tr><td class="sig">Sort a linked list</td><td class="pat"><span class="pat-tag">Merge sort (slow/fast pointer to split)</span></td></tr></tbody></table>
 <h3 class="block-label">Doubly linked list</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">LRU Cache</td><td class="pat"><span class="pat-tag">DLL + HashMap &amp;mdash; O(1) get/put, move node to front</span></td></tr><tr><td class="sig">Flatten a multilevel / child-pointer list</td><td class="pat"><span class="pat-tag">Recursive merge, similar to merge-sort's merge step</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">LRU Cache</td><td class="pat"><span class="pat-tag">DLL + HashMap &mdash; O(1) get/put, move node to front</span></td></tr><tr><td class="sig">Flatten a multilevel / child-pointer list</td><td class="pat"><span class="pat-tag">Recursive merge, similar to merge-sort's merge step</span></td></tr></tbody></table>
 <h3 class="block-label">Medium / Hard</h3>
 <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Clone a list with a random pointer</td><td class="pat"><span class="pat-tag">HashMap old&amp;rarr;new, or interweaving trick</span></td></tr><tr><td class="sig">Rotate list by K places</td><td class="pat"><span class="pat-tag">Make it circular, break at the right point</span></td></tr><tr><td class="sig">Reorder list: L0 &amp;rarr; Ln &amp;rarr; L1 &amp;rarr; Ln&minus;1 &amp;hellip;</td><td class="pat"><span class="pat-tag">Find middle, reverse second half, merge alternately</span></td></tr><tr><td class="sig">Merge K sorted lists</td><td class="pat"><span class="pat-tag">Min-heap of size K, or divide &amp; conquer merge</span></td></tr></tbody></table>
 
@@ -802,7 +802,7 @@ ListNode* reverseList(ListNode* head) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Detect Cycle &amp; Find Its Start &amp;mdash; Floyd's algorithm</h4>
+<h4>Detect Cycle &amp; Find Its Start &mdash; Floyd's algorithm</h4>
 
 <div class="code-wrap">
 
@@ -849,11 +849,11 @@ ListNode* reverseList(ListNode* head) {
   </div>
   <p class="topic-intro">Core signal: a contiguous subarray/substring with a condition on sum, count, or distinct elements &mdash; or two sorted sequences being compared from both ends.</p>
   <h3 class="block-label">Recognition</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Fixed-size K subarray, max/min sum</td><td class="pat"><span class="pat-tag">Fixed window: add the new element, remove the old one</span></td></tr><tr><td class="sig">Longest substring without repeating characters</td><td class="pat"><span class="pat-tag">Variable window + HashSet/HashMap, shrink on violation</span></td></tr><tr><td class="sig">Longest substring with at most K distinct characters</td><td class="pat"><span class="pat-tag">Variable window + frequency map</span></td></tr><tr><td class="sig">Minimum window substring containing all of T</td><td class="pat"><span class="pat-tag">Expand until valid, then contract while still valid</span></td></tr><tr><td class="sig">Max consecutive ones with at most K flips</td><td class="pat"><span class="pat-tag">Variable window tracking the zero count</span></td></tr><tr><td class="sig">Subarray with sum exactly K (all positive)</td><td class="pat"><span class="pat-tag">Variable window, shrink when sum &gt; K</span></td></tr><tr><td class="sig">Subarray with sum exactly K (has negatives)</td><td class="pat"><span class="pat-tag">Prefix sum + HashMap &amp;mdash; &lt;em&gt;not&lt;/em&gt; sliding window</span></td></tr><tr><td class="sig">Longest repeating character replacement</td><td class="pat"><span class="pat-tag">Window + track the max-frequency char</span></td></tr><tr><td class="sig">Fruits into baskets / at most 2 distinct types</td><td class="pat"><span class="pat-tag">Variable window, frequency-map size &amp;le; 2</span></td></tr><tr><td class="sig">Two Sum in a sorted array</td><td class="pat"><span class="pat-tag">Two-pointer from both ends</span></td></tr><tr><td class="sig">Container with most water</td><td class="pat"><span class="pat-tag">Two-pointer, move the pointer with the smaller height</span></td></tr><tr><td class="sig">Sliding window maximum</td><td class="pat"><span class="pat-tag">Monotonic deque (decreasing)</span></td></tr><tr><td class="sig">Count subarrays with exactly K distinct elements</td><td class="pat"><span class="pat-tag">atMost(K) &minus; atMost(K&minus;1) trick</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Fixed-size K subarray, max/min sum</td><td class="pat"><span class="pat-tag">Fixed window: add the new element, remove the old one</span></td></tr><tr><td class="sig">Longest substring without repeating characters</td><td class="pat"><span class="pat-tag">Variable window + HashSet/HashMap, shrink on violation</span></td></tr><tr><td class="sig">Longest substring with at most K distinct characters</td><td class="pat"><span class="pat-tag">Variable window + frequency map</span></td></tr><tr><td class="sig">Minimum window substring containing all of T</td><td class="pat"><span class="pat-tag">Expand until valid, then contract while still valid</span></td></tr><tr><td class="sig">Max consecutive ones with at most K flips</td><td class="pat"><span class="pat-tag">Variable window tracking the zero count</span></td></tr><tr><td class="sig">Subarray with sum exactly K (all positive)</td><td class="pat"><span class="pat-tag">Variable window, shrink when sum &gt; K</span></td></tr><tr><td class="sig">Subarray with sum exactly K (has negatives)</td><td class="pat"><span class="pat-tag">Prefix sum + HashMap &mdash; &lt;em&gt;not&lt;/em&gt; sliding window</span></td></tr><tr><td class="sig">Longest repeating character replacement</td><td class="pat"><span class="pat-tag">Window + track the max-frequency char</span></td></tr><tr><td class="sig">Fruits into baskets / at most 2 distinct types</td><td class="pat"><span class="pat-tag">Variable window, frequency-map size &amp;le; 2</span></td></tr><tr><td class="sig">Two Sum in a sorted array</td><td class="pat"><span class="pat-tag">Two-pointer from both ends</span></td></tr><tr><td class="sig">Container with most water</td><td class="pat"><span class="pat-tag">Two-pointer, move the pointer with the smaller height</span></td></tr><tr><td class="sig">Sliding window maximum</td><td class="pat"><span class="pat-tag">Monotonic deque (decreasing)</span></td></tr><tr><td class="sig">Count subarrays with exactly K distinct elements</td><td class="pat"><span class="pat-tag">atMost(K) &minus; atMost(K&minus;1) trick</span></td></tr></tbody></table>
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
-<h4>Variable window &amp;mdash; the template</h4>
+<h4>Variable window &mdash; the template</h4>
 
 <div class="code-wrap">
 
@@ -933,11 +933,11 @@ ListNode* reverseList(ListNode* head) {
   </div>
   
   <h3 class="block-label">Recognition</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Generate all subsets / subsequences</td><td class="pat"><span class="pat-tag">Include/exclude recursion (pick / not-pick)</span></td></tr><tr><td class="sig">Subsets with duplicates, unique only</td><td class="pat"><span class="pat-tag">Sort first, skip adjacent duplicates at the same recursion level</span></td></tr><tr><td class="sig">Combination Sum (reuse allowed)</td><td class="pat"><span class="pat-tag">Pick/not-pick, stay at the same index when picking</span></td></tr><tr><td class="sig">Combination Sum II (no reuse, has duplicates)</td><td class="pat"><span class="pat-tag">Sort, skip &lt;code&gt;i &gt; start &amp;&amp; a[i]==a[i-1]&lt;/code&gt;</span></td></tr><tr><td class="sig">Permutations</td><td class="pat"><span class="pat-tag">Swap-based recursion, or a visited[] array with backtracking</span></td></tr><tr><td class="sig">Permutations with duplicates</td><td class="pat"><span class="pat-tag">Sort + visited[] + skip same-adjacent unless the previous was used</span></td></tr><tr><td class="sig">Palindrome partitioning</td><td class="pat"><span class="pat-tag">Backtrack: try every prefix, recurse on the rest if it's a palindrome</span></td></tr><tr><td class="sig">N-Queens / Sudoku solver</td><td class="pat"><span class="pat-tag">Backtracking with a placement-validity check</span></td></tr><tr><td class="sig">Word search in a grid</td><td class="pat"><span class="pat-tag">DFS backtracking with visited marking/unmarking</span></td></tr><tr><td class="sig">Kth permutation sequence</td><td class="pat"><span class="pat-tag">Factorial number system &amp;mdash; no need to generate all</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Generate all subsets / subsequences</td><td class="pat"><span class="pat-tag">Include/exclude recursion (pick / not-pick)</span></td></tr><tr><td class="sig">Subsets with duplicates, unique only</td><td class="pat"><span class="pat-tag">Sort first, skip adjacent duplicates at the same recursion level</span></td></tr><tr><td class="sig">Combination Sum (reuse allowed)</td><td class="pat"><span class="pat-tag">Pick/not-pick, stay at the same index when picking</span></td></tr><tr><td class="sig">Combination Sum II (no reuse, has duplicates)</td><td class="pat"><span class="pat-tag">Sort, skip &lt;code&gt;i &gt; start &amp;&amp; a[i]==a[i-1]&lt;/code&gt;</span></td></tr><tr><td class="sig">Permutations</td><td class="pat"><span class="pat-tag">Swap-based recursion, or a visited[] array with backtracking</span></td></tr><tr><td class="sig">Permutations with duplicates</td><td class="pat"><span class="pat-tag">Sort + visited[] + skip same-adjacent unless the previous was used</span></td></tr><tr><td class="sig">Palindrome partitioning</td><td class="pat"><span class="pat-tag">Backtrack: try every prefix, recurse on the rest if it's a palindrome</span></td></tr><tr><td class="sig">N-Queens / Sudoku solver</td><td class="pat"><span class="pat-tag">Backtracking with a placement-validity check</span></td></tr><tr><td class="sig">Word search in a grid</td><td class="pat"><span class="pat-tag">DFS backtracking with visited marking/unmarking</span></td></tr><tr><td class="sig">Kth permutation sequence</td><td class="pat"><span class="pat-tag">Factorial number system &mdash; no need to generate all</span></td></tr></tbody></table>
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
-<h4>Subsets &amp;mdash; pick / not-pick</h4>
+<h4>Subsets &mdash; pick / not-pick</h4>
 
 <div class="code-wrap">
 
@@ -960,7 +960,7 @@ vector&lt;vector&lt;int&gt;&gt; subsets(vector&lt;int&gt;&amp; nums) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>N-Queens &amp;mdash; backtracking</h4>
+<h4>N-Queens &mdash; backtracking</h4>
 
 <div class="code-wrap">
 
@@ -1036,7 +1036,7 @@ string infixToPostfix(string s) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Next Greater Element &amp;mdash; monotonic stack</h4>
+<h4>Next Greater Element &mdash; monotonic stack</h4>
 
 <div class="code-wrap">
 
@@ -1054,7 +1054,7 @@ string infixToPostfix(string s) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Min Stack &amp;mdash; O(1) getMin</h4>
+<h4>Min Stack &mdash; O(1) getMin</h4>
 
 <div class="code-wrap">
 
@@ -1145,7 +1145,7 @@ int jobSequencing(vector&lt;Job&gt;&amp; jobs) {
   </div>
   <p class="topic-intro">Overlapping subproblems + optimal substructure. Ask &ldquo;what changes as I move forward?&rdquo; &mdash; that becomes your state.</p>
   <h3 class="block-label">Pattern recognition</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Ways to reach step N &amp;mdash; depends linearly on i&minus;1, i&minus;2</td><td class="pat"><span class="pat-tag">1D DP (climbing stairs, house robber)</span></td></tr><tr><td class="sig">Paths in a grid, min/max path sum</td><td class="pat"><span class="pat-tag">2D grid DP</span></td></tr><tr><td class="sig">Include or exclude an item, weight limit</td><td class="pat"><span class="pat-tag">0/1 Knapsack (subset sum, equal partition)</span></td></tr><tr><td class="sig">Unlimited use of items</td><td class="pat"><span class="pat-tag">Unbounded Knapsack (coin change, rod cutting)</span></td></tr><tr><td class="sig">Two strings, common subsequence/substring</td><td class="pat"><span class="pat-tag">LCS family (LCS, LPS, edit distance)</span></td></tr><tr><td class="sig">Longest increasing subsequence</td><td class="pat"><span class="pat-tag">LIS &amp;mdash; O(n&amp;sup2;) or O(n log n) with binary search</span></td></tr><tr><td class="sig">Count/find a subsequence satisfying a condition</td><td class="pat"><span class="pat-tag">DP on subsequences (distinct subsequences)</span></td></tr><tr><td class="sig">Partition or count palindromic substrings</td><td class="pat"><span class="pat-tag">DP on strings / palindromes</span></td></tr><tr><td class="sig">Optimal way to split or parenthesize a range</td><td class="pat"><span class="pat-tag">Interval DP (matrix chain multiplication, burst balloons)</span></td></tr><tr><td class="sig">Max path sum or diameter in a tree</td><td class="pat"><span class="pat-tag">DP on trees</span></td></tr><tr><td class="sig">Assign N items to N slots optimally, small N (&amp;le;20)</td><td class="pat"><span class="pat-tag">Bitmask DP (TSP, assignment problem)</span></td></tr><tr><td class="sig">Count numbers in a range with a digit property</td><td class="pat"><span class="pat-tag">Digit DP</span></td></tr><tr><td class="sig">Buy/sell stock with cooldown, fee, or K transactions</td><td class="pat"><span class="pat-tag">State machine DP</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Ways to reach step N &mdash; depends linearly on i&minus;1, i&minus;2</td><td class="pat"><span class="pat-tag">1D DP (climbing stairs, house robber)</span></td></tr><tr><td class="sig">Paths in a grid, min/max path sum</td><td class="pat"><span class="pat-tag">2D grid DP</span></td></tr><tr><td class="sig">Include or exclude an item, weight limit</td><td class="pat"><span class="pat-tag">0/1 Knapsack (subset sum, equal partition)</span></td></tr><tr><td class="sig">Unlimited use of items</td><td class="pat"><span class="pat-tag">Unbounded Knapsack (coin change, rod cutting)</span></td></tr><tr><td class="sig">Two strings, common subsequence/substring</td><td class="pat"><span class="pat-tag">LCS family (LCS, LPS, edit distance)</span></td></tr><tr><td class="sig">Longest increasing subsequence</td><td class="pat"><span class="pat-tag">LIS &mdash; O(n&amp;sup2;) or O(n log n) with binary search</span></td></tr><tr><td class="sig">Count/find a subsequence satisfying a condition</td><td class="pat"><span class="pat-tag">DP on subsequences (distinct subsequences)</span></td></tr><tr><td class="sig">Partition or count palindromic substrings</td><td class="pat"><span class="pat-tag">DP on strings / palindromes</span></td></tr><tr><td class="sig">Optimal way to split or parenthesize a range</td><td class="pat"><span class="pat-tag">Interval DP (matrix chain multiplication, burst balloons)</span></td></tr><tr><td class="sig">Max path sum or diameter in a tree</td><td class="pat"><span class="pat-tag">DP on trees</span></td></tr><tr><td class="sig">Assign N items to N slots optimally, small N (&amp;le;20)</td><td class="pat"><span class="pat-tag">Bitmask DP (TSP, assignment problem)</span></td></tr><tr><td class="sig">Count numbers in a range with a digit property</td><td class="pat"><span class="pat-tag">Digit DP</span></td></tr><tr><td class="sig">Buy/sell stock with cooldown, fee, or K transactions</td><td class="pat"><span class="pat-tag">State machine DP</span></td></tr></tbody></table>
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
@@ -1185,7 +1185,7 @@ int jobSequencing(vector&lt;Job&gt;&amp; jobs) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Longest Increasing Subsequence &amp;mdash; O(n log n)</h4>
+<h4>Longest Increasing Subsequence &mdash; O(n log n)</h4>
 
 <div class="code-wrap">
 
@@ -1201,7 +1201,7 @@ int jobSequencing(vector&lt;Job&gt;&amp; jobs) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Coin Change &amp;mdash; unbounded knapsack, min coins</h4>
+<h4>Coin Change &mdash; unbounded knapsack, min coins</h4>
 
 <div class="code-wrap">
 
@@ -1268,7 +1268,7 @@ ListNode* mergeKLists(vector&lt;ListNode*&gt;&amp; lists) {
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Median from a Data Stream &amp;mdash; two heaps</h4>
+<h4>Median from a Data Stream &mdash; two heaps</h4>
 
 <div class="code-wrap">
 
@@ -1302,11 +1302,11 @@ public:
   <h3 class="block-label">Traversals</h3>
 <table class="complexity-table"><thead><tr><th>Type</th><th>Method</th></tr></thead><tbody><tr><td>Preorder (Root&ndash;L&ndash;R)</td><td>Recursive, or a stack (push right then left)</td></tr><tr><td>Inorder (L&ndash;Root&ndash;R)</td><td>Recursive, or a stack, unwinding via <code>cur = cur-&gt;left</code></td></tr><tr><td>Postorder (L&ndash;R&ndash;Root)</td><td>Recursive, or two stacks / one stack + reversed preorder</td></tr><tr><td>Level order (BFS)</td><td>Queue, snapshot the level size for level-wise grouping</td></tr><tr><td>Morris Traversal</td><td>O(1) space, threaded tree via predecessor links</td></tr></tbody></table>
 <h3 class="block-label">Medium / Hard</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Height / diameter of the tree</td><td class="pat"><span class="pat-tag">DFS returning height, update a global max at each node</span></td></tr><tr><td class="sig">Balanced binary tree check</td><td class="pat"><span class="pat-tag">DFS returning height, &minus;1 sentinel signals imbalance</span></td></tr><tr><td class="sig">Lowest common ancestor</td><td class="pat"><span class="pat-tag">Recursive &amp;mdash; return the node if found in both subtrees</span></td></tr><tr><td class="sig">Max path sum (any node to any node)</td><td class="pat"><span class="pat-tag">DFS returning the max single-path gain, track a global max</span></td></tr><tr><td class="sig">Zigzag / spiral level order</td><td class="pat"><span class="pat-tag">BFS + an alternating direction flag</span></td></tr><tr><td class="sig">Construct tree from inorder + preorder/postorder</td><td class="pat"><span class="pat-tag">Recursive split using an index map for inorder</span></td></tr><tr><td class="sig">Symmetric / mirror tree check</td><td class="pat"><span class="pat-tag">Recursive compare of left.left vs right.right, left.right vs right.left</span></td></tr><tr><td class="sig">Serialize / deserialize a tree</td><td class="pat"><span class="pat-tag">Preorder with null markers, or level order with a queue</span></td></tr><tr><td class="sig">Right / left view of the tree</td><td class="pat"><span class="pat-tag">BFS take last/first per level, or DFS with depth tracking</span></td></tr><tr><td class="sig">Flatten tree to a linked list</td><td class="pat"><span class="pat-tag">Reverse postorder (right, left, root) with a prev pointer</span></td></tr><tr><td class="sig">Vertical order traversal</td><td class="pat"><span class="pat-tag">BFS/DFS + HashMap&amp;lt;column, list&gt;</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Height / diameter of the tree</td><td class="pat"><span class="pat-tag">DFS returning height, update a global max at each node</span></td></tr><tr><td class="sig">Balanced binary tree check</td><td class="pat"><span class="pat-tag">DFS returning height, &minus;1 sentinel signals imbalance</span></td></tr><tr><td class="sig">Lowest common ancestor</td><td class="pat"><span class="pat-tag">Recursive &mdash; return the node if found in both subtrees</span></td></tr><tr><td class="sig">Max path sum (any node to any node)</td><td class="pat"><span class="pat-tag">DFS returning the max single-path gain, track a global max</span></td></tr><tr><td class="sig">Zigzag / spiral level order</td><td class="pat"><span class="pat-tag">BFS + an alternating direction flag</span></td></tr><tr><td class="sig">Construct tree from inorder + preorder/postorder</td><td class="pat"><span class="pat-tag">Recursive split using an index map for inorder</span></td></tr><tr><td class="sig">Symmetric / mirror tree check</td><td class="pat"><span class="pat-tag">Recursive compare of left.left vs right.right, left.right vs right.left</span></td></tr><tr><td class="sig">Serialize / deserialize a tree</td><td class="pat"><span class="pat-tag">Preorder with null markers, or level order with a queue</span></td></tr><tr><td class="sig">Right / left view of the tree</td><td class="pat"><span class="pat-tag">BFS take last/first per level, or DFS with depth tracking</span></td></tr><tr><td class="sig">Flatten tree to a linked list</td><td class="pat"><span class="pat-tag">Reverse postorder (right, left, root) with a prev pointer</span></td></tr><tr><td class="sig">Vertical order traversal</td><td class="pat"><span class="pat-tag">BFS/DFS + HashMap&amp;lt;column, list&gt;</span></td></tr></tbody></table>
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
-<h4>Traversals &amp;mdash; recursive + level order</h4>
+<h4>Traversals &mdash; recursive + level order</h4>
 
 <div class="code-wrap">
 
@@ -1385,7 +1385,7 @@ int diameterOfBinaryTree(TreeNode* root) {
   </div>
   
   <h3 class="block-label">Recognition</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Search / insert / delete in a BST</td><td class="pat"><span class="pat-tag">Use the BST property to go left/right &amp;mdash; O(h)</span></td></tr><tr><td class="sig">Validate a BST</td><td class="pat"><span class="pat-tag">Inorder must be strictly increasing, or a min/max bound recursion</span></td></tr><tr><td class="sig">Kth smallest / largest in a BST</td><td class="pat"><span class="pat-tag">Inorder traversal (Morris for O(1) space)</span></td></tr><tr><td class="sig">LCA in a BST</td><td class="pat"><span class="pat-tag">Compare values with root &amp;mdash; go left/right/stop based on range</span></td></tr><tr><td class="sig">Convert a sorted array to a balanced BST</td><td class="pat"><span class="pat-tag">Recursive: pick the middle element as root</span></td></tr><tr><td class="sig">BST iterator with O(1) amortized next()</td><td class="pat"><span class="pat-tag">Controlled inorder traversal with an explicit stack</span></td></tr><tr><td class="sig">Two Sum in a BST</td><td class="pat"><span class="pat-tag">Inorder &amp;rarr; two-pointer, or a forward + backward BST iterator</span></td></tr><tr><td class="sig">Recover a BST (two nodes swapped)</td><td class="pat"><span class="pat-tag">Inorder traversal, track the two violating nodes</span></td></tr><tr><td class="sig">Floor / ceiling in a BST</td><td class="pat"><span class="pat-tag">O(h) traversal tracking the closest &amp;le; / &amp;ge;</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Search / insert / delete in a BST</td><td class="pat"><span class="pat-tag">Use the BST property to go left/right &mdash; O(h)</span></td></tr><tr><td class="sig">Validate a BST</td><td class="pat"><span class="pat-tag">Inorder must be strictly increasing, or a min/max bound recursion</span></td></tr><tr><td class="sig">Kth smallest / largest in a BST</td><td class="pat"><span class="pat-tag">Inorder traversal (Morris for O(1) space)</span></td></tr><tr><td class="sig">LCA in a BST</td><td class="pat"><span class="pat-tag">Compare values with root &mdash; go left/right/stop based on range</span></td></tr><tr><td class="sig">Convert a sorted array to a balanced BST</td><td class="pat"><span class="pat-tag">Recursive: pick the middle element as root</span></td></tr><tr><td class="sig">BST iterator with O(1) amortized next()</td><td class="pat"><span class="pat-tag">Controlled inorder traversal with an explicit stack</span></td></tr><tr><td class="sig">Two Sum in a BST</td><td class="pat"><span class="pat-tag">Inorder &amp;rarr; two-pointer, or a forward + backward BST iterator</span></td></tr><tr><td class="sig">Recover a BST (two nodes swapped)</td><td class="pat"><span class="pat-tag">Inorder traversal, track the two violating nodes</span></td></tr><tr><td class="sig">Floor / ceiling in a BST</td><td class="pat"><span class="pat-tag">O(h) traversal tracking the closest &amp;le; / &amp;ge;</span></td></tr></tbody></table>
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
@@ -1499,7 +1499,7 @@ void dfs(int node, vector&lt;vector&lt;int&gt;&gt;&amp; adj, vector&lt;bool&gt;&
 }</code></pre>
 </div>
 </div><div class="example">
-<h4>Topological Sort &amp;mdash; Kahn's algorithm (BFS)</h4>
+<h4>Topological Sort &mdash; Kahn's algorithm (BFS)</h4>
 
 <div class="code-wrap">
 
@@ -1556,11 +1556,11 @@ void dfs(int node, vector&lt;vector&lt;int&gt;&gt;&amp; adj, vector&lt;bool&gt;&
   </div>
   
   <h3 class="block-label">Recognition</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Implement a trie: insert / search / startsWith</td><td class="pat"><span class="pat-tag">Node with children[26] (or a map) + isEndOfWord flag</span></td></tr><tr><td class="sig">Longest word built entirely from other words in the dict</td><td class="pat"><span class="pat-tag">Trie + DFS, track valid words</span></td></tr><tr><td class="sig">Word search II &amp;mdash; multiple words in a grid</td><td class="pat"><span class="pat-tag">Build a trie of the words + DFS/backtracking on the grid</span></td></tr><tr><td class="sig">Maximum XOR of two numbers</td><td class="pat"><span class="pat-tag">Binary trie (32-bit), greedy bit by bit</span></td></tr><tr><td class="sig">Autocomplete / prefix matching</td><td class="pat"><span class="pat-tag">Trie + DFS collecting words under a node</span></td></tr><tr><td class="sig">Replace words with their shortest dictionary root</td><td class="pat"><span class="pat-tag">Insert dictionary into a trie, search each word for its shortest valid prefix</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Implement a trie: insert / search / startsWith</td><td class="pat"><span class="pat-tag">Node with children[26] (or a map) + isEndOfWord flag</span></td></tr><tr><td class="sig">Longest word built entirely from other words in the dict</td><td class="pat"><span class="pat-tag">Trie + DFS, track valid words</span></td></tr><tr><td class="sig">Word search II &mdash; multiple words in a grid</td><td class="pat"><span class="pat-tag">Build a trie of the words + DFS/backtracking on the grid</span></td></tr><tr><td class="sig">Maximum XOR of two numbers</td><td class="pat"><span class="pat-tag">Binary trie (32-bit), greedy bit by bit</span></td></tr><tr><td class="sig">Autocomplete / prefix matching</td><td class="pat"><span class="pat-tag">Trie + DFS collecting words under a node</span></td></tr><tr><td class="sig">Replace words with their shortest dictionary root</td><td class="pat"><span class="pat-tag">Insert dictionary into a trie, search each word for its shortest valid prefix</span></td></tr></tbody></table>
 
   <h3 class="block-label">Example algorithms</h3>
 <div class="examples-grid"><div class="example">
-<h4>Trie &amp;mdash; insert, search, startsWith</h4>
+<h4>Trie &mdash; insert, search, startsWith</h4>
 
 <div class="code-wrap">
 
