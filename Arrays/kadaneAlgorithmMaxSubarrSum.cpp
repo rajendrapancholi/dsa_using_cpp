@@ -22,9 +22,9 @@ public:
     int currSum = 0, maxSum = 0;
     for (int e : nums) {
       currSum += e;
+      maxSum = max(maxSum, currSum);
       if (currSum < 0)
         currSum = 0;
-      maxSum = max(maxSum, currSum);
     }
     return maxSum;
   }
