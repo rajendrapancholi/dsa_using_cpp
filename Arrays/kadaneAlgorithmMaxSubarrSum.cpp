@@ -30,6 +30,7 @@ public:
   }
   vector<int> maxSubarrSumEle(vector<int> &nums) {
     // Kadane's algo O(n)
+    if (nums.empty()) return {};
     long long maxi = LLONG_MIN;
     long long sum = 0;
     int start = 0, ansStart = -1, ansEnd = -1;
