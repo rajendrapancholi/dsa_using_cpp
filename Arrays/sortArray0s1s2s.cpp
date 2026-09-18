@@ -13,6 +13,14 @@ public:
     }
     return 0;
   }
+  int sortArrZerosOnes(vector<int>& nums) {
+    int l = 0, h = nums.size()-1;
+    while(l <= h){
+      if(nums[l] == 0) l++;
+      else swap(nums[l], nums[h--]);
+    }
+    return 0;
+  }
 };
 
 int main() {
