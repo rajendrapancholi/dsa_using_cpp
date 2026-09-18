@@ -1,7 +1,4 @@
 /* Infix to Prefix
-Given an infix expression, Your task is to convert the given infix expression to
-a prefix expression.
-
 Examples
 Example 1:
 Input:
@@ -10,19 +7,15 @@ Output:
  -+a*b^-^cde+f*ghi
 Explanation:
 
-The infix expression "a + b * (c^d - e) ^ (f + g * h) - i" is converted to
-prefix form as "abcd^e-fgh*+^*+i-" by applying the rules of infix to prefix
-conversion.
-
 Example 2:
 Input:
  (p + q) * (m - n)
 Output:
- pq+mn-*
+ *+pq-mn*
 Explanation:
 
 The infix expression "(p + q) * (m - n)" is converted to prefix form as
-"pq+mn-*". */
+"*+pq-mn". */
 
 #include <bits/stdc++.h>
 using namespace std;
@@ -92,7 +85,7 @@ int main() {
   ios_base::sync_with_stdio(false);
   cin.tie(NULL);
   string str = "a+b*(c^d-e)^(f+g*h)-i"; // -+a*b^-^cde+f*ghi
-  str = "( p + q) * (m - n)"; // p+q*m-n
+  str = "( p + q) * (m - n)"; // *+pq-mn
 
   Solution sl;
   auto result = sl.infix2prefix(str);
