@@ -224,7 +224,7 @@ For any queries or feedback, feel free to reach out:
 
 - **Rajendra Pancholi**: [rpancholi522@gmail.com](mailto:rpancholi522@gmail.com)
 - **Website**: [www.rajendrapancholi.com](https://rajendrapancholi.vercel.app/)
-- **LinkedIn**: [www.linkedin.com/in/rajendra-pancholi](https://www.linkedin.com/in/rajendra-pancholi-11a3a5286/)
+- **LinkedIn**: [www.linkedin.com/in/rajendra-pancholi](https://www.linkedin.com/in/rajendra-pancholi/)
 
 ---
 
