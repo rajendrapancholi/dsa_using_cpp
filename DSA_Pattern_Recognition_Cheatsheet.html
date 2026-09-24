@@ -867,7 +867,7 @@ vector&lt;int&gt; kmpSearch(const string&amp; text, const string&amp; pat) {
   <h3 class="block-label">Single linked list</h3>
 <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Detect a cycle</td><td class="pat"><span class="pat-tag">Floyd's slow/fast pointer</span></td></tr><tr><td class="sig">Find the start of the cycle</td><td class="pat"><span class="pat-tag">After meeting, reset one pointer to head, move both by 1</span></td></tr><tr><td class="sig">Find the middle of the list</td><td class="pat"><span class="pat-tag">Slow/fast pointer (fast moves 2x)</span></td></tr><tr><td class="sig">Reverse a linked list</td><td class="pat"><span class="pat-tag">Iterative 3-pointer (prev/curr/next), or recursive</span></td></tr><tr><td class="sig">Reverse in groups of K</td><td class="pat"><span class="pat-tag">Recursive or iterative with a group-boundary check</span></td></tr><tr><td class="sig">Remove the Nth node from the end</td><td class="pat"><span class="pat-tag">Two-pointer with an N-node gap</span></td></tr><tr><td class="sig">Check palindrome list</td><td class="pat"><span class="pat-tag">Find middle &rarr; reverse second half &rarr; compare</span></td></tr><tr><td class="sig">Merge two sorted lists</td><td class="pat"><span class="pat-tag">Dummy node + two-pointer merge</span></td></tr><tr><td class="sig">Add two numbers as linked lists</td><td class="pat"><span class="pat-tag">Simulate addition with carry, dummy node</span></td></tr><tr><td class="sig">Intersection point of two lists</td><td class="pat"><span class="pat-tag">Two-pointer, switch heads to equalize path length</span></td></tr><tr><td class="sig">Sort a linked list</td><td class="pat"><span class="pat-tag">Merge sort (slow/fast pointer to split)</span></td></tr></tbody></table>
 <h3 class="block-label">Doubly linked list</h3>
-<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">LRU Cache</td><td class="pat"><span class="pat-tag">DLL + HashMap &mdash; O(1) get/put, move node to front</span></td></tr><tr><td class="sig">Flatten a multilevel / child-pointer list</td><td class="pat"><span class="pat-tag">Recursive merge, similar to merge-sort's merge step</span></td></tr></tbody></table>
+<table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">LRU Cache</td><td class="pat"><span class="pat-tag">DLL + HashMap &mdash; O(1) get/put, move node to front</span></td></tr><tr><tr><td class="sig">LFU Cache</td><td class="pat"><span class="pat-tag">HashMap + FreqMap (Multiple DLLs) + minFreq &mdash; O(1) get/put, move node to next frequency list&apos;s front, evict from minFreq list&apos;s tail</span></td></tr><tr></tr><td class="sig">Flatten a multilevel / child-pointer list</td><td class="pat"><span class="pat-tag">Recursive merge, similar to merge-sort's merge step</span></td></tr></tbody></table>
 <h3 class="block-label">Medium / Hard</h3>
 <table class="sig-table"><thead><tr><th>When you see&hellip;</th><th>Pattern</th></tr></thead><tbody><tr><td class="sig">Clone a list with a random pointer</td><td class="pat"><span class="pat-tag">HashMap old&rarr;new, or interweaving trick</span></td></tr><tr><td class="sig">Rotate list by K places</td><td class="pat"><span class="pat-tag">Make it circular, break at the right point</span></td></tr><tr><td class="sig">Reorder list: L0 &rarr; Ln &rarr; L1 &rarr; Ln&minus;1 &hellip;</td><td class="pat"><span class="pat-tag">Find middle, reverse second half, merge alternately</span></td></tr><tr><td class="sig">Merge K sorted lists</td><td class="pat"><span class="pat-tag">Min-heap of size K, or divide &amp; conquer merge</span></td></tr></tbody></table>
 
@@ -987,6 +987,89 @@ public:
         }
         Node* n = new Node{key, value, nullptr, nullptr};
         cache[key] = n;
+        insertFront(n);
+    }
+};</code></pre>
+</div>
+</div><div class="example">
+<h4>LFU Cache &mdash; HashMap + FreqMap (Multiple DLLs) + minFreq</h4>
+<p class="ex-note">Sentinel head/tail nodes per list avoid null checks; the map gives O(1) lookup, the frequency map of lists gives O(1) popularity updates, and minFreq gives O(1) eviction tracking.</p>
+<div class="code-wrap">
+
+<button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+<pre><code class="language-cpp">class LFUCache {
+    struct Node {
+        int key, val, freq;
+        Node *prev, *next;
+    };
+    int capacity;
+    int minFreq;
+    unordered_map&lt;int, Node*&gt; cache;
+    unordered_map&lt;int, pair&lt;Node*, Node*&gt;&gt; freqList;
+    void createList(int freq) {
+        if (freqList.count(freq)) return;
+        Node* head = new Node{0, 0, 0, nullptr, nullptr};
+        Node* tail = new Node{0, 0, 0, nullptr, nullptr};
+        head-&gt;next = tail;
+        tail-&gt;prev = head;
+        freqList[freq] = {head, tail};
+    }
+    void remove(Node* n) {
+        n-&gt;prev-&gt;next = n-&gt;next;
+        n-&gt;next-&gt;prev = n-&gt;prev;
+        int freq = n-&gt;freq;
+        Node* head = freqList[freq].first;
+        Node* tail = freqList[freq].second;
+        if (head-&gt;next == tail) {
+            freqList.erase(freq);
+            if (minFreq == freq) {
+                minFreq++;
+            }
+            delete head;
+            delete tail;
+        }
+    }
+    void insertFront(Node* n) {
+        int freq = n-&gt;freq;
+        createList(freq);
+        Node* head = freqList[freq].first;
+        n-&gt;next = head-&gt;next;
+        n-&gt;prev = head;
+        head-&gt;next-&gt;prev = n;
+        head-&gt;next = n;
+    }
+    void increaseFrequency(Node* n) {
+        remove(n);
+        n-&gt;freq++;
+        insertFront(n);
+    }
+public:
+    LFUCache(int cap) : capacity(cap), minFreq(0) {}
+    int get(int key) {
+        if (!cache.count(key)) return -1;
+        Node* n = cache[key];
+        increaseFrequency(n);
+        return n-&gt;val;
+    }
+    void put(int key, int value) {
+        if (capacity == 0) return;
+        if (cache.count(key)) {
+            Node* n = cache[key];
+            n-&gt;val = value;
+            increaseFrequency(n);
+            return;
+        }
+        if ((int)cache.size() == capacity) {
+            Node* head = freqList[minFreq].first;
+            Node* tail = freqList[minFreq].second;
+            Node* lfu = tail-&gt;prev;
+            remove(lfu);
+            cache.erase(lfu-&gt;key);
+            delete lfu;
+        }
+        Node* n = new Node{key, value, 1, nullptr, nullptr};
+        cache[key] = n;
+        minFreq = 1;
         insertFront(n);
     }
 };</code></pre>
