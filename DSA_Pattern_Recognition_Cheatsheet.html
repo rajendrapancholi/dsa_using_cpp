@@ -70,7 +70,6 @@ background: var(--pine-dim);
 background:var(--pine);color:#fff;;
 }
 
-/* ---------- layout ---------- */
 .wrap{display:flex; min-height:100vh;}
 .sidebar{
   width:var(--sidebar-w);
@@ -131,7 +130,7 @@ nav{display:flex; flex-direction:column; gap:1px;}
   flex-shrink:0;
 }
 .nav-link:hover{background:var(--bg-panel);}
-.nav-link.active{background:var(--pine); color:#fff;}
+.nav-link.active{background:var(--pine-dim); color:#fff;}
 .nav-link.active .nav-num{color:#cfe3dd;}
 
 main{
@@ -145,8 +144,8 @@ main{
   font-weight:600;
   font-size:44px;
   line-height:1.12;
-  margin:0 0 14px 0;
-  max-width:15ch;
+  margin: 14px 0 14px 0;
+  max-width: 30ch;
 }
 .hero p{
   color:var(--ink-muted);
@@ -163,7 +162,6 @@ main{
   max-width:60ch;
 }
 
-/* ---------- topic sections ---------- */
 .topic{
   padding-top:36px;
   margin-top:36px;
@@ -204,7 +202,6 @@ main{
 }
 .topic > .block-label:first-of-type{margin-top:20px;}
 
-/* ---------- tables ---------- */
 table{
   width:100%;
   border-collapse:collapse;
@@ -241,7 +238,6 @@ tr:hover td{background:var(--bg-hover);}
 }
 .complexity-table td:first-child{font-family:'IBM Plex Mono', monospace; font-size:13px; color:var(--rust);}
 
-/* ---------- code ---------- */
 .examples-grid{display:flex; flex-direction:column; gap:22px;}
 .example h4{
   font-family:'Newsreader', serif;
@@ -311,7 +307,6 @@ code{
 
 .hidden{display:none !important;}
 
-/* ---------- mobile ---------- */
 .menu-toggle{display:none;}
 @media (max-width: 880px){
   .wrap{flex-direction:column;}
