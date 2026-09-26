@@ -1,30 +1,32 @@
 /* Implement Pow(x,n) | X raised to the power N
-Implement the power function pow(x, n) , which calculates the x raised to n i.e. xn.
+Implement the power function pow(x, n) , which calculates the x raised to n i.e.
+xn.
 
 Examples
 Example 1:
 Input:
- x = 2.0000, n = 10  
+ x = 2.0000, n = 10
 Output:
- 1024.0000  
+ 1024.0000
 Explanation:
  The answer is calculated as 2^10, which equals 1024.
 
 Example 2:
 Input:
- x = 2.0000, n = -2  
+ x = 2.0000, n = -2
 Output:
- 0.2500  
+ 0.2500
 Explanation:
  The answer is calculated as 2^(-2), which is equal to 1/4 = 0.25.
 Brute Force
 Algorithm
-Initialize the result variable, ans, to 1. This serves as the base case where any number raised to the power of 0 is 1.
-Check if the exponent n is less than 0:
-If true, invert x by setting x = 1/x and make n positive by setting n = -n. This transformation allows handling of negative exponents.
-Use a loop to iterate from 0 to n (converted to an integer). In each iteration, multiply ans by x. This effectively computes x raised to the power of n.
-Return the result stored in ans, which now contains the value of x^n.
-Image 1
+Initialize the result variable, ans, to 1. This serves as the base case where
+any number raised to the power of 0 is 1. Check if the exponent n is less than
+0: If true, invert x by setting x = 1/x and make n positive by setting n = -n.
+This transformation allows handling of negative exponents. Use a loop to iterate
+from 0 to n (converted to an integer). In each iteration, multiply ans by x.
+This effectively computes x raised to the power of n. Return the result stored
+in ans, which now contains the value of x^n. Image 1
 */
 
 #include <iostream>
@@ -34,26 +36,53 @@ using namespace std;
 
 class Solution {
 private:
-  double helper(double x, long long n) { 
-    if (n == 0) return 1.0;
-    if (n == 1) return x;
+  double helper(double x, long long n) {
+    if (n == 0)
+      return 1.0;
+    if (n == 1)
+      return x;
     if (n % 2 == 0)
       return helper(x * x, n / 2);
-    return x * helper(x * x, (n - 1) / 2); 
+    return x * helper(x * x, (n - 1) / 2);
   }
+
 public:
   double powFun(double x, int n) {
-    long long num = n; 
+    long long num = n;
     if (num < 0) {
       num = -num;
       x = 1.0 / x;
     }
     return helper(x, num);
   }
+
+  long long ipow(long long base, int exp) {
+    if (exp == 0)
+      return 1;
+    if (base == 0)
+      return 0;
+    if (exp < 0) {
+      if (base == 1)
+        return 1;
+      if (base == -1)
+        return (exp % 2 == 0) ? 1 : -1;
+      return 0;
+    }
+
+    long long result = 1;
+    while (exp > 0) {
+      if (exp & 1)
+        result *= base;
+      base *= base;
+      exp >>= 1;
+    }
+    return result;
+  }
 };
 
 int main() {
   Solution sl;
-  cout<<sl.powFun(2, -2)<<endl;
+  cout << sl.powFun(2, -2) << endl;
+  cout << sl.ipow(2, -2) << endl;
   return 0;
 }
