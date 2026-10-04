@@ -6,6 +6,119 @@
 <title>DSA Pattern Recognition &mdash; Cheat-Sheet</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231E1E2E'/%3E%3Cpath d='M8 12 L16 8 L24 12 L24 20 L16 24 L8 20 Z' fill='none' stroke='%2345475A' stroke-width='1' stroke-dasharray='2,2'/%3E%3Cline x1='16' y1='8' x2='16' y2='24' stroke='%2345475A' stroke-width='1' stroke-dasharray='2,2'/%3E%3Cline x1='8' y1='12' x2='24' y2='20' stroke='%2345475A' stroke-width='1' stroke-dasharray='2,2'/%3E%3Cline x1='8' y1='20' x2='24' y2='12' stroke='%2345475A' stroke-width='1' stroke-dasharray='2,2'/%3E%3Cpath d='M11 10 L6 16 L11 22' fill='none' stroke='%2389B4FA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M21 10 L26 16 L21 22' fill='none' stroke='%2389B4FA' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23F38BA8'/%3E%3Ccircle cx='16' cy='16' r='1.5' fill='%231E1E2E'/%3E%3Ccircle cx='6' cy='16' r='2' fill='%23A6E3A1'/%3E%3Ccircle cx='26' cy='16' r='2' fill='%23A6E3A1'/%3E%3Ccircle cx='16' cy='8' r='1.5' fill='%23FAB387'/%3E%3Ccircle cx='16' cy='24' r='1.5' fill='%23FAB387'/%3E%3C/svg%3E">
 
+<meta name="title" content="DSA Pattern Recognition Cheat-Sheet | Data Structures & Algorithms Patterns in C++" />
+<meta name="description" content="A free, searchable DSA pattern recognition cheat-sheet with 22+ topics: sorting, arrays, binary search, linked lists, recursion, DP, graphs, trees, tries, segment trees and more. Spot the clue in the problem, find the technique, and copy worked C++ examples." />
+<meta name="keywords" content="DSA cheat sheet, data structures and algorithms, DSA patterns, pattern recognition, coding interview patterns, LeetCode patterns, competitive programming, C++ algorithms, sliding window, two pointer, binary search, dynamic programming, graphs, Dijkstra, union find, segment tree, Fenwick tree, trie, KMP, backtracking, monotonic stack, bit manipulation, Striver A2Z, FAANG interview prep" />
+<meta name="author" content="Rajendra Pancholi" />
+<meta name="creator" content="Rajendra Pancholi" />
+<meta name="publisher" content="Rajendra Pancholi" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow" />
+<meta name="language" content="English" />
+<meta name="revisit-after" content="7 days" />
+<meta name="rating" content="general" />
+<meta name="distribution" content="global" />
+<meta name="theme-color" content="#030303" />
+<meta name="color-scheme" content="dark" />
+<meta name="application-name" content="DSA Pattern Index" />
+<meta name="apple-mobile-web-app-title" content="DSA Patterns" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta name="format-detection" content="telephone=no" />
+<meta name="generator" content="Hand-written HTML/CSS/JS" />
+<meta name="subject" content="Data Structures and Algorithms" />
+<meta name="classification" content="Education, Programming, Computer Science" />
+<meta name="coverage" content="Worldwide" />
+<link rel="canonical" href="https://roxoi.github.io/dsa-cheatsheet" />
+
+<!-- Open Graph / Facebook / LinkedIn -->
+<meta property="og:type" content="article" />
+<meta property="og:site_name" content="DSA Pattern Index" />
+<meta property="og:url" content="https://roxoi.github.io/dsa-cheatsheet" />
+<meta property="og:title" content="DSA Pattern Recognition Cheat-Sheet | 22+ Algorithm Patterns in C++" />
+<meta property="og:description" content="Read the clue in the problem statement, get the technique. Covers arrays, binary search, DP, graphs, trees, tries, segment trees, number theory and more, with copy-ready C++ code." />
+<meta property="og:image" content="https://roxoi.github.io/assets/dsa-cheatsheet-og.png" />
+<meta property="og:image:secure_url" content="https://roxoi.github.io/assets/dsa-cheatsheet-og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="DSA Pattern Recognition Cheat-Sheet interface with sidebar index and C++ examples" />
+<meta property="og:locale" content="en_US" />
+<meta property="article:section" content="Programming" />
+<meta property="article:tag" content="DSA" />
+<meta property="article:tag" content="Algorithms" />
+<meta property="article:tag" content="C++" />
+<meta property="article:tag" content="Interview Prep" />
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:site" content="@yourhandle" />
+<meta name="twitter:creator" content="@yourhandle" />
+<meta name="twitter:url" content="https://roxoi.github.io/dsa-cheatsheet" />
+<meta name="twitter:title" content="DSA Pattern Recognition Cheat-Sheet | 22+ Patterns in C++" />
+<meta name="twitter:description" content="A searchable field manual that maps problem clues to the right algorithm, with worked C++ examples for every major DSA topic." />
+<meta name="twitter:image" content="https://roxoi.github.io/assets/dsa-cheatsheet-og.png" />
+<meta name="twitter:image:alt" content="DSA Pattern Recognition Cheat-Sheet preview" />
+<meta name="twitter:label1" content="Topics" />
+<meta name="twitter:data1" content="22 + Master Index" />
+<meta name="twitter:label2" content="Language" />
+<meta name="twitter:data2" content="C++" />
+
+<!-- Structured Data: TechArticle / LearningResource -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": ["TechArticle", "LearningResource"],
+  "headline": "DSA Pattern Recognition Cheat-Sheet",
+  "alternativeHeadline": "Twenty-two advanced patterns, one unified filing system for recognizing any problem",
+  "name": "DSA Pattern Index",
+  "description": "A searchable cheat-sheet that maps problem-statement clues to data structure and algorithm patterns, with worked C++ examples across sorting, arrays, binary search, linked lists, recursion, bit manipulation, stacks and queues, sliding window, heaps, greedy, trees, graphs, dynamic programming, tries, strings, segment trees, number theory, advanced DP, union-find and tree patterns.",
+  "url": "https://roxoi.github.io/dsa-cheatsheet",
+  "mainEntityOfPage": "https://roxoi.github.io/dsa-cheatsheet",
+  "image": "https://roxoi.github.io/assets/dsa-cheatsheet-og.png",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "proficiencyLevel": "Beginner to Advanced",
+  "learningResourceType": "Cheat sheet",
+  "educationalLevel": "Intermediate",
+  "audience": {
+    "@type": "Audience",
+    "audienceType": "Software engineers, students, competitive programmers, interview candidates"
+  },
+  "teaches": [
+    "Sorting techniques", "Arrays", "Binary search", "Strings", "Linked lists",
+    "Recursion and backtracking", "Bit manipulation", "Stacks and queues",
+    "Sliding window and two pointer", "Heaps", "Greedy algorithms",
+    "Binary trees", "Binary search trees", "Graphs", "Dynamic programming",
+    "Tries", "Segment trees and Fenwick trees", "Number theory",
+    "Union-find", "LCA and tree rerooting"
+  ],
+  "about": [
+    { "@type": "Thing", "name": "Data structure" },
+    { "@type": "Thing", "name": "Algorithm" },
+    { "@type": "Thing", "name": "Competitive programming" }
+  ],
+  "programmingLanguage": { "@type": "ComputerLanguage", "name": "C++" },
+  "keywords": "DSA, algorithms, data structures, patterns, C++, interview prep, competitive programming",
+  "author": { "@type": "Person", "name": "Rajendra Pancholi" },
+  "publisher": { "@type": "Person", "name": "Rajendra Pancholi" },
+  "datePublished": "2026-10-01",
+  "dateModified": "2026-10-01"
+}
+</script>
+
+<!-- Structured Data: Breadcrumbs -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://roxoi.github.io/" },
+    { "@type": "ListItem", "position": 2, "name": "DSA Cheat-Sheet", "item": "https://roxoi.github.io/dsa-cheatsheet" }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
