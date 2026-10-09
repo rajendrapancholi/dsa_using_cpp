@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -425,14 +426,13 @@
             background: var(--bg-panel);
             border: 1px solid var(--border);
             border-radius: 4px;
-            display: block;
-            overflow-x: auto;
+            min-width: 520px;
             -webkit-overflow-scrolling: touch;
         }
 
         table thead,
         table tbody {
-            display: table;
+            /* display: table; */
             width: 100%;
             min-width: 520px;
         }
@@ -8769,6 +8769,12 @@ long long pathSum(int a, int b) {
         }
 
         if (window.hljs) { hljs.highlightAll(); }
+        document.querySelectorAll('table').forEach(t => {
+            const w = document.createElement('div');
+            w.className = 'table-scroll';
+            t.parentNode.insertBefore(w, t);
+            w.appendChild(t);
+        });
 
     </script>
 </body>

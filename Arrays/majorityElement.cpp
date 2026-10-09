@@ -25,9 +25,9 @@ public:
     
     // Moore's Algorithm
     int count = 0, el = INT_MIN;
-    for(int n: nums){
-      if(count == 0) count = 1, el = n;
-      else if(n == el) count++;
+    for(int nm: nums){
+      if(count == 0) count = 1, el = nm;
+      else if(nm == el) count++;
       else count--;
     }
     count = 0;

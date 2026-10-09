@@ -21,19 +21,17 @@ public:
   int getLongestSubarray(vector<int> &a, int k) {
     int n = a.size();
     map<int, int> preSumMap;
+    preSumMap[0] = -1;
     int sum = 0;
     int maxLen = 0;
+
     for (int i = 0; i < n; i++) {
       sum += a[i];
-      if (sum == k) {
-        maxLen = max(maxLen, i + 1);
-      }
       int rem = sum - k;
-      if (preSumMap.find(rem) != preSumMap.end()) { // if rem is found in map
-        int len = i - preSumMap[rem];
-        maxLen = max(maxLen, len);
+      if (preSumMap.find(rem) != preSumMap.end()) { // if rem found calculate len
+        maxLen = max(maxLen, i - preSumMap[rem]);
       }
-      if (preSumMap.find(sum) == preSumMap.end()) { // not found sum in map
+      if (preSumMap.find(sum) == preSumMap.end()) { // if rem not found add into map
         preSumMap[sum] = i;
       }
     }
