@@ -1,5 +1,4 @@
 /* Printing Longest Increasing Subsequence
-Put your HTML text here
 Problem Description: Given an array of n integers arr, return the Longest Increasing Subsequence (LIS) that is index-wise lexicographically smallest.
 
 The Longest Increasing Subsequence (LIS) is the longest subsequence where all elements are in strictly increasing order. A subsequence A1 is index-wise lexicographically smaller than another subsequence A2 if, at the first position where A1 and A2 differ, the element in A1 appears earlier in the array than corresponding element in A2.

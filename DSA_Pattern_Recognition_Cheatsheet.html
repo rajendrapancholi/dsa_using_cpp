@@ -387,7 +387,7 @@
 
         .topic-num {
             font-family: 'IBM Plex Mono', monospace;
-            font-size: 15px;
+            font-size: 1.5rem;
             color: var(--rust);
         }
 
@@ -6901,6 +6901,469 @@ int countSubstrings(string s) {
                         </div>
                     </div>
                 </div>
+                <h3 class="block-label">Brute &rarr; Memo &rarr; Tabulation: 6 core pillars</h3>
+                <p class="topic-intro">Write each pillar in three steps: first recursion (brute force), then
+                    memoization, then tabulation. The arguments that change in the recursion become the loop variables
+                    in the tabulation.</p>
+
+                <h3 class="block-label">Pillar 1 - 0/1 Knapsack (Subset Sum)</h3>
+                <p class="topic-intro">Core idea: For each element you have two choices: Take it or Not Take it. Each
+                    item can be used only once. Standard problem: Subset Sum (is there a subset whose sum equals the
+                    target?).</p>
+                <div class="examples-grid">
+                    <div class="example">
+                        <h4>1. Brute Force (Recursion)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: solve(n - 1, k, arr)
+bool solve(int ind, int target, vector&lt;int&gt;&amp; arr) {
+    // Base Cases
+    if (target == 0) return true;          // Target found
+    if (ind == 0) return arr[0] == target; // Last element: does it equal the target?
+
+    // Choice 1: Not Take
+    bool notTake = solve(ind - 1, target, arr);
+
+    // Choice 2: Take (only if the element is &lt;= target)
+    bool take = false;
+    if (arr[ind] &lt;= target)
+        take = solve(ind - 1, target - arr[ind], arr);
+
+    return take || notTake;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>2. Memoization (Top-Down 2D DP)</h4>
+                        <p class="ex-note">Two states change here: ind and target. So we need a 2D DP table.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(k + 1, -1)); solve(n - 1, k, arr, dp);
+bool solve(int ind, int target, vector&lt;int&gt;&amp; arr, vector&lt;vector&lt;int&gt;&gt;&amp; dp) {
+    if (target == 0) return true;
+    if (ind == 0) return arr[0] == target;
+
+    if (dp[ind][target] != -1) return dp[ind][target];
+
+    bool notTake = solve(ind - 1, target, arr, dp);
+    bool take = false;
+    if (arr[ind] &lt;= target)
+        take = solve(ind - 1, target - arr[ind], arr, dp);
+
+    return dp[ind][target] = (take || notTake);
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>3. Tabulation (Bottom-Up 2D DP)</h4>
+                        <p class="ex-note">Conversion logic: make an n x (target + 1) table. Base cases: for target ==
+                            0, set every row to true; at ind == 0, set dp[0][arr[0]] = true. Loops: ind from 1 to n-1,
+                            target from 1 to k.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">bool subsetSumToK(int n, int k, vector&lt;int&gt;&amp; arr) {
+    vector&lt;vector&lt;bool&gt;&gt; dp(n, vector&lt;bool&gt;(k + 1, false));
+
+    // Base case 1: target 0 is always true
+    for (int i = 0; i &lt; n; i++) dp[i][0] = true;
+
+    // Base case 2: at index 0, if the element is &lt;= target
+    if (arr[0] &lt;= k) dp[0][arr[0]] = true;
+
+    // Bottom-up loops
+    for (int ind = 1; ind &lt; n; ind++) {
+        for (int target = 1; target &lt;= k; target++) {
+            bool notTake = dp[ind - 1][target];
+            bool take = false;
+            if (arr[ind] &lt;= target)
+                take = dp[ind - 1][target - arr[ind]];
+            dp[ind][target] = take || notTake;
+        }
+    }
+    return dp[n - 1][k];
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="block-label">Pillar 2 - Unbounded Knapsack (Coin Change II)</h3>
+                <p class="topic-intro">Core idea: Same as 0/1 Knapsack, but you can use an element any number of times.
+                    Standard problem: Coin Change II (count the ways to make the target amount).</p>
+                <div class="examples-grid">
+                    <div class="example">
+                        <h4>1. Brute Force (Recursion)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: solve(n - 1, amount, coins)
+int solve(int ind, int T, vector&lt;int&gt;&amp; coins) {
+    if (ind == 0)
+        return (T % coins[0] == 0); // if the coin divides the target exactly, that is 1 way
+
+    int notTake = solve(ind - 1, T, coins);
+    int take = 0;
+    if (coins[ind] &lt;= T) {
+        // NOTE: we keep 'ind' (not ind - 1) because we can use the same coin again
+        take = solve(ind, T - coins[ind], coins);
+    }
+    return take + notTake;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>2. Memoization (Top-Down 2D DP)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(amount + 1, -1)); solve(n - 1, amount, coins, dp);
+int solve(int ind, int T, vector&lt;int&gt;&amp; coins, vector&lt;vector&lt;int&gt;&gt;&amp; dp) {
+    if (ind == 0) return (T % coins[0] == 0);
+    if (dp[ind][T] != -1) return dp[ind][T];
+
+    int notTake = solve(ind - 1, T, coins, dp);
+    int take = 0;
+    if (coins[ind] &lt;= T)
+        take = solve(ind, T - coins[ind], coins, dp);
+
+    return dp[ind][T] = take + notTake;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>3. Tabulation (Bottom-Up 2D DP)</h4>
+                        <p class="ex-note">Conversion logic: turn the same recursion into two loops. ind goes from 1 to
+                            n-1, T goes from 0 to amount.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">int change(int amount, vector&lt;int&gt;&amp; coins) {
+    int n = coins.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(amount + 1, 0));
+
+    // Base case initialization
+    for (int T = 0; T &lt;= amount; T++)
+        if (T % coins[0] == 0) dp[0][T] = 1;
+
+    for (int ind = 1; ind &lt; n; ind++) {
+        for (int T = 0; T &lt;= amount; T++) {
+            int notTake = dp[ind - 1][T];
+            int take = 0;
+            if (coins[ind] &lt;= T)
+                take = dp[ind][T - coins[ind]]; // same row 'ind' is used (unbounded)
+            dp[ind][T] = take + notTake;
+        }
+    }
+    return dp[n - 1][amount];
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="block-label">Pillar 3 - LCS / String DP</h3>
+                <p class="topic-intro">Core idea: Move two pointers (i, j) over the two strings. If the characters
+                    match, add 1 and move both back; if not, try both options. Standard problem: Longest Common
+                    Subsequence.</p>
+                <div class="examples-grid">
+                    <div class="example">
+                        <h4>1. Brute Force (Recursion)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: solve(n - 1, m - 1, s1, s2)
+int solve(int i, int j, string&amp; s1, string&amp; s2) {
+    if (i &lt; 0 || j &lt; 0) return 0; // One string is finished
+
+    // Match found
+    if (s1[i] == s2[j])
+        return 1 + solve(i - 1, j - 1, s1, s2);
+
+    // No match: skip one character of s1, or one character of s2
+    return max(solve(i - 1, j, s1, s2), solve(i, j - 1, s1, s2));
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>2. Memoization (Top-Down 2D DP)</h4>
+                        <p class="ex-note">Trick: to avoid negative indexes (i &lt; 0), use index shifting: treat 0 like
+                            -1 and make the table size +1.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(m + 1, -1)); solve(n, m, s1, s2, dp);
+int solve(int i, int j, string&amp; s1, string&amp; s2, vector&lt;vector&lt;int&gt;&gt;&amp; dp) {
+    if (i == 0 || j == 0) return 0; // Shifted base case
+    if (dp[i][j] != -1) return dp[i][j];
+
+    if (s1[i - 1] == s2[j - 1])
+        return dp[i][j] = 1 + solve(i - 1, j - 1, s1, s2, dp);
+
+    return dp[i][j] = max(solve(i - 1, j, s1, s2, dp), solve(i, j - 1, s1, s2, dp));
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>3. Tabulation (Bottom-Up 2D DP)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">int longestCommonSubsequence(string s1, string s2) {
+    int n = s1.size(), m = s2.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(m + 1, 0));
+
+    // Base cases are already 0 from the initialization
+
+    for (int i = 1; i &lt;= n; i++) {
+        for (int j = 1; j &lt;= m; j++) {
+            if (s1[i - 1] == s2[j - 1])
+                dp[i][j] = 1 + dp[i - 1][j - 1];
+            else
+                dp[i][j] = max(dp[i - 1][j], dp[i][j - 1]);
+        }
+    }
+    return dp[n][m];
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="block-label">Pillar 4 - Matrix Chain Multiplication / Partition DP</h3>
+                <p class="topic-intro">Core idea: Split an array or string at different points k and pick the best
+                    answer. The loops run between i and j. Standard problem: MCM (minimize the multiplication cost).</p>
+                <div class="examples-grid">
+                    <div class="example">
+                        <h4>1. Brute Force (Recursion)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: solve(1, N - 1, arr)
+int solve(int i, int j, vector&lt;int&gt;&amp; arr) {
+    if (i == j) return 0; // A single matrix costs 0
+
+    int mini = INT_MAX;
+    // Try every partition point 'k' from i to j-1
+    for (int k = i; k &lt; j; k++) {
+        int steps = (arr[i - 1] * arr[k] * arr[j]) + solve(i, k, arr) + solve(k + 1, j, arr);
+        mini = min(mini, steps);
+    }
+    return mini;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>2. Memoization (Top-Down 2D DP)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: vector&lt;vector&lt;int&gt;&gt; dp(N, vector&lt;int&gt;(N, -1)); solve(1, N - 1, arr, dp);
+int solve(int i, int j, vector&lt;int&gt;&amp; arr, vector&lt;vector&lt;int&gt;&gt;&amp; dp) {
+    if (i == j) return 0;
+    if (dp[i][j] != -1) return dp[i][j];
+
+    int mini = INT_MAX;
+    for (int k = i; k &lt; j; k++) {
+        int steps = (arr[i - 1] * arr[k] * arr[j]) + solve(i, k, arr, dp) + solve(k + 1, j, arr, dp);
+        mini = min(mini, steps);
+    }
+    return dp[i][j] = mini;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>3. Tabulation (Bottom-Up 2D DP)</h4>
+                        <p class="ex-note">Conversion logic: the state (i, j) depends on smaller ranges (i..k and
+                            k+1..j). So fill the table from small ranges to big ones: the i loop goes from N-1 down to
+                            1, and the j loop goes from i+1 up to N-1.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">int matrixMultiplication(vector&lt;int&gt;&amp; arr, int N) {
+    vector&lt;vector&lt;int&gt;&gt; dp(N, vector&lt;int&gt;(N, 0));
+
+    // dp[i][i] is already 0
+    for (int i = N - 1; i &gt;= 1; i--) {
+        for (int j = i + 1; j &lt; N; j++) {
+            int mini = INT_MAX;
+            for (int k = i; k &lt; j; k++) {
+                int steps = (arr[i - 1] * arr[k] * arr[j]) + dp[i][k] + dp[k + 1][j];
+                mini = min(mini, steps);
+            }
+            dp[i][j] = mini;
+        }
+    }
+    return dp[1][N - 1];
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="block-label">Pillar 5 - DP on Stocks (State Machine)</h3>
+                <p class="topic-intro">Core idea: Each day you are in one of two states: you can Buy (buy == 1), or you
+                    can only Sell (buy == 0). Standard problem: Buy and Sell Stock II (unlimited transactions).</p>
+                <div class="examples-grid">
+                    <div class="example">
+                        <h4>1. Brute Force (Recursion)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: solve(0, 1, prices)
+int solve(int ind, int buy, vector&lt;int&gt;&amp; prices) {
+    if (ind == (int)prices.size()) return 0; // No more days
+
+    int profit = 0;
+    if (buy) {
+        // Choice 1: buy today, Choice 2: skip today
+        profit = max(-prices[ind] + solve(ind + 1, 0, prices), 0 + solve(ind + 1, 1, prices));
+    } else {
+        // Choice 1: sell today, Choice 2: skip today
+        profit = max(prices[ind] + solve(ind + 1, 1, prices), 0 + solve(ind + 1, 0, prices));
+    }
+    return profit;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>2. Memoization (Top-Down 2D DP)</h4>
+                        <p class="ex-note">States: ind (0 to n) and buy (0 or 1). Table size: n x 2.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: vector&lt;vector&lt;int&gt;&gt; dp(n, vector&lt;int&gt;(2, -1)); solve(0, 1, prices, dp);
+int solve(int ind, int buy, vector&lt;int&gt;&amp; prices, vector&lt;vector&lt;int&gt;&gt;&amp; dp) {
+    if (ind == (int)prices.size()) return 0;
+    if (dp[ind][buy] != -1) return dp[ind][buy];
+
+    int profit = 0;
+    if (buy)
+        profit = max(-prices[ind] + solve(ind + 1, 0, prices, dp), solve(ind + 1, 1, prices, dp));
+    else
+        profit = max(prices[ind] + solve(ind + 1, 1, prices, dp), solve(ind + 1, 0, prices, dp));
+
+    return dp[ind][buy] = profit;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>3. Tabulation (Bottom-Up 2D DP)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">int maxProfit(vector&lt;int&gt;&amp; prices) {
+    int n = prices.size();
+    vector&lt;vector&lt;int&gt;&gt; dp(n + 1, vector&lt;int&gt;(2, 0));
+
+    // Base case: dp[n][0] = dp[n][1] = 0 (already 0)
+
+    for (int ind = n - 1; ind &gt;= 0; ind--) {
+        for (int buy = 0; buy &lt;= 1; buy++) {
+            int profit = 0;
+            if (buy)
+                profit = max(-prices[ind] + dp[ind + 1][0], dp[ind + 1][1]);
+            else
+                profit = max(prices[ind] + dp[ind + 1][1], dp[ind + 1][0]);
+            dp[ind][buy] = profit;
+        }
+    }
+    return dp[0][1]; // Start from day 0 with buying allowed
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="block-label">Pillar 6 - DP on Trees (House Robber III)</h3>
+                <p class="topic-intro">Core idea: Each node asks its children for their answers, then combines them (sum
+                    or max) to make its own decision. There are no loops: it works purely as a DFS (post-order).
+                    Standard problem: House Robber III (you cannot rob two directly connected nodes).</p>
+                <div class="examples-grid">
+                    <div class="example">
+                        <h4>1. Brute Force (Recursion)</h4>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">int rob(TreeNode* root) {
+    if (!root) return 0;
+
+    // Choice 1: rob this node -&gt; skip its children, go to the grandchildren
+    int val = root-&gt;val;
+    if (root-&gt;left)  val += rob(root-&gt;left-&gt;left)  + rob(root-&gt;left-&gt;right);
+    if (root-&gt;right) val += rob(root-&gt;right-&gt;left) + rob(root-&gt;right-&gt;right);
+
+    // Choice 2: don't rob this node -&gt; we can rob the left and right children
+    int notRob = rob(root-&gt;left) + rob(root-&gt;right);
+
+    return max(val, notRob);
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>2. Memoization (Top-Down using Hash Map)</h4>
+                        <p class="ex-note">Tree nodes have no sequential index, so instead of an array we use the Node*
+                            as the key of a hash map.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">unordered_map&lt;TreeNode*, int&gt; dp; // call dp.clear() between test cases
+
+int rob(TreeNode* root) {
+    if (!root) return 0;
+    if (dp.count(root)) return dp[root];
+
+    int val = root-&gt;val;
+    if (root-&gt;left)  val += rob(root-&gt;left-&gt;left)  + rob(root-&gt;left-&gt;right);
+    if (root-&gt;right) val += rob(root-&gt;right-&gt;left) + rob(root-&gt;right-&gt;right);
+
+    int notRob = rob(root-&gt;left) + rob(root-&gt;right);
+
+    return dp[root] = max(val, notRob);
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>3. Tabulation Equivalent (Pair Approach)</h4>
+                        <p class="ex-note">Writing iterative tabulation for trees is hard without extra maps, so
+                            interviewers expect the pair-return solution: each node returns {robbed_this_node,
+                            not_robbed_this_node}. Time O(N), space O(H) (recursion stack).</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">class Solution {
+public:
+    // pair.first  = max money if we ROB this node
+    // pair.second = max money if we DO NOT rob this node
+    pair&lt;int, int&gt; solve(TreeNode* root) {
+        if (!root) return {0, 0};
+
+        pair&lt;int, int&gt; leftSub  = solve(root-&gt;left);
+        pair&lt;int, int&gt; rightSub = solve(root-&gt;right);
+
+        // Robbed this node -&gt; its children cannot be robbed
+        int robNode = root-&gt;val + leftSub.second + rightSub.second;
+
+        // Did not rob this node -&gt; for each child, take the better of the two
+        int notRobNode = max(leftSub.first, leftSub.second) + max(rightSub.first, rightSub.second);
+
+        return {robNode, notRobNode};
+    }
+
+    int rob(TreeNode* root) {
+        pair&lt;int, int&gt; result = solve(root);
+        return max(result.first, result.second);
+    }
+};</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="block-label">Golden summary: converting recursion to tabulation</h3>
+                <table class="sig-table">
+                    <thead>
+                        <tr>
+                            <th>Step</th>
+                            <th>Rule</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sig">Check base cases</td>
+                            <td class="pat">Put the recursion's terminal return values into the starting cells of the DP
+                                table.</td>
+                        </tr>
+                        <tr>
+                            <td class="sig">Loop direction</td>
+                            <td class="pat">If the recursion goes from n down to 0, the tabulation loop goes from 0 up
+                                to n (and the other way round).</td>
+                        </tr>
+                        <tr>
+                            <td class="sig">Variable mapping</td>
+                            <td class="pat">The arguments that change in the recursion (ind, target, buy) become the
+                                loop variables of the tabulation (i, j, k).</td>
+                        </tr>
+                    </tbody>
+                </table>
             </section>
 
             <section class="topic" id="tries">
