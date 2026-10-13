@@ -27,7 +27,6 @@ public:
     if (str.size() == 0 || !isOperand(str[0]))
       return "";
     stack<string> st;
-    string ans = "";
 
     for (char c: str) {
       if (c == ' ')
