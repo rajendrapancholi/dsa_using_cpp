@@ -6901,7 +6901,7 @@ int countSubstrings(string s) {
                         </div>
                     </div>
                 </div>
-                <h3 class="block-label">Brute &rarr; Memo &rarr; Tabulation: 6 core pillars</h3>
+                <h3 class="block-label">Brute &rarr; Memo &rarr; Tabulation: 7 core pillars</h3>
                 <p class="topic-intro">Write each pillar in three steps: first recursion (brute force), then
                     memoization, then tabulation. The arguments that change in the recursion become the loop variables
                     in the tabulation.</p>
@@ -7337,6 +7337,147 @@ public:
                         </div>
                     </div>
                 </div>
+                <h3 class="block-label">Pillar 7 - Digit DP</h3>
+                <p class="ex-note">Core idea: You are asked to find numbers in a huge range [L, R] (where R can
+                    be up to 10<sup>18</sup>) that follow some condition, for example "digit sum equals X" or "no
+                    digit 4". A normal loop over 10<sup>18</sup> numbers gives TLE, so instead we build the number
+                    digit by digit, from left to right. Standard problem: count the numbers between 0 and R whose
+                    digit sum is equal to X.</p>
+
+                <table class="sig-table">
+                    <thead>
+                        <tr>
+                            <th>State</th>
+                            <th>Meaning</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="sig">idx</td>
+                            <td class="pat">Which digit position we are at (left to right).</td>
+                        </tr>
+                        <tr>
+                            <td class="sig">tight</td>
+                            <td class="pat">A 0/1 flag. If tight == 1, we are still bound by R and cannot pick a
+                                digit above R[idx]. If tight == 0, we can pick any digit from 0 to 9. Example with R
+                                = "324": at idx 0 the limit is 3. Picking 3 keeps tight = 1 (the next limit is 2);
+                                picking 0, 1 or 2 makes tight = 0 (free, limit 9).</td>
+                        </tr>
+                        <tr>
+                            <td class="sig">condition state</td>
+                            <td class="pat">Whatever the question asks about (here: current_sum, the sum of the
+                                digits placed so far).</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="examples-grid">
+                    <div class="example">
+                        <h4>1. Brute Force (Recursive Construction)</h4>
+                        <p class="ex-note">Convert R into a string so we can loop over its digits.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: solve(0, 1, 0, X, R)   where R = to_string(number), e.g. R = "324"
+long long solve(int idx, int tight, int current_sum, int X, string&amp; R) {
+    // Base case: all digits are placed
+    if (idx == (int)R.length())
+        return (current_sum == X); // sum equals X -&gt; we found 1 valid number
+
+    long long ans = 0;
+
+    // tight == 1: we cannot go above R[idx]
+    // tight == 0: we are free (limit = 9)
+    int limit = (tight == 1) ? (R[idx] - '0') : 9;
+
+    // Try every possible digit at this position
+    for (int digit = 0; digit &lt;= limit; digit++) {
+        // Stay tight only if we were tight AND picked the limit digit
+        int new_tight = (tight == 1 &amp;&amp; digit == limit) ? 1 : 0;
+
+        ans += solve(idx + 1, new_tight, current_sum + digit, X, R);
+    }
+    return ans;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>2. Memoization (Top-Down 3D DP)</h4>
+                        <p class="ex-note">States: idx (up to 19), tight (2), current_sum (max 18 x 9 = 162). That
+                            is only about 20 x 2 x 170 states, with 10 digit choices each. For a range [L, R],
+                            answer = solve(R) - solve(L - 1) (just solve(R) if L = 0). Reset dp before each call,
+                            because the tight = 1 states depend on the number. Use long long: the count can reach
+                            10^18.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">long long dp[20][2][170]; // global array
+
+// Call: memset(dp, -1, sizeof(dp)); solve(0, 1, 0, X, R);
+long long solve(int idx, int tight, int current_sum, int X, string&amp; R) {
+    if (idx == (int)R.length()) return (current_sum == X);
+
+    if (dp[idx][tight][current_sum] != -1) return dp[idx][tight][current_sum];
+
+    long long ans = 0;
+    int limit = (tight == 1) ? (R[idx] - '0') : 9;
+
+    for (int digit = 0; digit &lt;= limit; digit++) {
+        int new_tight = (tight == 1 &amp;&amp; digit == limit) ? 1 : 0;
+        ans += solve(idx + 1, new_tight, current_sum + digit, X, R);
+    }
+
+    return dp[idx][tight][current_sum] = ans;
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="example">
+                        <h4>3. Tabulation (Bottom-Up 3D DP)</h4>
+                        <p class="ex-note">Tabulation is a little tricky in Digit DP. The base case is at idx == n,
+                            so the idx loop runs backwards, from n-1 down to 0.</p>
+                        <div class="code-wrap">
+                            <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
+                            <pre><code class="language-cpp">// Call: countWays(to_string(number), X)
+long long countWays(string R, int X) {
+    int n = R.length();
+    int maxSum = 9 * n;        // biggest possible digit sum
+    if (X &gt; maxSum) return 0;  // impossible, and keeps array indexes safe
+
+    // dp[idx][tight][current_sum]
+    vector&lt;vector&lt;vector&lt;long long&gt;&gt;&gt; dp(
+        n + 1, vector&lt;vector&lt;long long&gt;&gt;(2, vector&lt;long long&gt;(maxSum + 1, 0)));
+
+    // Base case (idx == n): all digits placed and sum == X -&gt; 1 way
+    for (int t = 0; t &lt;= 1; t++)
+        dp[n][t][X] = 1;
+
+    // Bottom-up loops
+    for (int idx = n - 1; idx &gt;= 0; idx--) {
+        for (int tight = 0; tight &lt;= 1; tight++) {
+            for (int current_sum = 0; current_sum &lt;= maxSum; current_sum++) {
+
+                int limit = (tight == 1) ? (R[idx] - '0') : 9;
+                long long ans = 0;
+
+                for (int digit = 0; digit &lt;= limit; digit++) {
+                    int new_tight = (tight == 1 &amp;&amp; digit == limit) ? 1 : 0;
+
+                    if (current_sum + digit &lt;= X) // boundary check (also keeps the index &lt;= maxSum)
+                        ans += dp[idx + 1][new_tight][current_sum + digit];
+                }
+                dp[idx][tight][current_sum] = ans;
+            }
+        }
+    }
+
+    // The answer is always at idx = 0, tight = 1, current_sum = 0
+    return dp[0][1][0];
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="block-label">Interview cheat-code for Digit DP</h3>
+                <p class="ex-note">Whenever the constraint is R &ge; 10<sup>9</sup> and the task is "count the
+                    numbers that satisfy some property", a normal array DP will fail. Think Digit DP.</p>
 
                 <h3 class="block-label">Golden summary: converting recursion to tabulation</h3>
                 <table class="sig-table">
@@ -7606,7 +7747,6 @@ vector&lt;string&gt; autocomplete(TrieNode* root, const string&amp; prefix) {
 }</code></pre>
                         </div>
                     </div>
-                </div>
             </section>
 
             <section class="topic" id="strings-advanced">
