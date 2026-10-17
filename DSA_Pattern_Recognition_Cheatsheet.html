@@ -5483,19 +5483,17 @@ vector&lt;vector&lt;int&gt;&gt; levelOrder(TreeNode* root) {
                         <div class="code-wrap">
 
                             <button class="copy-btn" onclick="copyCode(this)" aria-label="Copy code">copy</button>
-                            <pre><code class="language-cpp">int diameter = 0;
-
-int height(TreeNode* node) {
+                            <pre><code class="language-cpp">int height(TreeNode* node, int&amp; diameter) {
     if (!node) return 0;
-    int lh = height(node-&gt;left);
-    int rh = height(node-&gt;right);
+    int lh = height(node-&gt;left, diameter);
+    int rh = height(node-&gt;right, diameter);
     diameter = max(diameter, lh + rh);
     return 1 + max(lh, rh);
 }
 
 int diameterOfBinaryTree(TreeNode* root) {
     diameter = 0;
-    height(root);
+    height(root, diameter);
     return diameter;
 }</code></pre>
                         </div>
@@ -5578,7 +5576,7 @@ vector&lt;int&gt; postorderIter(TreeNode* root) {           // reversed (root, r
                         </div>
                     </div>
                     <div class="example">
-                        <h4>Balanced Binary Tree (−1 sentinel)</h4>
+                        <h4>Balanced Binary Tree (-1 sentinel) : at most diff=1 (left and right subtree)</h4>
 
                         <div class="code-wrap">
 
