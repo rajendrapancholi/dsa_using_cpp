@@ -13,7 +13,7 @@ Explanation: We have to find all the subset’s sum and print them.in this case 
 
 Bitmasking Approach
 Algorithm
-The brute force method treats each subset as a binary representation of choices: for every element in the array, you either include it in the subset or exclude it. This is represented by a bitmask from 0 to 2^N - 1. For each mask, we check each bit position—if the bit is set, include the corresponding element in the sum; otherwise, skip it. This way, we can calculate the sum for all possible subsets. The results are then sorted before printing to ensure increasing order.
+The brute force method treats each subset as a binary representation of choices: for every element in the array, you either include it in the subset or exclude it. This is represented by a bitmask from 0 to 2^N - 1. For each mask, we check each bit position-if the bit is set, include the corresponding element in the sum; otherwise, skip it. This way, we can calculate the sum for all possible subsets. The results are then sorted before printing to ensure increasing order.
 Initialize an empty list to store subset sums
 Iterate mask from 0 to (2^N - 1)
 For each mask, initialize sum = 0

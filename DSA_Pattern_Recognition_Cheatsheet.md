@@ -1,4 +1,4 @@
-# DSA Pattern Recognition — Quick Reference Cheat Sheet
+# DSA Pattern Recognition - Quick Reference Cheat Sheet
 
 > How to use this: for every topic, scan the **"When you see..." → Pattern** table first. That's the recognition trigger. Templates/complexity follow for quick recall.
 
@@ -31,7 +31,7 @@
 | Heap Sort | Build max-heap, extract | O(n log n) | O(1) | No | Guaranteed O(n log n), no extra space |
 | Counting Sort | Frequency array | O(n+k) | O(k) | Yes | Small integer range |
 | Radix Sort | Digit-by-digit counting sort | O(d(n+k)) | O(n+k) | Yes | Fixed-width integers/strings |
-| Cyclic Sort | Place each num at index `num` | O(n) | O(1) | — | Array has values in range `[1,n]` or `[0,n-1]` |
+| Cyclic Sort | Place each num at index `num` | O(n) | O(1) | - | Array has values in range `[1,n]` or `[0,n-1]` |
 
 **"When you see..." → Pattern**
 - "Sort with O(1) extra space, values in range 1..n" → **Cyclic Sort** (find missing/duplicate number problems)
@@ -94,7 +94,7 @@
 
 ## 4. Binary Search
 
-**Core signal:** search space is **sorted OR monotonic** (even if not an explicit array — "can I achieve X with value V?" being monotonic is enough).
+**Core signal:** search space is **sorted OR monotonic** (even if not an explicit array - "can I achieve X with value V?" being monotonic is enough).
 
 ### Template
 ```
@@ -167,7 +167,7 @@ Count set bits:     Brian Kernighan's (loop n &= n-1)
 | Signal | Pattern |
 |---|---|
 | "Detect cycle" | Floyd's Slow/Fast pointer |
-| "Find start of cycle" | Floyd's — after meeting, reset one pointer to head, move both by 1 |
+| "Find start of cycle" | Floyd's - after meeting, reset one pointer to head, move both by 1 |
 | "Find middle of list" | Slow/Fast pointer (fast moves 2x) |
 | "Reverse a linked list" | Iterative 3-pointer (prev/curr/next), or recursive |
 | "Reverse in groups of K" | Recursive/iterative with group boundary check |
@@ -299,7 +299,7 @@ for right in range(n):
 | "Minimum meeting rooms / platforms" | Sort start & end separately, sweep with two-pointer, or min-heap |
 | "Job sequencing with deadlines" | Sort by profit desc, place in latest free slot ≤ deadline |
 | "Minimum number of jumps to reach end" | Greedy range-extension (BFS-like) |
-| "Gas station (circuit tour)" | Greedy — if total gas ≥ total cost, single pass tracks start |
+| "Gas station (circuit tour)" | Greedy - if total gas ≥ total cost, single pass tracks start |
 | "Candy distribution" | Two-pass greedy (left→right, right→left) |
 | "Insert interval / merge intervals" | Sort + sweep |
 | "Partition labels" | Track last occurrence, greedy widen window |
@@ -308,7 +308,7 @@ for right in range(n):
 | "Shortest job first / minimize waiting time" | Sort by burst time |
 | "Chocolate distribution" | Sort, minimize sliding window of size m |
 
-**Rule of thumb:** greedy works when a **locally optimal choice leads to globally optimal** — usually provable via exchange argument or matroid structure. If counterexamples exist under greedy, it's likely a DP problem instead.
+**Rule of thumb:** greedy works when a **locally optimal choice leads to globally optimal** - usually provable via exchange argument or matroid structure. If counterexamples exist under greedy, it's likely a DP problem instead.
 
 ## 11. Dynamic Programming (Patterns)
 
@@ -385,7 +385,7 @@ for right in range(n):
 | "Search/Insert/Delete in BST" | Use BST property to go left/right, O(h) |
 | "Validate BST" | Inorder should be strictly increasing, or min/max bound recursion |
 | "Kth smallest/largest in BST" | Inorder traversal (Morris for O(1) space) |
-| "LCA in BST" | Compare values with root — go left/right/stop based on range |
+| "LCA in BST" | Compare values with root - go left/right/stop based on range |
 | "Convert sorted array to balanced BST" | Recursive pick middle as root |
 | "BST iterator (O(1) amortized next())" | Controlled inorder traversal with explicit stack |
 | "Two Sum in BST" | Inorder → two-pointer, or BST iterator (forward+backward) |
@@ -402,7 +402,7 @@ for right in range(n):
 | Representation | Adjacency list (sparse) vs matrix (dense) |
 | BFS | Level-by-level, shortest path in **unweighted** graph |
 | DFS | Recursion/stack, used for connectivity, cycles, topological sort |
-| Topological Sort | DFS (finish-time stack) or Kahn's BFS (indegree) — **DAG only** |
+| Topological Sort | DFS (finish-time stack) or Kahn's BFS (indegree) - **DAG only** |
 | Union-Find (DSU) | Path compression + union by rank/size, near O(1) ops |
 | MST | Prim's (heap-based, dense) or Kruskal's (DSU-based, sparse) |
 | Shortest Path (weighted, non-negative) | Dijkstra's (min-heap) |
@@ -476,7 +476,7 @@ for right in range(n):
 
 ---
 
-*Tip: When stuck, ask three questions — (1) Is there a monotonic/sorted property? → Binary Search. (2) Do choices repeat with overlapping subproblems? → DP. (3) Do I need "all ways" rather than "best way"? → Backtracking.*
+*Tip: When stuck, ask three questions - (1) Is there a monotonic/sorted property? → Binary Search. (2) Do choices repeat with overlapping subproblems? → DP. (3) Do I need "all ways" rather than "best way"? → Backtracking.*
 
 
 

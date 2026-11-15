@@ -46,7 +46,7 @@ int main()
     for (int i = 0; i < m; i++)
     {
         int u, v;
-        // u —> v
+        // u -> v
         cin >> u >> v;
         adj[u].push_back(v);
     }
