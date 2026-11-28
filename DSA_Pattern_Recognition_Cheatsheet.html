@@ -9377,6 +9377,313 @@ long long pathSum(int a, int b) {
             t.parentNode.insertBefore(w, t);
             w.appendChild(t);
         });
+        (function addPatternsToHeadings() {
+            const P = [
+                // Sorting
+                ["Quick Sort", "General-purpose, fastest average case, in-place"],
+                ["Merge Sort", "Stable sort, O(n) extra space; merge step"],
+                ["Cyclic Sort", "Sort in-place, values in range 1..n / 0..n-1"],
+                ["Dutch National", "Only 0s, 1s, 2s: 3-way partition"],
+                ["Quickselect", "Kth smallest/largest without full sort: partition-based"],
+                ["Counting Sort", "Sort by frequency, small integer range"],
+                ["Heap Sort", "Guaranteed O(n log n), in-place, stability not required"],
+                ["Radix Sort", "Fixed-width integers/strings, digit by digit"],
+                // Arrays
+                ["Kadane", "Max/min sum contiguous subarray"],
+                ["Moore", "Boyer–Moore Voting (majority > n/2)"],
+                ["Next Permutation", "Find pivot from right, swap, reverse suffix"],
+                ["3Sum", "Sort + two-pointer, fix k−2 elements"],
+                ["Trapping", "Two-pointer with leftMax/rightMax"],
+                ["Union / Intersection", "Two-pointer merge on sorted arrays"],
+                ["Move Zeroes", "Two-pointer (read/write pointer)"],
+                ["Rotate array", "Reversal trick: reverse whole, then parts"],
+                ["Leaders", "Right-to-left scan, track running max"],
+                ["Rearrange by sign", "Two-pointer with placeholder swap"],
+                ["Subarray Sum Equals K", "Prefix sum + HashMap"],
+                ["Majority Element II", "Extended Boyer–Moore (2 candidates, > n/3)"],
+                ["Merge Overlapping", "Sort by start, sweep & merge"],
+                ["Merge two sorted arrays", "Gap method, or two-pointer from the back"],
+                ["Count Inversions", "Merge sort modification"],
+                ["Maximum Product", "Track running max and min (negatives flip)"],
+                ["XOR = K", "Prefix XOR + HashMap"],
+                // Binary Search
+                ["Standard Template", "lo=0, hi=n-1, while lo≤hi"],
+                ["Lower Bound", "Lower/upper bound: lo<hi, shrink towards X"],
+                ["Search in Rotated Sorted Array", "Check a[lo]≤a[mid], find sorted half, eliminate unsorted"],
+                ["Answer Template", "BS on answer + feasibility: hi=mid if valid, else lo=mid+1"],
+                ["Staircase", "Start top-right: left if big, down if small"],
+                ["Upper bound", "Upper bound − lower bound = count"],
+                ["Rotated Sorted Array II", "If a[lo]==a[mid]==a[hi]: lo++, hi--"],
+                ["Minimum in Rotated", "Compare mid with hi; index of min = rotation count"],
+                ["Peak Element", "Compare a[mid] with a[mid+1], move toward larger"],
+                ["Single Element", "Binary search on index parity"],
+                ["Sqrt", "BS on answer value: mid² vs x"],
+                ["Koko", "BS on speed, check sum of ceil(pile/speed)"],
+                ["Ship Packages", "BS on capacity, greedy day packing (minimize max)"],
+                ["Aggressive", "BS on distance, greedy placement check (maximize min)"],
+                ["Bouquets", "BS on days, check adjacent bloom feasibility"],
+                ["Smallest Divisor", "BS on divisor, sum of divisions check"],
+                ["Kth Missing", "BS on value, count missing ≤ mid"],
+                ["Minimize Max Distance", "BS on distance, count stations needed"],
+                ["Matrix sorted like", "Treat as 1D: row=mid/cols, col=mid%cols"],
+                ["Row with Maximum", "Binary search each row, optimize pointer movement"],
+                ["Kth Smallest in a Sorted Matrix", "BS on value, count elements ≤ mid"],
+                ["Matrix Median", "BS on value, binary count check"],
+                ["Peak Element in 2D", "BS on column, compare mid neighbors"],
+                ["Median of Two", "BS on partition, balance left/right halves"],
+                ["Kth Element of Two", "BS on position or elimination approach"],
+                // Strings
+                ["KMP", "Pattern matching: KMP / Z / Rabin–Karp"],
+                ["Longest Palindromic Substring", "Expand around center, DP, or Manacher's"],
+                ["stringstream", "Language Lock: split/tokenize with stringstream"],
+                ["ASCII Mutation", "Language Lock: capitalize / in-place char edits"],
+                ["Check Anagram", "Frequency array (256) / HashMap comparison"],
+                ["Group Anagrams", "HashMap keyed by sorted string or char-count signature"],
+                ["Longest Common Prefix", "Vertical scan, or sort & compare first/last"],
+                ["Valid Palindrome", "Two-pointer from both ends + tolower()/isalnum()"],
+                ["Reverse Words", "stringstream + reverse()"],
+                ["Roman", "Greedy symbol mapping, right-to-left"],
+                ["String Compression", "Two-pointer, count consecutive chars (read/write heads)"],
+                ["Word Break", "DP + HashSet dictionary lookup"],
+                ["Min Insertions", "LCS with reversed string (DP)"],
+                ["Suffix Array", "Suffix Array or Trie (distinct / longest repeating substring)"],
+                // Linked List
+                ["Reverse a Linked List", "Iterative 3-pointer (prev/curr/next), or recursive"],
+                ["Detect Cycle", "Floyd slow/fast; after meeting, reset one pointer to head"],
+                ["Merge Two Sorted Lists", "Dummy node + two-pointer merge"],
+                ["LRU", "DLL + HashMap: O(1) get/put, move node to front"],
+                ["LFU", "HashMap + FreqMap (multiple DLLs) + minFreq"],
+                ["Middle of the list", "Slow/fast pointer (fast moves 2x)"],
+                ["Remove Nth", "Two-pointer with an N-node gap"],
+                ["Palindrome Linked", "Find middle → reverse second half → compare"],
+                ["Add Two Numbers", "Simulate addition with carry, dummy node"],
+                ["Intersection Point", "Two-pointer, switch heads to equalize path length"],
+                ["Sort List", "Merge sort (slow/fast pointer to split)"],
+                ["K-Group", "Recursive/iterative with group-boundary check"],
+                ["Random Pointer", "HashMap old→new, or interweaving trick"],
+                ["Rotate List", "Make it circular, break at the right point"],
+                ["Reorder List", "Find middle, reverse second half, merge alternately"],
+                ["Flatten a Multilevel", "Recursive merge, like merge-sort's merge step"],
+                // Recursion
+                ["Subsets", "Include/exclude recursion (pick / not-pick)"],
+                ["N-Queens", "Backtracking with placement-validity check"],
+                ["Subsets II", "Sort first, skip adjacent duplicates at same level"],
+                ["Combination Sum (reuse", "Pick/not-pick, stay at same index when picking"],
+                ["Combination Sum II", "Sort, skip i > start && a[i]==a[i-1]"],
+                ["Permutations", "Swap-based, or visited[] with backtracking"],
+                ["Palindrome Partitioning", "Try every prefix, recurse on rest if palindrome"],
+                ["Word Search in a Grid", "DFS backtracking with visited mark/unmark"],
+                ["Sudoku", "Backtracking with placement-validity check"],
+                ["Kth Permutation", "Factorial number system, no need to generate all"],
+                // Bit Manipulation
+                ["Bit tricks", "Get/set/clear/toggle bit, n & (n−1), n & −n"],
+                ["XOR trick", "XOR every element (a ^ a = 0)"],
+                ["Kernighan", "n &= (n−1) removes lowest set bit"],
+                ["Single Number III", "XOR all → find differing bit → split into two groups"],
+                ["Single Number II (", "Bit counting mod 3"],
+                ["Count Bits", "DP: bits[i] = bits[i>>1] + (i & 1)"],
+                ["Power Set", "Bitmask, iterate 0 to 2ⁿ−1"],
+                ["Minimum Bit Flips", "Count set bits in A ^ B"],
+                ["Divide Two", "Subtract powers of two via bit shifting"],
+                // Stack & Queues
+                ["Infix to Postfix", "Operator stack, precedence + associativity check. Pop higher/equal precedence to output before pushing current."],
+                ["Next Greater", "Monotonic decreasing stack, traverse right→left"],
+                ["Min Stack", "Auxiliary stack, or (val, currentMin) pairs"],
+                ["Postfix Evaluation", "Scan left→right. Push operands; on operator pop 2, apply (op2 OP op1), push result back."],
+                ["swap brackets", "Reverse infix, swap ( ↔ ), convert to postfix, reverse result"],
+                ["Valid Parentheses", "Stack: push opens, pop & match on close"],
+                ["Next Smaller", "Monotonic increasing stack"],
+                ["Largest Rectangle", "Monotonic stack of indices, nearest smaller left/right"],
+                ["Maximal Rectangle", "Per-row histogram trick + largest rectangle in histogram"],
+                ["Stock Span", "Monotonic decreasing stack of (price, span)"],
+                ["Remove K Digits", "Monotonic increasing stack, pop larger digits"],
+                ["Subarray Minimums", "Monotonic stack, contribution via nearest smaller/greater bound"],
+                ["Queue using two", "Two-container simulation"],
+                ["Stack using one", "Two-container simulation (rotate queue on push)"],
+                ["Circular Queue", "Array with front/rear modulo indexing"],
+                // Sliding Window & Two Pointer
+                ["Variable window", "Variable window: expand right, shrink left on violation"],
+                ["Without Repeating", "Variable window + HashSet/HashMap, shrink on violation"],
+                ["Minimum Window", "Expand until valid, then contract while still valid"],
+                ["Fixed window", "Fixed window: add new element, remove old one"],
+                ["at most K Distinct", "Variable window + frequency map (Fruits into Baskets: K=2)"],
+                ["Max Consecutive Ones", "Variable window tracking the zero count"],
+                ["Sum = K", "Variable window, shrink when sum > K (all positive)"],
+                ["Character Replacement", "Window + track max-frequency char"],
+                ["Two Sum in a Sorted", "Two-pointer from both ends"],
+                ["Container With", "Two-pointer, move pointer with smaller height"],
+                ["Sliding Window Maximum", "Monotonic deque (decreasing)"],
+                ["Exactly K Distinct", "atMost(K) − atMost(K−1) trick"],
+                // Heaps
+                ["Kth Largest", "Min-heap of size K (largest) / max-heap of size K (smallest)"],
+                ["Merge K Sorted", "Min-heap of size K, one element per list"],
+                ["Median from", "Two heaps: max-heap (lower half) + min-heap (upper half)"],
+                ["K Closest", "Max-heap of size K by distance"],
+                ["Top K Frequent", "Min-heap of size K by frequency, or bucket sort"],
+                ["Connect Ropes", "Min-heap, always combine the two smallest"],
+                ["Task Scheduler", "Max-heap by frequency + cooldown"],
+                ["Reorganize", "Max-heap by frequency"],
+                // Greedy
+                ["Activity Selection", "Sort by end time, greedily pick"],
+                ["Job Sequencing", "Sort by profit desc, place in latest free slot ≤ deadline"],
+                ["Assign Cookies", "Sort both, greedy two-pointer"],
+                ["Lemonade", "Track denominations greedily"],
+                ["Fractional Knapsack", "Sort by value/weight ratio, descending"],
+                ["Minimum Platforms", "Sort starts & ends separately, sweep"],
+                ["Jump Game", "Greedy range-extension (BFS-like)"],
+                ["Gas Station", "If total gas ≥ total cost, single pass finds the start"],
+                ["Candy", "Two-pass greedy (left→right, then right→left)"],
+                ["Insert Interval", "Sort + sweep"],
+                ["Partition Labels", "Track last occurrence, greedily widen window"],
+                ["Huffman", "Min-heap, always combine the two smallest"],
+                // Binary Trees
+                ["Traversals", "Preorder/inorder recursive; level order = queue, snapshot level size"],
+                ["Diameter", "DFS returning height, update global max at each node"],
+                ["Lowest Common Ancestor", "Recursive: return node if found in both subtrees"],
+                ["Preorder / Inorder", "Stack-based iterative traversals"],
+                ["Morris", "O(1) space, threaded tree via predecessor links"],
+                ["Balanced Binary", "DFS returning height, −1 sentinel signals imbalance"],
+                ["Zigzag", "BFS + alternating direction flag"],
+                ["Construct Tree", "Recursive split using index map for inorder"],
+                ["Symmetric", "Recursive compare left.left vs right.right, left.right vs right.left"],
+                ["Serialize", "Preorder with null markers"],
+                ["Right View", "BFS last per level, or DFS with depth tracking"],
+                ["Flatten Tree", "Reverse postorder (right, left, root) with prev pointer"],
+                ["Vertical Order", "BFS/DFS + map<column, list>"],
+                // BST
+                ["Validate", "Inorder strictly increasing, or min/max bound recursion"],
+                ["Insert into", "Use BST property: go left/right, O(h)"],
+                ["Kth Smallest Element in a BST", "Inorder traversal (Morris for O(1) space)"],
+                ["Search and Delete", "BST property O(h); delete: 0/1/2 children, inorder successor"],
+                ["LCA in a BST", "Compare values with root: go left/right/stop"],
+                ["Sorted Array", "Recursive: pick middle element as root"],
+                ["BST Iterator", "Controlled inorder traversal with explicit stack"],
+                ["Two Sum in a BST", "Inorder → two-pointer"],
+                ["Recover BST", "Inorder, track the two violating nodes"],
+                ["Floor / Ceil", "O(h) traversal tracking closest ≤ / ≥"],
+                // Graphs
+                ["BFS", "BFS: level-by-level, shortest path in unweighted graph; DFS: connectivity, cycles"],
+                ["Dijkstra", "Shortest path with non-negative weights: min-heap"],
+                ["Bellman", "Negative weights: relax every edge V−1 times (detects negative cycle)"],
+                ["Kahn", "Topological sort: indegree BFS (DAG only)"],
+                ["Disjoint Set", "Path compression + union by rank, near O(1) ops"],
+                ["Number of Islands", "DFS/BFS flood fill, or Union–Find"],
+                ["Unweighted Grid", "BFS: shortest path in unweighted graph/grid"],
+                ["Rotten", "Multi-source BFS"],
+                ["Cycle Detection", "Undirected: DFS with parent; directed: recursion stack"],
+                ["Bipartite Check", "BFS/DFS 2-coloring"],
+                ["Prim", "Min-heap greedy edge selection (MST, dense)"],
+                ["Floyd", "All-pairs shortest path, O(V³)"],
+                ["Clone a Graph", "DFS/BFS + HashMap old→new"],
+                ["Word Ladder", "BFS over graph of word transformations"],
+                ["Alien", "Graph from adjacent-word comparison + topological sort"],
+                ["Critical Connections", "Tarjan's bridge-finding"],
+                ["Cheapest Flights", "Bellman–Ford limited to K iterations"],
+                // Dynamic Programming
+                ["0/1 Knapsack", "Include or exclude an item, weight limit"],
+                ["Longest Common Subsequence", "LCS family: two strings, common subsequence"],
+                ["Longest Increasing", "LIS: O(n²) or O(n log n) with binary search"],
+                ["min coins", "Unbounded Knapsack (coin change, rod cutting)"],
+                ["Matrix Chain", "Interval DP: try every split point k"],
+                ["Climbing", "1D DP: depends linearly on i−1, i−2"],
+                ["Grid DP", "2D grid DP: paths / min-max path sum"],
+                ["Partition Equal", "0/1 Knapsack (subset sum, equal partition)"],
+                ["Coin Change II", "Unbounded Knapsack (count ways), coins outer loop"],
+                ["Edit Distance", "LCS family (edit distance)"],
+                ["Longest Palindromic Subsequence", "DP on strings / palindromes"],
+                ["Distinct Subsequences", "DP on subsequences"],
+                ["Burst Balloons", "Interval DP, k = last balloon"],
+                ["Cooldown", "State machine DP (cooldown, fee, K transactions)"],
+                // Tries
+                ["startsWith", "Node with children[26] (or map) + isEndOfWord flag"],
+                ["Maximum XOR", "Binary trie (32-bit), greedy bit by bit"],
+                ["Word Search II", "Trie of words + DFS/backtracking on grid"],
+                ["Autocomplete", "Trie + DFS collecting words under a node"],
+                ["Replace Words", "Insert dictionary into trie, search shortest valid prefix"],
+                ["Longest Word Built", "Trie + DFS, track valid words (sorted-prefix version here)"],
+                // Strings — Advanced
+                ["KMP", "KMP (LPS array): guaranteed O(n+m)"],
+                ["Z-Algorithm", "Z-algorithm (pattern + '#' + text)"],
+                ["Rabin", "Rolling hash; use double hashing to avoid collisions"],
+                ["Rotation Check", "Search B inside A+A with KMP or Z"],
+                ["Manacher", "Every palindrome's radius in O(n)"],
+                ["Double Hashing", "Double hashing: O(1) substring compare"],
+                // Segment Trees & Fenwick
+                ["Range Sum Query", "Range sum/min/max queries + point updates"],
+                ["Binary Indexed", "Segment Tree or Fenwick Tree"],
+                ["Lazy", "Range update: segment tree with lazy propagation"],
+                ["Range GCD", "Segment tree combining GCD (min/max: swap the combine fn)"],
+                ["Fenwick with Kth", "Find kth smallest: Fenwick binary descent"],
+                ["Smaller Numbers", "Count queries with updates: Fenwick + coordinate compression"],
+                // Math & Number Theory
+                ["Sieve of Eratosthenes", "Prime checking: Sieve of Eratosthenes"],
+                ["Extended GCD", "Find x, y such that ax + by = gcd(a, b)"],
+                ["Combinatorics", "Precompute factorials & inverse factorials (nCr)"],
+                ["GCD / LCM", "Euclidean algorithm; LCM = a / gcd × b"],
+                ["Modular Exponentiation", "Fast exponentiation; Fermat inverse (prime MOD)"],
+                ["Prime Check", "Trial division up to √n (prime / factorize / divisors)"],
+                ["Smallest Prime Factor", "SPF sieve: fast factorization for many queries"],
+                ["Miller", "Miller–Rabin: prime check for large n"],
+                ["Chinese Remainder", "Solve x ≡ a1 (mod m1), x ≡ a2 (mod m2)"],
+                // Advanced DP
+                ["Count Numbers with Property", "Digit DP (pos, tight, leading_zero)"],
+                ["Max Path Sum", "DFS returning DP values from children (tree DP)"],
+                ["Traveling", "State compression: DP[mask] where mask = visited subset"],
+                ["Assignment", "Bitmask DP: assign N items to N slots, N ≤ 20"],
+                ["Stone Game", "Game theory: DP[state] = can current player win?"],
+                ["Robber III", "Tree DP: pair {rob, skip} returned from each node"],
+                ["leading_zero", "Digit DP with leading-zero flag (pos, prev, tight, started)"],
+                // Advanced Union-Find
+                ["Kruskal", "Sort edges by weight, union-find to add safely (MST)"],
+                ["Bipartite Checking", "Union-find with enemy/opposite-group trick"],
+                ["Weighted Union", "Weighted union-find storing relative distances"],
+                ["Redundant Connection", "Union returns false if nodes already connected → cycle"],
+                ["Component Size", "Union by size; track component count"],
+                // Advanced Tree Patterns
+                ["Binary Lifting", "Binary lifting or sparse table (many LCA queries)"],
+                ["Tree Diameter", "DFS twice: farthest from any node, then farthest from that"],
+                ["Rerooting", "DFS down + DFS up pass"],
+                ["Euler Tour", "DFS + Euler tour + Fenwick/segment tree (subtree queries)"],
+                ["Tree Centroid", "Node with min max subtree size"],
+                ["Sparse Table", "O(1) range-min; Euler tour + this = O(1) LCA"],
+                ["Heavy-Light", "Path decomposition + Fenwick/segment tree on chains"]
+            ];
+
+            // DP "7 pillars": headings like "1. Brute Force", "2. Memoization", "3. Tabulation"
+            const PILLAR = {
+                1: "0/1 Knapsack: take / not-take, each item once",
+                2: "Unbounded Knapsack: item reusable, stay at ind when taking",
+                3: "LCS / String DP: two pointers i, j; match → +1, else try both",
+                4: "MCM / Partition DP: try every split point k between i and j",
+                5: "Stock DP: state machine, buy (0/1) per day",
+                6: "Tree DP: post-order DFS, combine children's answers",
+                7: "Digit DP: build number digit by digit, state = idx + tight + condition"
+            };
+
+            let ptr = 0, pillar = 0;
+            document.querySelectorAll('h3.block-label, .example h4').forEach(el => {
+                const t = el.textContent.replace(/\s+/g, ' ').trim();
+                if (el.tagName === 'H3') {
+                    const m = t.match(/^Pillar (\d)/);
+                    if (m) pillar = +m[1];
+                    return;
+                }
+                let note;
+                if (/^\d\. /.test(t) && PILLAR[pillar]) {
+                    note = PILLAR[pillar];
+                } else {
+                    for (let i = ptr; i < P.length; i++) {
+                        if (t.includes(P[i][0])) { note = P[i][1]; ptr = i + 1; break; }
+                    }
+                }
+                if (!note) return;
+                const s = document.createElement('span');
+                s.className = 'h4-pat';
+                s.textContent = ' (' + note + ')';
+                s.style.cssText = 'font-weight:400;font-size:.8em;color:var(--pine,#4FA88C)';
+                el.appendChild(s);
+            });
+        })();
 
     </script>
 </body>
